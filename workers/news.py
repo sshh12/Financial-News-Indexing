@@ -1,14 +1,9 @@
-import pymongo
 from datetime import datetime
 import requests
 import time
 import os
 import re
 
-client = pymongo.MongoClient(os.environ['MONGODB_URI'])
-db = client.heroku_f4503299
-news = db.news
-news.create_index([('key', pymongo.ASCENDING)], unique=True)
 
 class Article:
 
@@ -18,17 +13,19 @@ class Article:
         self.date = date
         self.content = content
         self.url = url
-        self._key = re.sub(r'[^\w\d]', '', self.source + self.headline).lower()
+        self.found = datetime.now()
+        self.id = re.sub(r'[^\w\d]', '', self.source + self.headline).lower()
         
     def as_dict(self):
         return {
-            'src': self.source,
+            'source': self.source,
             'headline': self.headline,
             'date': self.date,
+            'found': self.found,
             'content': self.content,
-            'url': self.url,
-            'key': self._key
+            'url': self.url
         }
+
 
 def clean_html_text(html):
     html = html.replace('&rsquo;', '\'')
@@ -38,6 +35,7 @@ def clean_html_text(html):
     html = re.sub(r'&#[\w\d]+;', '', html)
     return html
 
+
 class Reuters:
 
     def __init__(self):
@@ -45,8 +43,10 @@ class Reuters:
 
     def _get(self, url_part):
         time.sleep(0.2)
-        print(self.url + url_part)
-        return requests.get(self.url + url_part).text
+        headers = {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
+        }
+        return requests.get(self.url + url_part, headers=headers).text
 
     def read_news_list(self, topic):
 
@@ -70,7 +70,7 @@ class Reuters:
                 timestamp[3] = '0' + timestamp[3]
             date = datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p')
 
-            headline = headline_match.group(1)
+            headline = clean_html_text(headline_match.group(1))
 
             text = []
             start_idx = article_html.index('StandardArticleBody_body')
@@ -89,15 +89,32 @@ class Reuters:
 
         return articles
 
+    def read_news(self):
+
+        type_urls = [
+            'businessnews', 
+            'marketsNews', 
+            'technologynews', 
+            'healthnews', 
+            'banks', 
+            'aerospace-defense', 
+            'innovationintellectualproperty', 
+            'environmentnews', 
+            'worldnews',
+            'esgnews'
+        ]
+
+        all_articles = []
+        for topic in type_urls:
+            all_articles.extend(self.read_news_list(topic))
+
+        return all_articles
+
 print('Running...')
 reuters = Reuters()
-
-for rtype in ['businessnews', 'marketsNews', 'technologynews', 'healthnews', 'banks', 'aerospace-defense', 'innovationintellectualproperty', 'environmentnews', 'worldnews']:
-
-    for article in reuters.read_news_list('businessnews'):
-        try:
-            news.insert_one(article.as_dict())
-        except pymongo.errors.DuplicateKeyError:
-            pass
-
-print('done.')
+articles = reuters.read_news()
+print('Saving...')
+from elasticsearch import Elasticsearch
+es = Elasticsearch()
+for article in articles:
+    es.create('index-news', article._id, article.as_dict())
