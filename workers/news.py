@@ -14,7 +14,7 @@ class Article:
         self.content = content
         self.url = url
         self.found = datetime.now()
-        self.id = re.sub(r'[^\w\d]', '', self.source + self.headline).lower()
+        self._id = re.sub(r'[^\w\d]', '', self.source + self.headline).lower()
         
     def as_dict(self):
         return {
@@ -115,6 +115,10 @@ reuters = Reuters()
 articles = reuters.read_news()
 print('Saving...')
 from elasticsearch import Elasticsearch
+import elasticsearch
 es = Elasticsearch()
 for article in articles:
-    es.create('index-news', article._id, article.as_dict())
+    try:
+        es.create('index-news', article._id, article.as_dict())
+    except elasticsearch.exceptions.ConflictError:
+        pass
