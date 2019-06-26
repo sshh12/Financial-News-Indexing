@@ -1,39 +1,23 @@
+from . import Article, clean_html_text, HEADERS
+
 from datetime import datetime
 import requests
 import time
-import os
 import re
 
 
-class Article:
-
-    def __init__(self, source, headline, date, content, url):
-        self.source = source
-        self.headline = headline
-        self.date = date
-        self.content = content
-        self.url = url
-        self.found = datetime.now()
-        self._id = re.sub(r'[^\w\d]', '', self.source + self.headline).lower()
-        
-    def as_dict(self):
-        return {
-            'source': self.source,
-            'headline': self.headline,
-            'date': self.date,
-            'found': self.found,
-            'content': self.content,
-            'url': self.url
-        }
-
-
-def clean_html_text(html):
-    html = html.replace('&rsquo;', '\'')
-    html = html.replace('&lsquo;', '\'')
-    html = html.replace('&ldquo;', '"')
-    html = html.replace('&rdquo;', '"')
-    html = re.sub(r'&#[\w\d]+;', '', html)
-    return html
+TOPIC_URLS = [
+    'businessnews', 
+    'marketsNews', 
+    'technologynews', 
+    'healthnews', 
+    'banks', 
+    'aerospace-defense', 
+    'innovationintellectualproperty', 
+    'environmentnews', 
+    'worldnews',
+    'esgnews'
+]
 
 
 class Reuters:
@@ -43,10 +27,7 @@ class Reuters:
 
     def _get(self, url_part):
         time.sleep(0.2)
-        headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
-        }
-        return requests.get(self.url + url_part, headers=headers).text
+        return requests.get(self.url + url_part, headers=HEADERS).text
 
     def read_news_list(self, topic):
 
@@ -91,34 +72,8 @@ class Reuters:
 
     def read_news(self):
 
-        type_urls = [
-            'businessnews', 
-            'marketsNews', 
-            'technologynews', 
-            'healthnews', 
-            'banks', 
-            'aerospace-defense', 
-            'innovationintellectualproperty', 
-            'environmentnews', 
-            'worldnews',
-            'esgnews'
-        ]
-
         all_articles = []
-        for topic in type_urls:
+        for topic in TOPIC_URLS:
             all_articles.extend(self.read_news_list(topic))
 
         return all_articles
-
-print('Running...')
-reuters = Reuters()
-articles = reuters.read_news()
-print('Saving...')
-from elasticsearch import Elasticsearch
-import elasticsearch
-es = Elasticsearch()
-for article in articles:
-    try:
-        es.create('index-news', article._id, article.as_dict())
-    except elasticsearch.exceptions.ConflictError:
-        pass
