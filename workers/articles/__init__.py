@@ -35,5 +35,16 @@ def clean_html_text(html):
     html = html.replace('&ldquo;', '"')
     html = html.replace('&rdquo;', '"')
     html = html.replace('&amp;', '&')
+    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+#\?]*>([\s\S]+?)<\/\w+>', '\\1', html)
+    html = re.sub(r'<\/?\w+>', '', html)
     html = re.sub(r'&#[\w\d]+;', '', html)
-    return html
+    return html.strip()
+
+
+def string_contains(text, items):
+    text = text.lower()
+    for item in items:
+        item_lower = item.lower()
+        if item_lower in text:
+            return True
+    return False

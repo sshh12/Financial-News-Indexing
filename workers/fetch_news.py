@@ -1,4 +1,5 @@
 from articles.reuters import Reuters
+from articles.seekingalpha import SeekingAlpha
 
 import elasticsearch
 
@@ -10,9 +11,15 @@ def main():
     articles = []
 
     try:
+        print('Fetching SeekingAlpha...', end='')
+        articles.extend(SeekingAlpha().read_news())
+        print('done.')
+    except Exception as e:
+        print('SeekingAlpha Error', e)
+
+    try:
         print('Fetching Reuters...', end='')
-        reuters = Reuters()
-        articles.extend(reuters.read_news())
+        articles.extend(Reuters().read_news())
         print('done.')
     except Exception as e:
         print('Reuters Error', e)
