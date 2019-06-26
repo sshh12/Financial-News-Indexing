@@ -1,4 +1,4 @@
-from . import Article, clean_html_text, HEADERS
+from . import Article, clean_html_text, HEADERS, text_to_datetime
 
 from datetime import datetime
 import requests
@@ -44,12 +44,7 @@ class Reuters:
 
             date_match = re.search(r'(\w+ \d+, \d{4}) \/\s+(\d+:\d+ \w+) ', article_html)
             headline_match = re.search(r'ArticleHeader_headline">([^<]+)<\/h1>', article_html)
-            timestamp = (date_match.group(1) + ' ' + date_match.group(2)).split(' ')
-            if len(timestamp[1]) == 2:
-                timestamp[1] = '0' + timestamp[1]
-            if len(timestamp[3]) == 4:
-                timestamp[3] = '0' + timestamp[3]
-            date = datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p')
+            date = text_to_datetime(date_match.group(1) + ' ' + date_match.group(2))
 
             headline = clean_html_text(headline_match.group(1))
 

@@ -1,4 +1,4 @@
-from . import Article, clean_html_text, HEADERS, string_contains
+from . import Article, clean_html_text, HEADERS, string_contains, text_to_datetime
 
 from datetime import datetime
 import requests
@@ -61,7 +61,7 @@ class SeekingAlpha:
             headline = clean_html_text(headline_match.group(1))
 
             date_match = re.search(r'content="([\d\-T:Z]+)" itemprop="datePub', article_html)
-            date = datetime.strptime(date_match.group(1), "%Y-%m-%dT%H:%M:%SZ")
+            date = text_to_datetime(date_match.group(1))
 
             if string_contains(headline, IGNORE_HEADLINE):
                 continue

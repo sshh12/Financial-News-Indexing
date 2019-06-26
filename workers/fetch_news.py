@@ -1,5 +1,6 @@
 from articles.reuters import Reuters
 from articles.seekingalpha import SeekingAlpha
+from articles.marketwatch import MarketWatch
 
 import elasticsearch
 
@@ -11,27 +12,34 @@ def main():
     articles = []
 
     try:
-        print('Fetching SeekingAlpha...', end='')
+        print('Fetching MarketWatch...')
+        articles.extend(MarketWatch().read_news())
+        print('...done.')
+    except Exception as e:
+        print('MarketWatch Error', e)
+
+    try:
+        print('Fetching SeekingAlpha...')
         articles.extend(SeekingAlpha().read_news())
-        print('done.')
+        print('...done.')
     except Exception as e:
         print('SeekingAlpha Error', e)
 
     try:
-        print('Fetching Reuters...', end='')
+        print('Fetching Reuters...')
         articles.extend(Reuters().read_news())
-        print('done.')
+        print('...done.')
     except Exception as e:
         print('Reuters Error', e)
 
-    print('Saving...', end='')
+    print('Saving...')
     es = elasticsearch.Elasticsearch()
     for article in articles:
         try:
             es.create('index-news', article._id, article.as_dict())
         except elasticsearch.exceptions.ConflictError:
             pass
-    print('done.')
+    print('...done.')
 
 
 if __name__ == "__main__":

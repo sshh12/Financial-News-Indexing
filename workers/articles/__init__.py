@@ -35,10 +35,53 @@ def clean_html_text(html):
     html = html.replace('&ldquo;', '"')
     html = html.replace('&rdquo;', '"')
     html = html.replace('&amp;', '&')
-    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+#\?]*>([\s\S]+?)<\/\w+>', '\\1', html)
+    html = html.replace('\r', '')
+    html = html.replace('—', '-')
+    html = html.replace('“', '').replace('“', '')
+    html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+{};#\?]*>([\s\S]+?)<\/style>', '', html)
+    html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+{};#\?]*>([\s\S]+?)<\/script>', '', html)
+    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+#{};\?]*>', '', html)
     html = re.sub(r'<\/?\w+>', '', html)
     html = re.sub(r'&#[\w\d]+;', '', html)
+    html = re.sub(r'\s{3,}', ' ', html)
     return html.strip()
+
+
+def text_to_datetime(html):
+
+    text = clean_html_text(html)
+
+    # 2019-04-12T18:12:00Z
+    try:
+        return datetime.strptime(text, "%Y-%m-%dT%H:%M:%SZ")
+    except ValueError:
+        pass
+
+    # JUNE 26, 2019 3:01 PM
+    try:
+        timestamp = text.split(' ')
+        if len(timestamp[1]) == 2:
+            timestamp[1] = '0' + timestamp[1]
+        if len(timestamp[3]) == 4:
+            timestamp[3] = '0' + timestamp[3]
+        return datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p')
+    except ValueError:
+        pass
+
+    # June 26, 2019 4:07 p.m. ET
+    try:
+        timestamp = text.replace('.', '').split(' ')
+        if len(timestamp[1]) == 2:
+            timestamp[1] = '0' + timestamp[1]
+        if len(timestamp[3]) == 4:
+            timestamp[3] = '0' + timestamp[3]
+        timestamp[4] = timestamp[4].upper()
+        timestamp[5] = timestamp[5].replace('ET', '-0500')
+        return datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p %z')
+    except ValueError:
+        pass
+
+    raise ValueError('Not datetime: ' + text)
 
 
 def string_contains(text, items):
