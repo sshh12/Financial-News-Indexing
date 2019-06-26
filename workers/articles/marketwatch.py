@@ -25,21 +25,36 @@ class MarketWatch:
         time.sleep(0.2)
         return requests.get(self.url + url_part, headers=HEADERS).text
 
-    def read_news_list(self, offsets=[0]):
+    def read_news_list(self, iters=10):
 
         articles = []
-        
+
         article_urls = set()
-        for offset in offsets:
-            list_html = self._get('/latest-news?offset={}&position=1.1&partial=true'.format(offset))
+
+        msg_num = None
+        channel_id = re.search(r'data-channel-id="([\-\w]+)"', self._get('/latest-news')).group(1)
+
+        for _ in range(iters):
+
+            if msg_num is None:
+                list_html = self._get('/latest-news?position=1.1&partial=true&channelId={}'.format(channel_id))
+                msg_num = 9e9
+            else:
+                list_html = self._get('/latest-news?position=1.1&partial=true&channelId={}&messageNumber={}'.format(channel_id, msg_num))
+
             for match in re.finditer(r'href="https:\/\/www.marketwatch.com(\/story[^"]+)"', list_html):
                 article_urls.add(match.group(1))
+
+            for match in re.finditer(r'data-msgid="(\d+)"', self._get('/latest-news')):
+                msg_num = min(int(match.group(1)), msg_num)
+
+            msg_num = msg_num - 20
 
         for url in article_urls:
 
             article_html = self._get(url)
 
-            headline_match = re.search(r'itemprop="headline">([^<]+)<', article_html)
+            headline_match = re.search(r'itemprop="headline">([\s\S]+?)<\/h1>', article_html)
             if not headline_match:
                 continue
             headline = clean_html_text(headline_match.group(1))
@@ -65,4 +80,4 @@ class MarketWatch:
         return articles
 
     def read_news(self):
-        return self.read_news_list(range(0, 100, 20))
+        return self.read_news_list()

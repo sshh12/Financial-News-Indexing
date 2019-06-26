@@ -17,6 +17,9 @@ class Article:
         self.url = url
         self.found = datetime.now()
         self._id = re.sub(r'[^\w\d]', '', self.source + self.headline).lower()
+
+    def __repr__(self):
+        return '<Article "{}">'.format(self.headline)
         
     def as_dict(self):
         return {
