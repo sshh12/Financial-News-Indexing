@@ -1,4 +1,5 @@
 from datetime import datetime
+import hashlib
 import re
 
 
@@ -16,7 +17,7 @@ class Article:
         self.content = content
         self.url = url
         self.found = datetime.now()
-        self._id = re.sub(r'[^\w\d]', '', self.source + self.headline).lower()
+        self._id = hash_sha1(re.sub(r'[^\w\d]', '', self.source + self.headline).lower())
 
     def __repr__(self):
         return '<Article "{}">'.format(self.headline)
@@ -32,6 +33,10 @@ class Article:
         }
 
 
+def hash_sha1(text):
+    return hashlib.sha1(bytes(text, 'utf-8')).hexdigest()
+
+
 def clean_html_text(html):
     html = html.replace('&rsquo;', '\'')
     html = html.replace('&lsquo;', '\'')
@@ -41,9 +46,9 @@ def clean_html_text(html):
     html = html.replace('\r', '')
     html = html.replace('—', '-')
     html = html.replace('“', '').replace('“', '')
-    html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+{};#\?]*>([\s\S]+?)<\/style>', '', html)
-    html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+{};#\?]*>([\s\S]+?)<\/script>', '', html)
-    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+#{};\?]*>', '', html)
+    html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+{}\(\);#\?]*>([\s\S]+?)<\/style>', '', html)
+    html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+{}\(\);#\?]*>([\s\S]+?)<\/script>', '', html)
+    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+#{}\(\);\?]*>', '', html)
     html = re.sub(r'<\/?\w+>', '', html)
     html = re.sub(r'&#[\w\d]+;', '', html)
     html = re.sub(r'\s{3,}', ' ', html)
@@ -60,6 +65,12 @@ def text_to_datetime(html):
     except ValueError:
         pass
 
+    # 2019-06-26T20:20:19.280Z
+    try:
+        return datetime.strptime(text, "%Y-%m-%dT%H:%M:%S.%fZ")
+    except ValueError:
+        pass
+
     # JUNE 26, 2019 3:01 PM
     try:
         timestamp = text.split(' ')
@@ -68,7 +79,7 @@ def text_to_datetime(html):
         if len(timestamp[3]) == 4:
             timestamp[3] = '0' + timestamp[3]
         return datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p')
-    except ValueError:
+    except (ValueError, IndexError):
         pass
 
     # June 26, 2019 4:07 p.m. ET
@@ -81,7 +92,7 @@ def text_to_datetime(html):
         timestamp[4] = timestamp[4].upper()
         timestamp[5] = timestamp[5].replace('ET', '-0500')
         return datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p %z')
-    except ValueError:
+    except (ValueError, IndexError):
         pass
 
     raise ValueError('Not datetime: ' + text)

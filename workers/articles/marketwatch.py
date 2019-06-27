@@ -12,7 +12,8 @@ IGNORE_TEXT = [
     'See: ',
     'And see: ',
     'Read more: ',
-    'Check out: '
+    'Check out: ',
+    'Related: '
 ]
 
 
@@ -32,7 +33,10 @@ class MarketWatch:
         article_urls = set()
 
         msg_num = None
-        channel_id = re.search(r'data-channel-id="([\-\w]+)"', self._get('/latest-news')).group(1)
+        channel_id = re.search(r'data-channel-id="([\-\w]+)"', self._get('/latest-news'))
+        if not channel_id:
+            return articles
+        channel_id = channel_id.group(1)
 
         for _ in range(iters):
 
@@ -60,6 +64,8 @@ class MarketWatch:
             headline = clean_html_text(headline_match.group(1))
 
             date_match = re.search(r'>(\w+ \d+, \d+ \d+:\d+ [\.apm]+ \w+)<', article_html)
+            if not date_match:
+                continue
             date = text_to_datetime(date_match.group(1))
 
             text = []

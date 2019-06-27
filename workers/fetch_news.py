@@ -1,6 +1,7 @@
 from articles.reuters import Reuters
 from articles.seekingalpha import SeekingAlpha
 from articles.marketwatch import MarketWatch
+from articles.bloomberg import Bloomberg
 
 import elasticsearch
 
@@ -10,6 +11,13 @@ def main():
     print('Running...')
 
     articles = []
+
+    try:
+        print('Fetching Bloomberg...')
+        articles.extend(Bloomberg().read_news())
+        print('...done.')
+    except Exception as e:
+        print('Bloomberg Error', e)
 
     try:
         print('Fetching MarketWatch...')

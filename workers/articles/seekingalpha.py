@@ -13,7 +13,8 @@ IGNORE_HEADLINE = [
     'equity offering',
     'Notable earnings',
     ' dividend'
-    'leads after hour'
+    'leads after hour',
+    'Gainers: '
 ]
 
 
