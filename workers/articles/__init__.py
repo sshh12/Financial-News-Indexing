@@ -43,12 +43,13 @@ def clean_html_text(html):
     html = html.replace('&ldquo;', '"')
     html = html.replace('&rdquo;', '"')
     html = html.replace('&amp;', '&')
+    html = html.replace('&copy;', '')
     html = html.replace('\r', '')
     html = html.replace('—', '-')
     html = html.replace('“', '').replace('“', '')
-    html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+{}\(\);#\?]*>([\s\S]+?)<\/style>', '', html)
-    html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+{}\(\);#\?]*>([\s\S]+?)<\/script>', '', html)
-    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+#{}\(\);\?]*>', '', html)
+    html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@{}\(\);#\?]*>([\s\S]+?)<\/style>', '', html)
+    html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@{}\(\);#\?]*>([\s\S]+?)<\/script>', '', html)
+    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+@#{}\(\);\?]*>', '', html)
     html = re.sub(r'<\/?\w+>', '', html)
     html = re.sub(r'&#[\w\d]+;', '', html)
     html = re.sub(r'\s{3,}', ' ', html)
@@ -81,7 +82,8 @@ def text_to_datetime(html):
         return datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p')
     except (ValueError, IndexError):
         pass
-
+    
+    # June 27, 2019 11:47 am ET
     # June 26, 2019 4:07 p.m. ET
     try:
         timestamp = text.replace('.', '').split(' ')

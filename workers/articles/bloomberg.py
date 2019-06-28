@@ -1,4 +1,4 @@
-from . import Article, clean_html_text, HEADERS, string_contains, text_to_datetime
+from . import Article, clean_html_text, HEADERS, text_to_datetime
 
 from datetime import datetime
 import requests
@@ -35,9 +35,10 @@ class Bloomberg:
         articles = []
         
         article_urls = set()
-        list_html = self._get(topic_url)
-        for match in re.finditer(r'href="(\/news\/articles\/[^"]+)"', list_html):
-            article_urls.add(match.group(1))
+        for url in topic_urls:
+            list_html = self._get(url)
+            for match in re.finditer(r'href="(\/news\/articles\/[^"]+)"', list_html):
+                article_urls.add(match.group(1))
 
         if len(article_urls) == 0:
             print('Bloomberg blocked client ):')

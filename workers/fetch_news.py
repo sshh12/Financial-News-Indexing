@@ -2,6 +2,7 @@ from articles.reuters import Reuters
 from articles.seekingalpha import SeekingAlpha
 from articles.marketwatch import MarketWatch
 from articles.bloomberg import Bloomberg
+from articles.barrons import Barrons
 
 import elasticsearch
 
@@ -12,33 +13,21 @@ def main():
 
     articles = []
 
-    try:
-        print('Fetching Bloomberg...')
-        articles.extend(Bloomberg().read_news())
-        print('...done.')
-    except Exception as e:
-        print('Bloomberg Error', e)
+    sources = [
+        ('Barrons', Barrons()),
+        ('Bloomberg', Bloomberg()),
+        ('MarketWatch', MarketWatch()),
+        ('SeekingAlpha', SeekingAlpha()),
+        ('Reuters', Reuters())
+    ]
 
-    try:
-        print('Fetching MarketWatch...')
-        articles.extend(MarketWatch().read_news())
-        print('...done.')
-    except Exception as e:
-        print('MarketWatch Error', e)
-
-    try:
-        print('Fetching SeekingAlpha...')
-        articles.extend(SeekingAlpha().read_news())
-        print('...done.')
-    except Exception as e:
-        print('SeekingAlpha Error', e)
-
-    try:
-        print('Fetching Reuters...')
-        articles.extend(Reuters().read_news())
-        print('...done.')
-    except Exception as e:
-        print('Reuters Error', e)
+    for name, source in sources:
+        try:
+            print('Fetching {}...'.format(name))
+            articles.extend(source.read_news())
+            print('...done.')
+        except Exception as e:
+            print('{} Error'.format(name), e)
 
     print('Saving...')
     es = elasticsearch.Elasticsearch()
