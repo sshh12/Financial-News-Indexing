@@ -44,8 +44,10 @@ def clean_html_text(html):
     html = html.replace('&rdquo;', '"')
     html = html.replace('&amp;', '&')
     html = html.replace('&copy;', '')
+    html = html.replace('&lt;', '<').replace('&gt;', '>')
     html = html.replace('\r', '')
     html = html.replace('—', '-')
+    html = html.replace('‘', '\'').replace('’', '\'')
     html = html.replace('“', '').replace('“', '')
     html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@{}\(\);#\?]*>([\s\S]+?)<\/style>', '', html)
     html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@{}\(\);#\?]*>([\s\S]+?)<\/script>', '', html)
@@ -70,6 +72,17 @@ def text_to_datetime(html):
     try:
         return datetime.strptime(text, "%Y-%m-%dT%H:%M:%S.%fZ")
     except ValueError:
+        pass
+
+    # June 27, 2019 6:51pm
+    try:
+        timestamp = text.split(' ')
+        if len(timestamp[1]) == 2:
+            timestamp[1] = '0' + timestamp[1]
+        if len(timestamp[3]) == 4:
+            timestamp[3] = '0' + timestamp[3]
+        return datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M%p')
+    except (ValueError, IndexError):
         pass
 
     # JUNE 26, 2019 3:01 PM

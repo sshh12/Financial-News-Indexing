@@ -3,6 +3,7 @@ from articles.seekingalpha import SeekingAlpha
 from articles.marketwatch import MarketWatch
 from articles.bloomberg import Bloomberg
 from articles.barrons import Barrons
+from articles.benzinga import Benzinga
 
 import elasticsearch
 
@@ -14,6 +15,7 @@ def main():
     articles = []
 
     sources = [
+        ('Benzinga', Benzinga()),
         ('Barrons', Barrons()),
         ('Bloomberg', Bloomberg()),
         ('MarketWatch', MarketWatch()),
@@ -24,12 +26,13 @@ def main():
     for name, source in sources:
         try:
             print('Fetching {}...'.format(name))
-            articles.extend(source.read_news())
-            print('...done.')
+            found = source.read_news()
+            articles.extend(found)
+            print('...found {}, done.'.format(len(found)))
         except Exception as e:
             print('{} Error'.format(name), e)
 
-    print('Saving...')
+    print('Saving {} articles...'.format(len(articles)))
     es = elasticsearch.Elasticsearch()
     for article in articles:
         try:
