@@ -39,9 +39,6 @@ class Bloomberg:
             for match in re.finditer(r'href="(\/news\/articles\/[^"]+)"', list_html):
                 article_urls.add(match.group(1))
 
-        if len(article_urls) == 0:
-            print('Bloomberg blocked client ):')
-
         for url in article_urls:
 
             article_html = self._get(url)

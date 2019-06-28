@@ -34,7 +34,7 @@ class Barrons:
         article_urls = set()
         for i in range(1, pages + 1):
             article_ids = set()
-            list_html = self._get('/real-time/{}?id=%7B%22db%22%3A%22barronsblog%2Cbarrons%22%2C%22query%22%3A%22language%3Den%20NOT%20(subject-value%3A%3D%27BARBRIEF%27%20or%20subject-value%3A%3D%27BARHIDEFEED%27)%22%2C%22page%22%3A%221%22%2C%22count%22%3A20%7D&type=search_collection'.format(i))
+            list_html = self._get('/real-time/{0}?id=%7B%22db%22%3A%22barronsblog%2Cbarrons%22%2C%22query%22%3A%22language%3Den%20NOT%20(subject-value%3A%3D%27BARBRIEF%27%20or%20subject-value%3A%3D%27BARHIDEFEED%27)%22%2C%22page%22%3A%22{0}%22%2C%22count%22%3A20%7D&type=search_collection'.format(i))
             for match in re.finditer(r'id\\?":\\?"([\w\d]+)\\?"', list_html):
                 article_ids.add(match.group(1))
             for id_ in article_ids:

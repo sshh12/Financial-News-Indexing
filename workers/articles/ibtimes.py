@@ -58,6 +58,8 @@ class IBTimes:
                 continue
 
             date_match = re.search(r'datePublished" datetime="([\d\-:T]+)"', article_html)
+            if not date_match:
+                continue
             date = text_to_datetime(date_match.group(1))
 
             text = []
