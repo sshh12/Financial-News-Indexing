@@ -1,6 +1,5 @@
 from . import Article, clean_html_text, HEADERS, string_contains, text_to_datetime
 
-from datetime import datetime
 import requests
 import time
 import re

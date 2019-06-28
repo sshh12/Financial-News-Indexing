@@ -6,32 +6,35 @@ import re
 
 
 TOPIC_URLS = [
-    '/news',
-    '/markets',
-    '/tech',
-    '/trading-ideas',
+    '/business',
+    '/technology',
+    '/world',
+    '/national'
+]
+
+IGNORE_TITLES = [
+    'Infographic:',
+    ' [WATCH]',
+    ' [PHOTOS]'
 ]
 
 IGNORE_TEXT = [
-    'Image Sourced From',
-    'enzinga.com',
-    'Thank you for subscribing',
-    ' will be released at',
-    '(Image: ',
-    'Source: '
+    'Photo: ',
+    'Pictured: '
+    'Wikipedia/Wikimedia Commons'
 ]
 
 
-class Benzinga:
+class IBTimes:
 
     def __init__(self):
-        self.url = 'https://www.benzinga.com'
+        self.url = 'https://www.ibtimes.com'
 
     def _get(self, url_part):
         time.sleep(0.2)
         return requests.get(self.url + url_part, headers=HEADERS).text
 
-    def read_news_list(self, topic_urls, pages=7):
+    def read_news_list(self, topic_urls, pages=4):
 
         articles = []
         
@@ -39,19 +42,22 @@ class Benzinga:
         for url in topic_urls:
             for i in range(pages):
                 list_html = self._get(url + '?page=' + str(i))
-                for match in re.finditer(r'"(\/news\/\d+\/\d+\/\d+\/[^"]+)"', list_html):
+                for match in re.finditer(r'"(\/[\w\-]+\d{4,12})"', list_html):
                     article_urls.add(match.group(1))
 
         for url in article_urls:
 
             article_html = self._get(url)
 
-            headline_match = re.search(r'>([^<]+)<\/h1>', article_html)
+            headline_match = re.search(r'itemprop="headline">([^<]+)<\/h1>', article_html)
             if not headline_match:
                 continue
             headline = clean_html_text(headline_match.group(1))
 
-            date_match = re.search(r'date">\s+(\w+ \d+, \d+ \d+:\d+\w\w\s+)<\/span>', article_html)
+            if string_contains(headline, IGNORE_TITLES):
+                continue
+
+            date_match = re.search(r'datePublished" datetime="([\d\-:T]+)"', article_html)
             date = text_to_datetime(date_match.group(1))
 
             text = []
@@ -65,7 +71,7 @@ class Benzinga:
             if len(text) == 0:
                 continue
 
-            articles.append(Article('benzinga', headline, date, '\n\n\n'.join(text), self.url + url))
+            articles.append(Article('ibtimes', headline, date, '\n\n\n'.join(text), self.url + url))
 
         return articles
 

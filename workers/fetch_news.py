@@ -4,6 +4,7 @@ from articles.marketwatch import MarketWatch
 from articles.bloomberg import Bloomberg
 from articles.barrons import Barrons
 from articles.benzinga import Benzinga
+from articles.ibtimes import IBTimes
 
 import elasticsearch
 
@@ -15,6 +16,7 @@ def main():
     articles = []
 
     sources = [
+        ('IBTimes', IBTimes()),
         ('Benzinga', Benzinga()),
         ('Barrons', Barrons()),
         ('Bloomberg', Bloomberg()),
