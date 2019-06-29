@@ -1,7 +1,6 @@
-from . import Article, clean_html_text, HEADERS, text_to_datetime
+from . import Article, clean_html_text, ArticleScraper, text_to_datetime
 
-import requests
-import time
+import asyncio
 import re
 
 
@@ -19,55 +18,49 @@ TOPIC_URLS = [
 ]
 
 
-class Reuters:
+class Reuters(ArticleScraper):
 
     def __init__(self):
         self.url = 'https://www.reuters.com'
 
-    def _get(self, url_part):
-        time.sleep(0.2)
-        return requests.get(self.url + url_part, headers=HEADERS).text
+    async def read_article(self, url):
+        
+        article_html = await self._get(url)
 
-    def read_news_list(self, topic):
+        date_match = re.search(r'(\w+ \d+, \d{4}) \/\s+(\d+:\d+ \w+) ', article_html)
+        headline_match = re.search(r'ArticleHeader_headline">([^<]+)<\/h1>', article_html)
+        date = text_to_datetime(date_match.group(1) + ' ' + date_match.group(2))
+
+        headline = clean_html_text(headline_match.group(1))
+
+        text = []
+        start_idx = article_html.index('StandardArticleBody_body')
+        try:
+            end_idx = article_html.index('Attribution_container')
+        except ValueError:
+            end_idx = len(article_html)
+        content_html = article_html[start_idx:end_idx]
+        for paragraph_match in re.finditer(r'<p>([^<]+)<\/p>', content_html):
+            text.append(clean_html_text(paragraph_match.group(1)))
+
+        if len(text) == 0:
+            return None
+
+        return Article('reuters', headline, date, '\n\n\n'.join(text), self.url + url)
+
+    async def read_news_list(self, topics):
 
         articles = []
         
         article_urls = set()
-        list_html = self._get('/news/archive/{}?view=page&page=1&pageSize=10'.format(topic))
-        for match in re.finditer(r'href="(\/article\/[^"]+)"', list_html):
-            article_urls.add(match.group(1))
+        for topic_url in topics:
+            list_html = await self._get('/news/archive/{}?view=page&page=1&pageSize=10'.format(topic_url))
+            for match in re.finditer(r'href="(\/article\/[^"]+)"', list_html):
+                article_urls.add(match.group(1))
 
-        for url in article_urls:
+        articles = await asyncio.gather(*[self.read_article(url) for url in article_urls])
 
-            article_html = self._get(url)
+        return [article for article in articles if article is not None]
 
-            date_match = re.search(r'(\w+ \d+, \d{4}) \/\s+(\d+:\d+ \w+) ', article_html)
-            headline_match = re.search(r'ArticleHeader_headline">([^<]+)<\/h1>', article_html)
-            date = text_to_datetime(date_match.group(1) + ' ' + date_match.group(2))
-
-            headline = clean_html_text(headline_match.group(1))
-
-            text = []
-            start_idx = article_html.index('StandardArticleBody_body')
-            try:
-                end_idx = article_html.index('Attribution_container')
-            except ValueError:
-                end_idx = len(article_html)
-            content_html = article_html[start_idx:end_idx]
-            for paragraph_match in re.finditer(r'<p>([^<]+)<\/p>', content_html):
-                text.append(clean_html_text(paragraph_match.group(1)))
-
-            if len(text) == 0:
-                continue
-
-            articles.append(Article('reuters', headline, date, '\n\n\n'.join(text), self.url + url))
-
-        return articles
-
-    def read_news(self):
-
-        all_articles = []
-        for topic in TOPIC_URLS:
-            all_articles.extend(self.read_news_list(topic))
-
-        return all_articles
+    async def read_news(self):
+        return await self.read_news_list(TOPIC_URLS)

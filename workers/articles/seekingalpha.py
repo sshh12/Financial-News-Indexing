@@ -1,7 +1,6 @@
-from . import Article, clean_html_text, HEADERS, string_contains, text_to_datetime
+from . import Article, clean_html_text, ArticleScraper, string_contains, text_to_datetime
 
-import requests
-import time
+import asyncio
 import re
 
 
@@ -34,58 +33,52 @@ IGNORE_TEXT = [
 ]
 
 
-class SeekingAlpha:
+class SeekingAlpha(ArticleScraper):
 
     def __init__(self):
         self.url = 'https://seekingalpha.com'
 
-    def _get(self, url_part):
-        time.sleep(0.2)
-        return requests.get(self.url + url_part, headers=HEADERS).text
+    async def read_article(self, url):
 
-    def read_news_list(self, page_num):
+        article_html = await self._get(url)
+
+        headline_match = re.search(r'itemprop="headline">([^<]+)<', article_html)
+        if not headline_match:
+            return None
+        headline = clean_html_text(headline_match.group(1))
+
+        date_match = re.search(r'content="([\d\-T:Z]+)" itemprop="datePub', article_html)
+        date = text_to_datetime(date_match.group(1))
+
+        if string_contains(headline, IGNORE_HEADLINE):
+            return None
+
+        text = []
+
+        for bullet_match in re.finditer(r'<p class="bullets_li">([\s\S]+?)<\/p>', article_html):
+            bullet_text = clean_html_text(bullet_match.group(1))
+            if len(bullet_text) == 0 or string_contains(bullet_text, IGNORE_TEXT):
+                continue
+            text.append(bullet_text)
+
+        if len(text) == 0:
+            return None
+
+        return Article('seekingalpha', headline, date, '\n\n\n'.join(text), self.url + url)
+
+    async def read_news_list(self, pages=15):
 
         articles = []
         
         article_urls = set()
-        list_html = self._get('/market-news/{}'.format(page_num))
-        for match in re.finditer(r'href="(\/news\/[^"]+)"', list_html):
-            article_urls.add(match.group(1))
+        for page_num in range(1, pages + 1):
+            list_html = await self._get('/market-news/{}'.format(page_num))
+            for match in re.finditer(r'href="(\/news\/[^"]+)"', list_html):
+                article_urls.add(match.group(1))
 
-        for url in article_urls:
+        articles = await asyncio.gather(*[self.read_article(url) for url in article_urls])
 
-            article_html = self._get(url)
+        return [article for article in articles if article is not None]
 
-            headline_match = re.search(r'itemprop="headline">([^<]+)<', article_html)
-            if not headline_match:
-                continue
-            headline = clean_html_text(headline_match.group(1))
-
-            date_match = re.search(r'content="([\d\-T:Z]+)" itemprop="datePub', article_html)
-            date = text_to_datetime(date_match.group(1))
-
-            if string_contains(headline, IGNORE_HEADLINE):
-                continue
-
-            text = []
-
-            for bullet_match in re.finditer(r'<p class="bullets_li">([\s\S]+?)<\/p>', article_html):
-                bullet_text = clean_html_text(bullet_match.group(1))
-                if len(bullet_text) == 0 or string_contains(bullet_text, IGNORE_TEXT):
-                    continue
-                text.append(bullet_text)
-
-            if len(text) == 0:
-                continue
-
-            articles.append(Article('seekingalpha', headline, date, '\n\n\n'.join(text), self.url + url))
-
-        return articles
-
-    def read_news(self):
-
-        all_articles = []
-        for i in range(1, 10):
-            all_articles.extend(self.read_news_list(i))
-
-        return all_articles
+    async def read_news(self):
+        return await self.read_news_list()

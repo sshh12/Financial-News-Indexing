@@ -1,8 +1,6 @@
-from . import Article, clean_html_text, HEADERS, text_to_datetime
+from . import Article, ArticleScraper, clean_html_text, text_to_datetime
 
-import requests
-from requests import Session
-import time
+import asyncio
 import re
 
 
@@ -14,56 +12,48 @@ PAGES = [
 ]
 
 
-class Bloomberg:
+class Bloomberg(ArticleScraper):
 
     def __init__(self):
         self.url = 'https://www.bloomberg.com'
-        self.sess = Session()
 
-    def _get(self, url_part):
-        time.sleep(1)
-        headers = HEADERS.copy()
-        headers['authority'] = 'www.bloomberg.com'
-        headers['path'] = url_part
-        headers['cache-control'] = 'no-cache'
-        headers['accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
-        return self.sess.get(self.url + url_part, headers=headers).text
+    async def read_article(self, url):
 
-    def read_news_list(self, topic_urls):
+        article_html = await self._get(url)
+
+        headline_match = re.search(r'>([^<]+)<\/h1>', article_html)
+        if not headline_match:
+            return None
+        headline = clean_html_text(headline_match.group(1))
+
+        date_match = re.search(r'itemprop="datePublished" datetime="([\d\-T:\.Z]+)"', article_html)
+        date = text_to_datetime(date_match.group(1))
+
+        text = []
+
+        for paragraph_match in re.finditer(r'<p>([\s\S]+?)<\/p>', article_html):
+            p_text = clean_html_text(paragraph_match.group(1))
+            if len(p_text) != 0:
+                text.append(p_text)
+
+        if len(text) == 0:
+            return None
+
+        return Article('bloomberg', headline, date, '\n\n\n'.join(text), self.url + url)
+
+    async def read_news_list(self, topic_urls):
 
         articles = []
         
         article_urls = set()
         for url in topic_urls:
-            list_html = self._get(url)
+            list_html = await self._get(url)
             for match in re.finditer(r'href="(\/news\/articles\/[^"]+)"', list_html):
                 article_urls.add(match.group(1))
 
-        for url in article_urls:
+        articles = await asyncio.gather(*[self.read_article(url) for url in article_urls])
 
-            article_html = self._get(url)
-
-            headline_match = re.search(r'>([^<]+)<\/h1>', article_html)
-            if not headline_match:
-                continue
-            headline = clean_html_text(headline_match.group(1))
-
-            date_match = re.search(r'itemprop="datePublished" datetime="([\d\-T:\.Z]+)"', article_html)
-            date = text_to_datetime(date_match.group(1))
-
-            text = []
-
-            for paragraph_match in re.finditer(r'<p>([\s\S]+?)<\/p>', article_html):
-                p_text = clean_html_text(paragraph_match.group(1))
-                if len(p_text) != 0:
-                    text.append(p_text)
-
-            if len(text) == 0:
-                continue
-
-            articles.append(Article('bloomberg', headline, date, '\n\n\n'.join(text), self.url + url))
-
-        return articles
+        return [article for article in articles if article is not None]
 
     def read_news(self):
         return self.read_news_list(PAGES)

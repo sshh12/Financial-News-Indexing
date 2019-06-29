@@ -9,13 +9,24 @@ from articles.cnbc import CNBC
 from articles.verge import Verge
 
 import elasticsearch
+import asyncio
+import aiohttp
 
 
-def main():
+async def fetch_articles(name, source):
+    try:
+        print('[{}] Downloading...'.format(name))
+        async with aiohttp.ClientSession() as session:
+            source._session = session
+            found = await source.read_news()
+        print('[{}] Complete, found {}.'.format(name, len(found)))
+        return found
+    except ArithmeticError as e:
+        print('[{}] Error -> '.format(name), e)
+        return []
 
-    print('Running...')
 
-    articles = []
+async def main():
 
     sources = [
         ('Verge', Verge()),
@@ -29,14 +40,11 @@ def main():
         ('Reuters', Reuters())
     ]
 
-    for name, source in sources:
-        try:
-            print('Fetching {}...'.format(name))
-            found = source.read_news()
-            articles.extend(found)
-            print('...found {}, done.'.format(len(found)))
-        except Exception as e:
-            print('{} Error'.format(name), e)
+    articles = []
+
+    fetch_tasks = [fetch_articles(name, source) for name, source in sources]
+    for source_articles in await asyncio.gather(*fetch_tasks):
+        articles.extend(source_articles)
 
     print('Saving {} articles...'.format(len(articles)))
     es = elasticsearch.Elasticsearch()
@@ -49,4 +57,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())

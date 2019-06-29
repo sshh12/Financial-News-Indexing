@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 import pendulum
 import hashlib
+import asyncio
+import time
 import re
 
 
@@ -8,6 +10,8 @@ USE_TZ = 'UTC'
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
 }
+
+loop = asyncio.get_event_loop()
 
 
 class Article:
@@ -35,6 +39,14 @@ class Article:
         }
 
 
+class ArticleScraper:
+
+    async def _get(self, url_part):
+        async with self._session.get(self.url + url_part, headers=HEADERS) as response:
+            return await response.text()
+
+
+
 def hash_sha1(text):
     return hashlib.sha1(bytes(text, 'utf-8')).hexdigest()
 
@@ -60,6 +72,10 @@ def clean_html_text(html):
     return html.strip()
 
 
+def _timezone_to_offset(date_string):
+    return date_string.replace('ET', '-0500').replace('EST', '-0500').replace('EDT', '-0400')
+
+
 def text_to_datetime(html):
 
     ## https://pendulum.eustace.io/docs/
@@ -68,7 +84,6 @@ def text_to_datetime(html):
 
     # 2019-04-12T18:12:00Z
     # 2019-06-26T20:20:19.280Z
-    # 2019-06-27T07:57:18-04:00
     # 2019-06-28T20:22:22+00:00
     try:
         return pendulum.parse(text).in_tz(USE_TZ)
@@ -76,51 +91,32 @@ def text_to_datetime(html):
         pass
 
     # June 27, 2019 6:51pm
+    # June 18, 2019 10:40am
     try:
-        timestamp = text.split(' ')
-        if len(timestamp[1]) == 2:
-            timestamp[1] = '0' + timestamp[1]
-        if len(timestamp[3]) == 4:
-            timestamp[3] = '0' + timestamp[3]
-        return pendulum.from_format(' '.join(timestamp), 'MMMM DD, YYYY hh:mmA').in_tz(USE_TZ)
+        time_text = text.replace('am', 'AM').replace('pm', 'PM')
+        return pendulum.from_format(time_text, 'MMMM D, YYYY h:mmA').in_tz(USE_TZ)
     except (ValueError, IndexError):
         pass
 
     # JUNE 26, 2019 3:01 PM
     try:
-        timestamp = text.split(' ')
-        if len(timestamp[1]) == 2:
-            timestamp[1] = '0' + timestamp[1]
-        if len(timestamp[3]) == 4:
-            timestamp[3] = '0' + timestamp[3]
-        return pendulum.from_format(' '.join(timestamp), 'MMMM DD, YYYY hh:mm A').in_tz(USE_TZ)
+        time_text = text.replace('am', 'AM').replace('pm', 'PM')
+        return pendulum.from_format(time_text, 'MMMM D, YYYY h:mm A').in_tz(USE_TZ)
     except (ValueError, IndexError):
         pass
     
     # June 27, 2019 11:47 am ET
     # June 26, 2019 4:07 p.m. ET
     try:
-        timestamp = text.replace('.', '').replace(',', '').split(' ')
-        if len(timestamp[1]) == 1:
-            timestamp[1] = '0' + timestamp[1]
-        if len(timestamp[3]) == 4:
-            timestamp[3] = '0' + timestamp[3]
-        timestamp[4] = timestamp[4].upper()
-        timestamp[5] = timestamp[5].replace('ET', '-0500').replace('EST', '-0500').replace('EDT', '-0400')
-        return pendulum.from_format(' '.join(timestamp), 'MMMM DD YYYY hh:mm A ZZ').in_tz(USE_TZ)
+        time_text = _timezone_to_offset(text.replace('.', '').replace(',', '').replace('am', 'AM').replace('pm', 'PM'))
+        return pendulum.from_format(time_text, 'MMMM D YYYY h:mm A ZZ').in_tz(USE_TZ)
     except (ValueError, IndexError):
         pass
 
     # Jul 25 2018 6:09 PM EDT
     try:
-        timestamp = text.replace('.', '').replace(',', '').split(' ')
-        if len(timestamp[1]) == 1:
-            timestamp[1] = '0' + timestamp[1]
-        if len(timestamp[3]) == 4:
-            timestamp[3] = '0' + timestamp[3]
-        timestamp[4] = timestamp[4].upper()
-        timestamp[5] = timestamp[5].replace('ET', '-0500').replace('EST', '-0500').replace('EDT', '-0400')
-        return pendulum.from_format(' '.join(timestamp), 'MMM DD YYYY hh:mm A ZZ').in_tz('UTC')
+        time_text = _timezone_to_offset(text.replace('.', '').replace(',', '').replace('am', 'AM').replace('pm', 'PM'))
+        return pendulum.from_format(time_text, 'MMM D YYYY h:mm A ZZ').in_tz('UTC')
     except (ValueError, IndexError):
         pass
 
