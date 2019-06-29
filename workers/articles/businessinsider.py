@@ -40,7 +40,7 @@ IGNORE_TEXT = [
 class BusinessInsider(ArticleScraper):
 
     def __init__(self):
-        self.url = 'https://www.businessinsider.com/'
+        self.url = 'https://www.businessinsider.com'
 
     async def read_article(self, url):
         
