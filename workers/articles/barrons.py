@@ -40,7 +40,8 @@ class Barrons:
             for id_ in article_ids:
                 article_data = self._get('/real-time/{}?id={}&type=article'.format(i, id_))
                 url_match = re.search(r'"url\\?":\\?"https:\/\/www.barrons.com(\/articles\/[^"]+)"', article_data)
-                article_urls.add(url_match.group(1))
+                if url_match:
+                    article_urls.add(url_match.group(1))
 
         for url in article_urls:
 
