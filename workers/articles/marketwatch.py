@@ -12,7 +12,8 @@ IGNORE_TEXT = [
     'And see: ',
     'Read more: ',
     'Check out: ',
-    'Related: '
+    'Related: ',
+    'An expanded version of this'
 ]
 
 

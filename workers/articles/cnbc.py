@@ -26,7 +26,8 @@ IGNORE_TEXT = [
     'contributed to this report',
     'Disclosure: ',
     'Watch: ',
-    'Twitter - Facebook'
+    'Twitter - Facebook',
+    'contributed to this story'
 ]
 
 
@@ -52,7 +53,7 @@ class CNBC:
         for url in article_urls:
 
             article_html = self._get(url)
-
+            
             headline_match = re.search(r'ArticleHeader-headline">([^<]+)<\/h1>', article_html)
             if not headline_match:
                 continue

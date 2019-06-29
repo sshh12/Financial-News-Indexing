@@ -14,7 +14,8 @@ IGNORE_TEXT = [
     ' All Rights Reserved',
     'barrons.com',
     'dowjones.com',
-    'Write to '
+    'Write to ',
+    'Subscribe or Sign In'
 ]
 
 
