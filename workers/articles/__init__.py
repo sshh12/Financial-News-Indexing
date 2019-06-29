@@ -77,10 +77,10 @@ def text_to_datetime(html):
         pass
 
     # 2019-06-27T07:57:18-04:00
+    # 2019-06-28T20:22:22+00:00
     try:
-        timestamp = text.split('-')
-        timestamp[-1] = timestamp[-1].replace(':', '')
-        return datetime.strptime('-'.join(timestamp), "%Y-%m-%dT%H:%M:%S%z")
+        timestamp = re.sub(r'(\+|\-)(\d\d):?(\d\d)', r'\1\2\3', text)
+        return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S%z")
     except ValueError:
         pass
 
