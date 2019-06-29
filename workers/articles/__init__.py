@@ -38,8 +38,11 @@ class Article:
 class ArticleScraper:
 
     async def _get(self, url_part):
-        async with self._session.get(self.url + url_part, headers=HEADERS) as response:
-            return await response.text()
+        try:
+            async with self._session.get(self.url + url_part, headers=HEADERS) as response:
+                return await response.text()
+        except (ConnectionRefusedError, UnicodeDecodeError):
+            return ''
 
 
 
@@ -55,13 +58,13 @@ def clean_html_text(html):
     html = html.replace('&nbsp;', ' ')
     html = html.replace('&lt;', '<').replace('&gt;', '>')
     html = html.replace('\r', '')
-    html = html.replace('—', '-')
+    html = html.replace('—', '-').replace('&ndash;', '-').replace('&mdash;', '-')
     html = html.replace('‘', '\'').replace('’', '\'')
     html = html.replace('“', '').replace('”', '')
-    html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@{}\(\);#\?]*>([\s\S]+?)<\/style>', '', html)
-    html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@{}\(\);#\?]*>([\s\S]+?)<\/script>', '', html)
-    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+@#{}\(\);\?]*>', '', html)
-    html = re.sub(r'<\/?\w+>', '', html)
+    html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@\|{}\(\);#\?]*>([\s\S]+?)<\/style>', '', html)
+    html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@\|{}\(\);#\?]*>([\s\S]+?)<\/script>', '', html)
+    html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+@\|#{}\(\);\?]*>', '', html)
+    html = re.sub(r'<\/?[\w\-]+>', '', html)
     html = re.sub(r'<!-*[^>]+>', '', html)
     html = re.sub(r'&#[\w\d]+;', '', html)
     html = re.sub(r'\s{3,}', ' ', html)

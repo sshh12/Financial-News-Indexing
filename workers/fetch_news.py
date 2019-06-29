@@ -9,6 +9,7 @@ from articles.cnbc import CNBC
 from articles.verge import Verge
 from articles.cnn import CNN
 from articles.thestreet import TheStreet
+from articles.businessinsider import BusinessInsider
 
 import elasticsearch
 import asyncio
@@ -31,7 +32,8 @@ async def fetch_articles(name, source):
 async def main():
 
     sources = [
-        ('TheStreet', TheStreet())
+        ('BusinessInsider', BusinessInsider()),
+        ('TheStreet', TheStreet()),
         ('CNN', CNN()),
         ('Verge', Verge()),
         ('CNBC', CNBC()),
