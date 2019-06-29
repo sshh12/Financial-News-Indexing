@@ -29,15 +29,15 @@ async def fetch_articles(name, source):
 async def main():
 
     sources = [
-        ('Verge', Verge()),
+        #('Verge', Verge()),
         ('CNBC', CNBC()),
-        ('IBTimes', IBTimes()),
-        ('Benzinga', Benzinga()),
-        ('Barrons', Barrons()),
-        ('Bloomberg', Bloomberg()),
-        ('MarketWatch', MarketWatch()),
-        ('SeekingAlpha', SeekingAlpha()),
-        ('Reuters', Reuters())
+        # ('IBTimes', IBTimes()),
+        # ('Benzinga', Benzinga()),
+        # ('Barrons', Barrons()),
+        # ('Bloomberg', Bloomberg()),
+        # ('MarketWatch', MarketWatch()),
+        # ('SeekingAlpha', SeekingAlpha()),
+        # ('Reuters', Reuters())
     ]
 
     articles = []

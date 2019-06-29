@@ -75,6 +75,8 @@ class CNBC(ArticleScraper):
             list_html = await self._get(url)
             for match in re.finditer(r'href=\'(\/\d{4}[^\']+)\'', list_html):
                 article_urls.add(match.group(1))
+            for match in re.finditer(r'href="https:\/\/www.cnbc.com(\/\d{4}[^"]+)"', list_html):
+                article_urls.add(match.group(1))
 
         articles = await asyncio.gather(*[self.read_article(url) for url in article_urls])
 
