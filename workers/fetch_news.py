@@ -7,6 +7,7 @@ from articles.benzinga import Benzinga
 from articles.ibtimes import IBTimes
 from articles.cnbc import CNBC
 from articles.verge import Verge
+from articles.cnn import CNN
 
 import elasticsearch
 import asyncio
@@ -29,15 +30,16 @@ async def fetch_articles(name, source):
 async def main():
 
     sources = [
-        #('Verge', Verge()),
+        ('CNN', CNN()),
+        ('Verge', Verge()),
         ('CNBC', CNBC()),
-        # ('IBTimes', IBTimes()),
-        # ('Benzinga', Benzinga()),
-        # ('Barrons', Barrons()),
-        # ('Bloomberg', Bloomberg()),
-        # ('MarketWatch', MarketWatch()),
-        # ('SeekingAlpha', SeekingAlpha()),
-        # ('Reuters', Reuters())
+        ('IBTimes', IBTimes()),
+        ('Benzinga', Benzinga()),
+        ('Barrons', Barrons()),
+        ('Bloomberg', Bloomberg()),
+        ('MarketWatch', MarketWatch()),
+        ('SeekingAlpha', SeekingAlpha()),
+        ('Reuters', Reuters())
     ]
 
     articles = []

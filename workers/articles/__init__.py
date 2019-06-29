@@ -1,7 +1,5 @@
-from datetime import datetime, timedelta
 import pendulum
 import hashlib
-import asyncio
 import time
 import re
 
@@ -10,8 +8,6 @@ USE_TZ = 'UTC'
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
 }
-
-loop = asyncio.get_event_loop()
 
 
 class Article:
@@ -73,7 +69,10 @@ def clean_html_text(html):
 
 
 def _timezone_to_offset(date_string):
-    return date_string.replace('ET', '-0500').replace('EST', '-0500').replace('EDT', '-0400')
+    return date_string\
+        .replace('ET', '-0500')\
+        .replace('EST', '-0500')\
+        .replace('EDT', '-0400')
 
 
 def text_to_datetime(html):
