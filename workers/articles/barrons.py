@@ -52,6 +52,8 @@ class Barrons:
             headline = clean_html_text(headline_match.group(1))
 
             date_match = re.search(r'(\w+ \d+, \w+ \d+:\d+ \w+ \w+)\s+<\/time>', article_html)
+            if not date_match:
+                continue
             date = text_to_datetime(date_match.group(1))
 
             text = []

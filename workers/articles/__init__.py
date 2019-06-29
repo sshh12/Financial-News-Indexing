@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import hashlib
 import re
 
@@ -38,10 +38,8 @@ def hash_sha1(text):
 
 
 def clean_html_text(html):
-    html = html.replace('&rsquo;', '\'')
-    html = html.replace('&lsquo;', '\'')
-    html = html.replace('&ldquo;', '"')
-    html = html.replace('&rdquo;', '"')
+    html = html.replace('&rsquo;', '\'').replace('&lsquo;', '\'')
+    html = html.replace('&ldquo;', '"').replace('&rdquo;', '"').replace('&quot;', '"')
     html = html.replace('&amp;', '&')
     html = html.replace('&copy;', '')
     html = html.replace('&nbsp;', ' ')
@@ -61,6 +59,8 @@ def clean_html_text(html):
 
 
 def text_to_datetime(html):
+
+    ## https://docs.python.org/3/library/datetime.html
 
     text = clean_html_text(html)
 
@@ -109,15 +109,35 @@ def text_to_datetime(html):
     # June 27, 2019 11:47 am ET
     # June 26, 2019 4:07 p.m. ET
     try:
-        timestamp = text.replace('.', '').split(' ')
-        if len(timestamp[1]) == 2:
+        timestamp = text.replace('.', '').replace(',', '').split(' ')
+        if len(timestamp[1]) == 1:
             timestamp[1] = '0' + timestamp[1]
         if len(timestamp[3]) == 4:
             timestamp[3] = '0' + timestamp[3]
         timestamp[4] = timestamp[4].upper()
-        timestamp[5] = timestamp[5].replace('ET', '-0500')
-        return datetime.strptime(' '.join(timestamp), '%B %d, %Y %I:%M %p %z')
+        timestamp[5] = timestamp[5].replace('ET', '-0500').replace('EDT', '-0400')
+        return datetime.strptime(' '.join(timestamp), '%B %d %Y %I:%M %p %z')
     except (ValueError, IndexError):
+        pass
+
+    # Jul 25 2018 6:09 PM EDT
+    try:
+        timestamp = text.replace('.', '').replace(',', '').split(' ')
+        if len(timestamp[1]) == 1:
+            timestamp[1] = '0' + timestamp[1]
+        if len(timestamp[3]) == 4:
+            timestamp[3] = '0' + timestamp[3]
+        timestamp[4] = timestamp[4].upper()
+        timestamp[5] = timestamp[5].replace('ET', '-0500').replace('EDT', '-0400')
+        return datetime.strptime(' '.join(timestamp), '%b %d %Y %I:%M %p %z')
+    except (ValueError, IndexError):
+        pass
+
+    # 4 hours ago
+    try:
+        hours_ago = int(re.search(r'(\d) hours?', text).group(1))
+        return datetime.now() - timedelta(hours=hours_ago)
+    except AttributeError:
         pass
 
     raise ValueError('Not datetime: ' + text)

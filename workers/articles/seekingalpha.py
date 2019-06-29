@@ -13,7 +13,8 @@ IGNORE_HEADLINE = [
     'Notable earnings',
     ' dividend'
     'leads after hour',
-    'Gainers: '
+    'Gainers: ',
+    ' beats by '
 ]
 
 
