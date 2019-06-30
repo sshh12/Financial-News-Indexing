@@ -1,4 +1,5 @@
 from tickers.alphavantage import AlphaVantage
+from tickers.cryptocompare import CryptoCompare
 
 import elasticsearch
 import asyncio
@@ -7,6 +8,10 @@ import aiohttp
 
 STOCKS = [
     'MSFT'
+]
+
+CRYPTOS = [
+    'BTC'
 ]
 
 
@@ -26,6 +31,7 @@ async def fetch_tick_data(name, source):
 async def main():
 
     sources = [
+        ('CryptoCompare', CryptoCompare(CRYPTOS)),
         ('AlphaVantage', AlphaVantage(STOCKS, api_key='MCGHKC5Z4IEPGT8V'))
     ]
 
@@ -35,16 +41,14 @@ async def main():
     for source_ticks in await asyncio.gather(*fetch_tasks):
         ticks.extend(source_ticks)
 
-    print(ticks)
-
-    # print('Saving {} articles...'.format(len(articles)))
-    # es = elasticsearch.Elasticsearch()
-    # for article in articles:
-    #     try:
-    #         es.create('index-news', article._id, article.as_dict())
-    #     except elasticsearch.exceptions.ConflictError:
-    #         pass
-    # print('...done.')
+    print('Saving {} ticks...'.format(len(ticks)))
+    es = elasticsearch.Elasticsearch()
+    for tick in ticks:
+        try:
+            es.create('index-ticks', tick._id, tick.as_dict())
+        except elasticsearch.exceptions.ConflictError:
+            pass
+    print('...done.')
 
 
 if __name__ == "__main__":

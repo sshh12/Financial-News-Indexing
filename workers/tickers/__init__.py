@@ -10,9 +10,11 @@ HEADERS = {
 
 class PriceTick:
 
-    def __init__(self, symbol, date, open_, high, low, close, volume):
+    def __init__(self, symbol, type_, source, date, open_, high, low, close, volume):
         self.symbol = symbol
-        self.date = date
+        self.type = type_
+        self.source = source
+        self.date = date.in_tz(USE_TZ)
         self.open = float(open_)
         self.high = float(high)
         self.low = float(low)
@@ -26,6 +28,16 @@ class PriceTick:
         
     def as_dict(self):
         return {
+            'symbol': self.symbol,
+            'type': self.type,
+            'source': self.source,
+            'date': self.date,
+            'open': self.open,
+            'high': self.high,
+            'low': self.low,
+            'close': self.close,
+            'volume': self.volume,
+            'found': self.found
         }
 
 

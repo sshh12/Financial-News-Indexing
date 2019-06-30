@@ -20,13 +20,13 @@ class AlphaVantage(TickDataSource):
         self.symbols = symbols
         self.api_key = api_key
 
-    async def read_stock_data(self, symbol):
+    async def read_stock_data(self, symbol, ignore_note=False):
         
         res_json = json.loads(await self._get('/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=1min&apikey={}'.format(symbol, self.api_key)))
 
-        if 'Note' in res_json and 'call freq' in res_json['Note']:
+        if not ignore_note and 'Note' in res_json and 'call freq' in res_json['Note']:
             await asyncio.sleep(60)
-            return await self.read_stock_data(symbol)
+            return await self.read_stock_data(symbol, ignore_note=True)
 
         timezone = res_json['Meta Data']['6. Time Zone']
         tick_dict = res_json['Time Series (1min)']
@@ -40,7 +40,7 @@ class AlphaVantage(TickDataSource):
             low = data_dict['3. low']
             close = data_dict['4. close']
             volume = data_dict['5. volume']
-            ticks.append(PriceTick(symbol, date, open_, high, low, close, volume))
+            ticks.append(PriceTick(symbol, 'stock', 'alphavantage', date, open_, high, low, close, volume))
 
         return ticks
 
