@@ -9,16 +9,36 @@ import aiohttp
 STOCKS = [
     'INX',
     'DJI',
+    'IXIC',
+    'RUT',
     'MSFT',
     'TWLO',
     'LYFT',
+    'UBER',
     'AAPL',
+    'GOOGL',
+    'WMT',
+    'ACB',
+    'BAC',
+    'JPM',
+    'INTC',
+    'BIDU',
     'TWTR',
     'TSLA',
     'NFLX',
     'FB',
     'BABA',
-    'SNAP'
+    'SNAP',
+    'AMZN',
+    'T',
+    'MU',
+    'WORK',
+    'BYND',
+    'GE',
+    'F',
+    'AMD',
+    'BA',
+    'NVDA'
 ]
 
 CRYPTOS = [
