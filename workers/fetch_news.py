@@ -54,14 +54,16 @@ async def main():
     for source_articles in await asyncio.gather(*fetch_tasks):
         articles.extend(source_articles)
 
-    print('Saving {} articles...'.format(len(articles)))
+    print('[ElasticSearch] Saving {} articles...'.format(len(articles)))
     es = elasticsearch.Elasticsearch()
+    cnt = 0
     for article in articles:
         try:
             es.create('index-news', article._id, article.as_dict())
+            cnt += 1
         except elasticsearch.exceptions.ConflictError:
             pass
-    print('...done.')
+    print('[ElasticSearch] Saved {}.'.format(cnt))
 
 
 if __name__ == "__main__":

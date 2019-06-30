@@ -20,13 +20,19 @@ class AlphaVantage(TickDataSource):
         self.symbols = symbols
         self.api_key = api_key
 
-    async def read_stock_data(self, symbol, ignore_note=False):
+    async def read_stock_data(self, symbol, attempt=0):
         
         res_json = json.loads(await self._get('/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=1min&apikey={}'.format(symbol, self.api_key)))
 
-        if not ignore_note and 'Note' in res_json and 'call freq' in res_json['Note']:
-            await asyncio.sleep(60)
-            return await self.read_stock_data(symbol, ignore_note=True)
+        if 'Note' in res_json and 'call freq' in res_json['Note']:
+            if attempt > 2:
+                return []
+            await asyncio.sleep(120)
+            return await self.read_stock_data(symbol, attempt=attempt+1)
+
+        if 'Error Message' in res_json:
+            print(symbol, res_json)
+            return []
 
         timezone = res_json['Meta Data']['6. Time Zone']
         tick_dict = res_json['Time Series (1min)']
@@ -52,6 +58,6 @@ class AlphaVantage(TickDataSource):
             fetch_tasks = [self.read_stock_data(symbol.upper()) for symbol in symbols]
             for symbol_ticks in await asyncio.gather(*fetch_tasks):
                 ticks.extend(symbol_ticks)
-            await asyncio.sleep(60)
+            await asyncio.sleep(61)
 
         return ticks

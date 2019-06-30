@@ -7,11 +7,26 @@ import aiohttp
 
 
 STOCKS = [
-    'MSFT'
+    'INX',
+    'DJI',
+    'MSFT',
+    'TWLO',
+    'LYFT',
+    'AAPL',
+    'TWTR',
+    'TSLA',
+    'NFLX',
+    'FB',
+    'BABA',
+    'SNAP'
 ]
 
 CRYPTOS = [
-    'BTC'
+    'BTC',
+    'ETH',
+    'LTC',
+    'BCH',
+    'DOGE'
 ]
 
 
@@ -41,14 +56,16 @@ async def main():
     for source_ticks in await asyncio.gather(*fetch_tasks):
         ticks.extend(source_ticks)
 
-    print('Saving {} ticks...'.format(len(ticks)))
+    print('[ElasticSearch] Saving {} ticks...'.format(len(ticks)))
+    cnt = 0
     es = elasticsearch.Elasticsearch()
     for tick in ticks:
         try:
             es.create('index-ticks', tick._id, tick.as_dict())
+            cnt += 1
         except elasticsearch.exceptions.ConflictError:
             pass
-    print('...done.')
+    print('[ElasticSearch] Saved {}.'.format(cnt))
 
 
 if __name__ == "__main__":
