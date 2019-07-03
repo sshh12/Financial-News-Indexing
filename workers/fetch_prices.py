@@ -9,8 +9,6 @@ import aiohttp
 STOCKS = [
     'INX',
     'DJI',
-    'IXIC',
-    'RUT',
     'MSFT',
     'TWLO',
     'LYFT',

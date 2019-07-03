@@ -33,7 +33,8 @@ IGNORE_TEXT = [
     'Keep reading to see',
     'post has been translated',
     'Subscribe to our newsletter',
-    'Source: '
+    'Source: ',
+    'Click here to '
 ]
 
 

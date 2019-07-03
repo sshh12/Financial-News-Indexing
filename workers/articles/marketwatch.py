@@ -12,7 +12,12 @@ IGNORE_TEXT = [
     'Read more: ',
     'Check out: ',
     'Related: ',
-    'An expanded version of this'
+    'An expanded version of this',
+    'Also: ',
+    'See now: ',
+    'Don\'t miss: ',
+    'See also: ',
+    'For more news: '
 ]
 
 

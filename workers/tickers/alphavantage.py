@@ -30,7 +30,7 @@ class AlphaVantage(TickDataSource):
             await asyncio.sleep(120)
             return await self.read_stock_data(symbol, attempt=attempt+1)
 
-        if 'Error Message' in res_json:
+        if 'Error Message' in res_json or 'Meta Data' not in res_json:
             print(symbol, res_json)
             return []
 
