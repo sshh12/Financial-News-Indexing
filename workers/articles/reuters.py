@@ -29,9 +29,11 @@ class Reuters(ArticleScraper):
 
         date_match = re.search(r'(\w+ \d+, \d{4}) \/\s+(\d+:\d+ \w+) ', article_html)
         headline_match = re.search(r'ArticleHeader_headline">([^<]+)<\/h1>', article_html)
-        date = text_to_datetime(date_match.group(1) + ' ' + date_match.group(2))
+        if not date_match or not headline_match:
+            return None
 
         headline = clean_html_text(headline_match.group(1))
+        date = text_to_datetime(date_match.group(1) + ' ' + date_match.group(2))
 
         text = []
         start_idx = article_html.index('StandardArticleBody_body')

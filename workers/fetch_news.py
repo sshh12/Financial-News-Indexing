@@ -26,7 +26,7 @@ async def fetch_articles(name, source):
             found = await source.read_news()
         print('[{}] Complete, found {}.'.format(name, len(found)))
         return found
-    except ArithmeticError as e:
+    except Exception as e:
         print('[{}] Error -> '.format(name), e)
         return []
 
