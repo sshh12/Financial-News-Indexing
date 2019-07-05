@@ -13,7 +13,8 @@ IGNORE_HEADLINE = [
     ' dividend'
     'leads after hour',
     'Gainers: ',
-    ' beats by '
+    ' beats by ',
+    ' reports Q'
 ]
 
 
@@ -61,7 +62,7 @@ class SeekingAlpha(ArticleScraper):
                 continue
             text.append(bullet_text)
 
-        if len(text) == 0:
+        if len(text) < 2:
             return None
 
         return Article('seekingalpha', headline, date, '\n\n\n'.join(text), self.url + url)

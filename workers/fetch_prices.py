@@ -33,10 +33,15 @@ STOCKS = [
     'WORK',
     'BYND',
     'GE',
+    'FIT',
     'F',
     'AMD',
     'BA',
-    'NVDA'
+    'NVDA',
+    'NKE',
+    'PYPL',
+    'PFE',
+    'COST'
 ]
 
 CRYPTOS = [

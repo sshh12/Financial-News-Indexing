@@ -6,29 +6,20 @@ import re
 
 TOPIC_URLS = [
     '/',
-    '/business',
-    '/technology',
-    '/world',
-    '/national'
-]
-
-IGNORE_TITLES = [
-    'Infographic:',
-    ' [WATCH]',
-    ' [PHOTOS]'
+    '/politics',
+    '/business'
 ]
 
 IGNORE_TEXT = [
-    'Photo: ',
-    'Pictured: '
-    'Wikipedia/Wikimedia Commons'
+    '@washingtonpost.com',
+    'This story has been '
 ]
 
 
-class IBTimes(ArticleScraper):
+class WashingtonPost(ArticleScraper):
 
     def __init__(self):
-        self.url = 'https://www.ibtimes.com'
+        self.url = 'https://www.washingtonpost.com'
 
     async def read_article(self, url):
         
@@ -39,37 +30,35 @@ class IBTimes(ArticleScraper):
             return None
         headline = clean_html_text(headline_match.group(1))
 
-        if string_contains(headline, IGNORE_TITLES):
-            return None
-
-        date_match = re.search(r'datePublished" datetime="([\d\-+:T]+)"', article_html)
+        date_match = re.search(r'itemprop="datePublished" content="([\d\-+T:]+)"', article_html)
         if not date_match:
             return None
         date = text_to_datetime(date_match.group(1))
 
         text = []
 
-        for p_match in re.finditer(r'<p>([\s\S]+?)<\/p>', article_html):
+        for p_match in re.finditer(r'<p data-elm-loc="\d+">([\s\S]+?)<\/p>', article_html):
             paragraph = clean_html_text(p_match.group(1))
             if paragraph.count(' ') <= 1 or string_contains(paragraph, IGNORE_TEXT):
                 return None
+            if 'Read more' in paragraph:
+                break
             text.append(paragraph)
 
         if len(text) == 0:
             return None
 
-        return Article('ibtimes', headline, date, '\n\n\n'.join(text), self.url + url)
+        return Article('washingtonpost', headline, date, '\n\n\n'.join(text), self.url + url)
 
-    async def read_news_list(self, topic_urls, pages=4):
+    async def read_news_list(self, topic_urls):
 
         articles = []
         
         article_urls = set()
         for url in topic_urls:
-            for i in range(pages):
-                list_html = await self._get(url + '?page=' + str(i))
-                for match in re.finditer(r'"(\/[\w\-]+\d{4,12})"', list_html):
-                    article_urls.add(match.group(1))
+            list_html = await self._get(url)
+            for match in re.finditer(r'href="https:\/\/www.washingtonpost.com(\/\w+\/[^"]+)"', list_html):
+                article_urls.add(match.group(1))
 
         articles = await asyncio.gather(*[self.read_article(url) for url in article_urls])
 

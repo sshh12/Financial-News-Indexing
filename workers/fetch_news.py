@@ -11,6 +11,7 @@ from articles.cnn import CNN
 from articles.thestreet import TheStreet
 from articles.businessinsider import BusinessInsider
 from articles.yahoo import Yahoo
+from articles.washingtonpost import WashingtonPost
 
 import elasticsearch
 import asyncio
@@ -33,6 +34,7 @@ async def fetch_articles(name, source):
 async def main():
 
     sources = [
+        ('WashingtonPost', WashingtonPost()),
         ('Yahoo', Yahoo()),
         ('BusinessInsider', BusinessInsider()),
         ('TheStreet', TheStreet()),

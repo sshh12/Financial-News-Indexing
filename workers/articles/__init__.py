@@ -92,6 +92,14 @@ def text_to_datetime(html):
     except ValueError:
         pass
 
+    # 2019-07-05T11:32-500
+    try:
+        parts = text.split('-')
+        parts[-1] = '0' + parts[-1]
+        return pendulum.parse('-'.join(parts)).in_tz(USE_TZ)
+    except (ValueError, IndexError):
+        pass
+
     # June 27, 2019 6:51pm
     # June 18, 2019 10:40am
     try:
