@@ -3,6 +3,8 @@ import hashlib
 import time
 import re
 
+from . import analyze
+
 
 USE_TZ = 'UTC'
 HEADERS = {
@@ -20,6 +22,11 @@ class Article:
         self.url = url
         self.found = pendulum.now().in_tz(USE_TZ)
         self._id = hash_sha1(re.sub(r'[^\w\d]', '', self.source + self.headline).lower())
+        self._analyze()
+
+    def _analyze(self):
+        self.vader_headline = analyze.score_vader(self.headline)
+        self.vader_content = analyze.score_vader(self.content)
 
     def __repr__(self):
         return '<Article "{}">'.format(self.headline)
@@ -31,7 +38,9 @@ class Article:
             'date': self.date,
             'found': self.found,
             'content': self.content,
-            'url': self.url
+            'url': self.url,
+            'vader_headline': self.vader_headline,
+            'vader_content': self.vader_content
         }
 
 

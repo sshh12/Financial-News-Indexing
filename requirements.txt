@@ -1,3 +1,4 @@
 elasticsearch
 pendulum
 aiohttp
+nltk
