@@ -1,0 +1,58 @@
+prices: 
+  stocks:
+    - INX
+    - DJI
+    - MSFT
+    - TWLO
+    - LYFT
+    - UBER
+    - AAPL
+    - GOOGL
+    - WMT
+    - ACB
+    - BAC
+    - JPM
+    - INTC
+    - BIDU
+    - TWTR
+    - TSLA
+    - NFLX
+    - FB
+    - BABA
+    - SNAP
+    - AMZN
+    - T
+    - MU
+    - WORK
+    - BYND
+    - GE
+    - FIT
+    - F
+    - AMD
+    - BA
+    - NVDA
+    - NKE
+    - PYPL
+    - PFE
+    - COST
+  cryptos:
+    - BTC
+    - ETH
+    - LTC
+    - DOGE
+news:
+  sources:
+    - WashingtonPost
+    - Yahoo
+    - BusinessInsider
+    - TheStreet
+    - CNN
+    - Verge
+    - CNBC
+    - IBTimes
+    - Benzinga
+    - Barrons
+    - Bloomberg
+    - MarketWatch
+    - SeekingAlpha
+    - Reuters

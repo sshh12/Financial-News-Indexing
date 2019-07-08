@@ -12,10 +12,29 @@ from articles.thestreet import TheStreet
 from articles.businessinsider import BusinessInsider
 from articles.yahoo import Yahoo
 from articles.washingtonpost import WashingtonPost
+from config import config
 
 import elasticsearch
 import asyncio
 import aiohttp
+
+
+SOURCES = {
+    'WashingtonPost': WashingtonPost(),
+    'Yahoo': Yahoo(),
+    'BusinessInsider': BusinessInsider(),
+    'TheStreet': TheStreet(),
+    'CNN': CNN(),
+    'Verge': Verge(),
+    'CNBC': CNBC(),
+    'IBTimes': IBTimes(),
+    'Benzinga': Benzinga(),
+    'Barrons': Barrons(),
+    'Bloomberg': Bloomberg(),
+    'MarketWatch': MarketWatch(),
+    'SeekingAlpha': SeekingAlpha(),
+    'Reuters': Reuters()
+}
 
 
 async def fetch_articles(name, source):
@@ -33,26 +52,9 @@ async def fetch_articles(name, source):
 
 async def main():
 
-    sources = [
-        ('WashingtonPost', WashingtonPost()),
-        ('Yahoo', Yahoo()),
-        ('BusinessInsider', BusinessInsider()),
-        ('TheStreet', TheStreet()),
-        ('CNN', CNN()),
-        ('Verge', Verge()),
-        ('CNBC', CNBC()),
-        ('IBTimes', IBTimes()),
-        ('Benzinga', Benzinga()),
-        ('Barrons', Barrons()),
-        ('Bloomberg', Bloomberg()),
-        ('MarketWatch', MarketWatch()),
-        ('SeekingAlpha', SeekingAlpha()),
-        ('Reuters', Reuters())
-    ]
-
     articles = []
 
-    fetch_tasks = [fetch_articles(name, source) for name, source in sources]
+    fetch_tasks = [fetch_articles(name, SOURCES[name]) for name in config['news']['sources']]
     for source_articles in await asyncio.gather(*fetch_tasks):
         articles.extend(source_articles)
 

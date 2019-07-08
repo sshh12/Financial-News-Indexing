@@ -1,56 +1,10 @@
 from tickers.alphavantage import AlphaVantage
 from tickers.cryptocompare import CryptoCompare
+from config import config
 
 import elasticsearch
 import asyncio
 import aiohttp
-
-
-STOCKS = [
-    'INX',
-    'DJI',
-    'MSFT',
-    'TWLO',
-    'LYFT',
-    'UBER',
-    'AAPL',
-    'GOOGL',
-    'WMT',
-    'ACB',
-    'BAC',
-    'JPM',
-    'INTC',
-    'BIDU',
-    'TWTR',
-    'TSLA',
-    'NFLX',
-    'FB',
-    'BABA',
-    'SNAP',
-    'AMZN',
-    'T',
-    'MU',
-    'WORK',
-    'BYND',
-    'GE',
-    'FIT',
-    'F',
-    'AMD',
-    'BA',
-    'NVDA',
-    'NKE',
-    'PYPL',
-    'PFE',
-    'COST'
-]
-
-CRYPTOS = [
-    'BTC',
-    'ETH',
-    'LTC',
-    'BCH',
-    'DOGE'
-]
 
 
 async def fetch_tick_data(name, source):
@@ -69,8 +23,8 @@ async def fetch_tick_data(name, source):
 async def main():
 
     sources = [
-        ('CryptoCompare', CryptoCompare(CRYPTOS)),
-        ('AlphaVantage', AlphaVantage(STOCKS, api_key='MCGHKC5Z4IEPGT8V'))
+        ('CryptoCompare', CryptoCompare(config['prices']['cryptos'])),
+        ('AlphaVantage', AlphaVantage(config['prices']['stocks'], api_key='MCGHKC5Z4IEPGT8V'))
     ]
 
     ticks = []

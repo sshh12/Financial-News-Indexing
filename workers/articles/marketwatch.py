@@ -17,7 +17,8 @@ IGNORE_TEXT = [
     'See now: ',
     'Don\'t miss: ',
     'See also: ',
-    'For more news: '
+    'For more news: ',
+    'Full coverage at '
 ]
 
 
