@@ -34,7 +34,12 @@ IGNORE_TEXT = [
     'post has been translated',
     'Subscribe to our newsletter',
     'Source: ',
-    'Click here to '
+    'Click here to ',
+    'Got a tip?',
+    '@businessinsider.com',
+    ' Join here.',
+    'AP Photo',
+    'If you are a '
 ]
 
 
