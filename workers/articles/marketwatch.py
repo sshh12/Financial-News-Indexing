@@ -21,7 +21,8 @@ IGNORE_TEXT = [
     'Full coverage at ',
     'Additional reporting by ',
     'Sign up for ',
-    'This story has '
+    'This story has ',
+    'contributed to this'
 ]
 
 

@@ -13,7 +13,8 @@ IGNORE_TEXT = [
     'barrons.com',
     'dowjones.com',
     'Write to ',
-    'Subscribe or Sign In'
+    'Subscribe or Sign In',
+    'Barron\'s: '
 ]
 
 

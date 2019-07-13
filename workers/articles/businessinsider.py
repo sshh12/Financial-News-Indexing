@@ -39,7 +39,9 @@ IGNORE_TEXT = [
     '@businessinsider.com',
     ' Join here.',
     'AP Photo',
-    'If you are a '
+    'If you are a ',
+    'contributed to ',
+    'Follow INSIDER on'
 ]
 
 

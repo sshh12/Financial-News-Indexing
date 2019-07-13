@@ -78,6 +78,7 @@ def clean_html_text(html):
     html = re.sub(r'<!-*[^>]+>', '', html)
     html = re.sub(r'&#[\w\d]+;', '', html)
     html = re.sub(r'\s{3,}', ' ', html)
+    html = re.sub('([a-z])\s{2,}([A-Z])', '\\1 \\2', html)
     return html.strip()
 
 
