@@ -85,7 +85,8 @@ def _timezone_to_offset(date_string):
     return date_string\
         .replace('ET', '-0500')\
         .replace('EST', '-0500')\
-        .replace('EDT', '-0400')
+        .replace('EDT', '-0400')\
+        .replace('UTC', '-0000')
 
 
 def text_to_datetime(html):
@@ -130,6 +131,13 @@ def text_to_datetime(html):
     try:
         time_text = _timezone_to_offset(text.replace('.', '').replace(',', '').replace('am', 'AM').replace('pm', 'PM'))
         return pendulum.from_format(time_text, 'MMMM D YYYY h:mm A ZZ').in_tz(USE_TZ)
+    except (ValueError, IndexError):
+        pass
+
+    # Jul 5, 2019 12:30 UTC
+    try:
+        time_text = _timezone_to_offset(text.replace('.', '').replace(',', ''))
+        return pendulum.from_format(time_text, 'MMM D YYYY H:mm ZZ').in_tz('UTC')
     except (ValueError, IndexError):
         pass
 
