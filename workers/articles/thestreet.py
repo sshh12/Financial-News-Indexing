@@ -27,7 +27,8 @@ IGNORE_TEXT = [
     'More from: ',
     'Alert PLUS',
     'Can You Name',
-    'Additional reporting by'
+    'Additional reporting by',
+    'Click here to '
 ]
 
 

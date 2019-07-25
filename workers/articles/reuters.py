@@ -43,7 +43,9 @@ class Reuters(ArticleScraper):
             end_idx = len(article_html)
         content_html = article_html[start_idx:end_idx]
         for paragraph_match in re.finditer(r'<p>([^<]+)<\/p>', content_html):
-            text.append(clean_html_text(paragraph_match.group(1)))
+            paragraph = clean_html_text(paragraph_match.group(1))
+            if paragraph.count(' ') > 1:
+                text.append(paragraph)
 
         if len(text) == 0:
             return None

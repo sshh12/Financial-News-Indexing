@@ -1,3 +1,4 @@
 .vscode/*
 prod.env
 *.pyc
+migrate*.py
