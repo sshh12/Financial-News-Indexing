@@ -41,7 +41,7 @@ class WashingtonPost(ArticleScraper):
             paragraph = clean_html_text(p_match.group(1))
             if paragraph.count(' ') <= 1 or string_contains(paragraph, IGNORE_TEXT):
                 return None
-            if 'Read more' in paragraph:
+            if 'Read more' in paragraph or ' from The Post' in paragraph:
                 break
             text.append(paragraph)
 
