@@ -66,7 +66,7 @@ def clean_html_text(html):
     html = html.replace('&copy;', '')
     html = html.replace('&nbsp;', ' ')
     html = html.replace('&lt;', '<').replace('&gt;', '>')
-    html = html.replace('•', '*')
+    html = html.replace('•', '*').replace('●', '* ')
     html = html.replace('\r', '')
     html = html.replace('—', '-').replace('&ndash;', '-').replace('&mdash;', '-')
     html = html.replace('‘', '\'').replace('’', '\'')

@@ -12,7 +12,12 @@ TOPIC_URLS = [
 
 IGNORE_TEXT = [
     '@washingtonpost.com',
-    'This story has been '
+    'This story has been ',
+    'To contact the'
+    '©20',
+    'reflect the opinion of',
+    '--With assistance',
+    ' is a Bloomberg '
 ]
 
 

@@ -22,7 +22,8 @@ IGNORE_TEXT = [
     'Additional reporting by ',
     'Sign up for ',
     'This story has ',
-    'contributed to this'
+    'contributed to this',
+    'Read this:'
 ]
 
 
