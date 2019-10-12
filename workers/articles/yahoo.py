@@ -29,6 +29,9 @@ IGNORE_TEXT = [
     'Data source:',
     'Reporting by ',
     'Check Out: '
+    'Watch the full ',
+    'Follow her on Twitter',
+    'View our latest '
 ]
 
 
