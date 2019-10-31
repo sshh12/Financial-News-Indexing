@@ -31,7 +31,9 @@ IGNORE_TEXT = [
     'Check Out: '
     'Watch the full ',
     'Follow her on Twitter',
-    'View our latest '
+    'View our latest ',
+    'Read the latest stocks',
+    'Follow Yahoo Finance on'
 ]
 
 

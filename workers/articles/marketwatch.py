@@ -23,7 +23,8 @@ IGNORE_TEXT = [
     'Sign up for ',
     'This story has ',
     'contributed to this',
-    'Read this:'
+    'Read this:',
+    'This report originally'
 ]
 
 
