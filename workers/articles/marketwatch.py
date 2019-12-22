@@ -24,7 +24,8 @@ IGNORE_TEXT = [
     'This story has ',
     'contributed to this',
     'Read this:',
-    'This report originally'
+    'This report originally',
+    'click on this'
 ]
 
 
