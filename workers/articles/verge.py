@@ -24,7 +24,8 @@ TOPIC_URLS = [
 IGNORE_TEXT = [
     '<section',
     'This article has been',
-    'Update, '
+    'Update, ',
+    'You can read more '
 ]
 
 

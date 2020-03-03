@@ -40,6 +40,43 @@ prices:
     - ETH
     - LTC
     - DOGE
+meta: 
+  stocks:
+    - INX
+    - DJI
+    - MSFT
+    - TWLO
+    - LYFT
+    - UBER
+    - AAPL
+    - GOOGL
+    - WMT
+    - ACB
+    - BAC
+    - JPM
+    - INTC
+    - BIDU
+    - TWTR
+    - TSLA
+    - NFLX
+    - FB
+    - BABA
+    - SNAP
+    - AMZN
+    - T
+    - MU
+    - WORK
+    - BYND
+    - GE
+    - FIT
+    - F
+    - AMD
+    - BA
+    - NVDA
+    - NKE
+    - PYPL
+    - PFE
+    - COST
 news:
   sources:
     - WashingtonPost

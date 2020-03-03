@@ -25,7 +25,9 @@ IGNORE_TEXT = [
     'contributed to this',
     'Read this:',
     'This report originally',
-    'click on this'
+    'click on this',
+    'you understand and agree that we',
+    'Recommended: '
 ]
 
 
