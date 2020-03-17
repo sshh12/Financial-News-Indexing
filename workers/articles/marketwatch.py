@@ -5,19 +5,19 @@ import re
 
 
 IGNORE_TEXT = [
-    'Read: ',
-    'Now read: ',
-    'See: ',
-    'And see: ',
-    'Read more: ',
-    'Check out: ',
+    'Read:',
+    'Now read:',
+    'See:',
+    'And see:',
+    'Read more:',
+    'Check out:',
     'Related: ',
     'An expanded version of this',
-    'Also: ',
-    'See now: ',
-    'Don\'t miss: ',
-    'See also: ',
-    'For more news: ',
+    'Also:',
+    'See now:',
+    'Don\'t miss:',
+    'See also:',
+    'For more news:',
     'Full coverage at ',
     'Additional reporting by ',
     'Sign up for ',
@@ -27,7 +27,8 @@ IGNORE_TEXT = [
     'This report originally',
     'click on this',
     'you understand and agree that we',
-    'Recommended: '
+    'Recommended:',
+    'Related:'
 ]
 
 
