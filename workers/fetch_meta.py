@@ -6,14 +6,17 @@ import asyncio
 import aiohttp
 
 
-async def fetch_rating_data(name, source):
+async def fetch_meta_data(name, source):
     try:
-        print('[{}] Downloading Ratings...'.format(name))
+        print('[{}] Downloading Meta...'.format(name))
         async with aiohttp.ClientSession() as session:
             source._session = session
-            found = await source.read_ratings()
-        print('[{}] Complete, found {}.'.format(name, len(found)))
-        return found
+            ratings = await source.read_ratings()
+            lists = await source.read_lists()
+            group_stats = await source.read_group_stats()
+            n = len(ratings) + len(lists) + len(group_stats)
+        print('[{}] Complete, found {}.'.format(name, n))
+        return ratings, lists, group_stats
     except ArithmeticError as e:
         print('[{}] Error -> '.format(name), e)
         return []
@@ -26,19 +29,29 @@ async def main():
     ]
 
     ratings = []
-    tasks = [fetch_rating_data(name, source) for name, source in sources]
-    for source_data in await asyncio.gather(*tasks):
-        ratings.extend(source_data)
+    lists = []
+    group_stats = []
+    tasks = [fetch_meta_data(name, source) for name, source in sources]
+    for ratings_data, list_data, group_data in await asyncio.gather(*tasks):
+        ratings.extend(ratings_data)
+        lists.extend(list_data)
+        group_stats.extend(group_data)
 
-    print('[ElasticSearch] Saving {} meta ratings...'.format(len(ratings)))
+    print('[ElasticSearch] Saving {} meta...'.format(len(ratings)))
     cnt = 0
     es = elasticsearch.Elasticsearch()
-    for rating in ratings:
-        try:
-            es.create('index-rating', rating._id, rating.as_dict())
-            cnt += 1
-        except elasticsearch.exceptions.ConflictError:
-            pass
+    indexes = [
+        ('index-rating', ratings),
+        ('index-symb-list', lists),
+        ('index-group-stats', group_stats)
+    ]
+    for index, data in indexes:
+        for item in data:
+            try:
+                es.create(index, item._id, item.as_dict())
+                cnt += 1
+            except elasticsearch.exceptions.ConflictError:
+                pass
     print('[ElasticSearch] Saved {}.'.format(cnt))
 
 
