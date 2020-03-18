@@ -36,6 +36,9 @@ class MetaDataSource:
         except (ConnectionRefusedError, UnicodeDecodeError):
             return ''
 
+    async def read_ratings(self):
+        return []
+
 
 
 def hash_sha1(text):

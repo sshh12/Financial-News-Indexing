@@ -30,7 +30,8 @@ IGNORE_TEXT = [
     'debt offering',
     'Forward yield',
     'for shareholders of record',
-    ' principal amount of'
+    ' principal amount of',
+    'Developing ...'
 ]
 
 

@@ -35,7 +35,14 @@ IGNORE_TEXT = [
     'Read the latest stocks',
     'Follow Yahoo Finance on',
     'Follow him on ',
-    'Read the latest '
+    'Read the latest ',
+    '[See Also: ',
+    'Find live stock market quotes',
+    'For tutorials and information',
+    'Read more: ',
+    '(Updates with ',
+    'For more articles like this',
+    'Subscribe now to stay ahead'
 ]
 
 
