@@ -13,6 +13,7 @@ from articles.businessinsider import BusinessInsider
 from articles.yahoo import Yahoo
 from articles.washingtonpost import WashingtonPost
 from articles.coindesk import CoinDesk
+from articles.newspaper3k import Newspaper3k
 from config import config
 
 import elasticsearch
@@ -35,7 +36,8 @@ SOURCES = {
     'MarketWatch': MarketWatch(),
     'SeekingAlpha': SeekingAlpha(),
     'Reuters': Reuters(),
-    'CoinDesk': CoinDesk()
+    'CoinDesk': CoinDesk(),
+    'Newspaper3k': Newspaper3k()
 }
 
 

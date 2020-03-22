@@ -37,3 +37,4 @@ See `workers.yaml`
 * Verge
 * Washington Post
 * Yahoo
+* Misc in Newspaper3k

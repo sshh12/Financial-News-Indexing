@@ -35,6 +35,8 @@ prices:
     - PYPL
     - PFE
     - COST
+    - BNTX
+    - ZM
   cryptos:
     - BTC
     - ETH
@@ -77,6 +79,8 @@ meta:
     - PYPL
     - PFE
     - COST
+    - BNTX
+    - ZM
 news:
   sources:
     - WashingtonPost
@@ -94,3 +98,4 @@ news:
     - SeekingAlpha
     - Reuters
     - CoinDesk
+    - Newspaper3k
