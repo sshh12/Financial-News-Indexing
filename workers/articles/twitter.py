@@ -46,4 +46,4 @@ class Twitter(ArticleScraper):
         for user in USERS:
             all_articles.extend([self.status_to_article(status) 
                 for status in self.read_status_by_user(user)])
-        return all_articles
+        return [a for a in all_articles if a is not None]
