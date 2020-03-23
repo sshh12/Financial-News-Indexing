@@ -67,10 +67,11 @@ def clean_html_text(html):
     html = html.replace('&nbsp;', ' ')
     html = html.replace('&lt;', '<').replace('&gt;', '>')
     html = html.replace('•', '*').replace('●', '* ')
-    html = html.replace('\r', '')
-    html = html.replace('—', '-').replace('&ndash;', '-').replace('&mdash;', '-')
+    html = html.replace('\r', '').replace('…', '...')
+    html = html.replace('—', '-').replace('&ndash;', '-').replace('&mdash;', '-').replace('ー', '-')
     html = html.replace('‘', '\'').replace('’', '\'')
     html = html.replace('“', '').replace('”', '').replace('»', '>>')
+    html = html.replace('✅', '').replace('→', '->')
     html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/style>', '', html)
     html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/script>', '', html)
     html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+@\|#~{}\(\);\?]*>', '', html)
@@ -78,6 +79,8 @@ def clean_html_text(html):
     html = re.sub(r'<!-*[^>]+>', '', html)
     html = re.sub(r'&#[\w\d]+;', '', html)
     html = re.sub(r'\s{3,}', ' ', html)
+    html = re.sub(r'https:\/\/t.co\/[\w]+', ' ', html)
+    html = re.sub(r'RT @\w+:', '', html)
     html = re.sub('([a-z])\s{2,}([A-Z])', '\\1 \\2', html)
     return html.strip()
 
@@ -156,6 +159,12 @@ def text_to_datetime(html):
     except AttributeError:
         pass
 
+    # Mon Mar 23 16:05:53 +0000 2020
+    try:
+        return pendulum.from_format(time_text, 'ddd MMM D HH:mm:ss ZZ YYYY').in_tz(USE_TZ)
+    except AttributeError:
+        pass
+
     raise ValueError('Not datetime: ' + text)
 
 
@@ -166,3 +175,14 @@ def string_contains(text, items):
         if item_lower in text:
             return True
     return False
+
+
+def truncate_sentence(text):
+    text_fix = text.replace('U.S.', 'U_S_')
+    def first_index(token):
+        try:
+            return text_fix.index(token, 5)
+        except:
+            return len(text)
+    idx = min([first_index('.'), first_index('?'), first_index('!'), first_index('\n')])
+    return text[:idx+1]

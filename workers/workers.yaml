@@ -1,6 +1,6 @@
 prices: 
   alphavantage:
-    api_key: *************
+    api_key: **************
   stocks:
     - INX
     - DJI
@@ -106,5 +106,54 @@ news:
       - https://www.forbes.com/money
       - https://www.politico.com
       - https://www.bbc.com/news
+  twitter:
+    users:
+      - realDonaldTrump
+      - stlouisfed
+      - coindesk
+      - paulkrugman
+      - EIAgov
+      - RedDogT3
+      - zerohedge
+      - alaidi
+      - forexcrunch
+      - DailyFXTeam
+      - PeterLBrandt
+      - elerianm
+      - Ralph_Acampora
+      - jimcramer
+      - rayner_teo
+      - stocktwits
+      - breakoutstocks
+      - bespokeinvest
+      - WSJMarkets
+      - stephanie_link
+      - nytimesbusiness
+      - IBDinvestors
+      - ReformedBroker
+      - TheStalwart
+      - VitalikButerin
+      - LizAnnSonders
+      - charliebilello
+      - ScottMinerd
+      - RyanDetrick
+      - KeithMcCullough
+      - cullenroche
   sources:
+    - WashingtonPost
+    - Yahoo
+    - BusinessInsider
+    - TheStreet
+    - CNN
+    - Verge
+    - CNBC
+    - IBTimes
+    - Benzinga
+    - Barrons
+    - Bloomberg
+    - MarketWatch
+    - SeekingAlpha
+    - Reuters
+    - CoinDesk
     - Newspaper3k
+    - Twitter
