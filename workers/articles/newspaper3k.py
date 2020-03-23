@@ -50,13 +50,16 @@ class Newspaper3k(ArticleScraper):
             try:
                 article.download()
                 article.parse()
+                assert article.title is not None
+                assert article.text is not None
+                assert article.publish_date is not None
             except:
                 continue
             headline = clean_html_text(article.title)
             text = clean_html_text(article.text)
             text = '\n\n'.join([section for section in text.split('\n\n') 
                 if not string_contains(section, IGNORE_LINE_WITH)])
-            if len(text) < 30 or article.publish_date is None:
+            if len(text) < 30:
                 continue
             date = pendulum.instance(article.publish_date)
             articles.append(Article(source, headline, date, text, article.url))
