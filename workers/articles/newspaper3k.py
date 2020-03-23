@@ -29,11 +29,17 @@ SOURCE_SITES = [
     'https://www.bbc.com/news'
 ]
 
+
 IGNORE_LINE_WITH = [
     'Learn more now.',
     'Want to be alerted before Jim Cramer',
     'Check out the rest of the conversation',
-    'This story has been updated'
+    'This story has been updated',
+    'please consider joining Slate Plus',
+    'usual commenting policies apply',
+    'Associated Press, USA TODAY',
+    'Fool on!',
+    '- Getty Images'
 ]
 
 
@@ -46,7 +52,8 @@ class Newspaper3k(ArticleScraper):
         paper = newspaper.build(site, language='en', memoize_articles=True)
         source = 'newspaper3k-' + site.replace('http://', '').replace('https://', '')
         articles = []
-        for article in paper.articles:
+        for i, article in enumerate(paper.articles):
+            print(' >', site, i)
             try:
                 article.download()
                 article.parse()
