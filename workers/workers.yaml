@@ -1,4 +1,6 @@
 prices: 
+  alphavantage:
+    api_key: *************
   stocks:
     - INX
     - DJI
@@ -82,20 +84,27 @@ meta:
     - BNTX
     - ZM
 news:
+  newpaper3k:
+    sources:
+      - https://techcrunch.com
+      - https://cnn.com
+      - https://money.cnn.com/data/markets/
+      - https://slate.com/
+      - https://www.thestreet.com
+      - https://fool.com
+      - https://www.foxnews.com
+      - https://www.nytimes.com
+      - https://www.huffpost.com
+      - https://www.nbcnews.com
+      - https://www.washingtonpost.com
+      - https://www.theguardian.com/us
+      - https://abcnews.go.com
+      - https://www.bbc.com/news
+      - https://www.usatoday.com
+      - https://www.kiplinger.com
+      - https://www.bloomberg.com/markets
+      - https://www.forbes.com/money
+      - https://www.politico.com
+      - https://www.bbc.com/news
   sources:
-    - WashingtonPost
-    - Yahoo
-    - BusinessInsider
-    - TheStreet
-    - CNN
-    - Verge
-    - CNBC
-    - IBTimes
-    - Benzinga
-    - Barrons
-    - Bloomberg
-    - MarketWatch
-    - SeekingAlpha
-    - Reuters
-    - CoinDesk
     - Newspaper3k

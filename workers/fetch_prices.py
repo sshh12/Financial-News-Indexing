@@ -21,10 +21,11 @@ async def fetch_tick_data(name, source):
 
 
 async def main():
-
+    
     sources = [
         ('CryptoCompare', CryptoCompare(config['prices']['cryptos'])),
-        ('AlphaVantage', AlphaVantage(config['prices']['stocks'], api_key='MCGHKC5Z4IEPGT8V'))
+        ('AlphaVantage', AlphaVantage(config['prices']['stocks'], 
+            api_key=config['prices']['alphavantage']['api_key']))
     ]
 
     ticks = []

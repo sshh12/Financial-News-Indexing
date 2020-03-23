@@ -4,31 +4,10 @@ import pendulum
 import newspaper
 import asyncio
 import re
+from config import config
 
 
-SOURCE_SITES = [
-    'https://techcrunch.com',
-    'https://cnn.com',
-    'https://money.cnn.com/data/markets/',
-    'https://slate.com/',
-    'https://www.thestreet.com',
-    'https://fool.com',
-    'https://www.foxnews.com',
-    'https://www.nytimes.com',
-    'https://www.huffpost.com',
-    'https://www.nbcnews.com',
-    'https://www.washingtonpost.com',
-    'https://www.theguardian.com/us',
-    'https://abcnews.go.com',
-    'https://www.bbc.com/news',
-    'https://www.usatoday.com',
-    'https://www.kiplinger.com',
-    'https://www.bloomberg.com/markets',
-    'https://www.forbes.com/money',
-    'https://www.politico.com',
-    'https://www.bbc.com/news'
-]
-
+SOURCE_SITES = config['news']['newpaper3k']['sources']
 
 IGNORE_LINE_WITH = [
     'Learn more now.',
@@ -39,7 +18,9 @@ IGNORE_LINE_WITH = [
     'usual commenting policies apply',
     'Associated Press, USA TODAY',
     'Fool on!',
-    '- Getty Images'
+    '- Getty Images',
+    'Photo illustration by Slate',
+    '(Reporting by '
 ]
 
 
