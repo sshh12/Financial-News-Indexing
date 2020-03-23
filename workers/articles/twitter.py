@@ -35,9 +35,9 @@ class Twitter(ArticleScraper):
         if len(cleaned) < 10:
             return None
         trucated = truncate_sentence(cleaned)
-        text = f'{user.name} (@{user.screen_name}) - ' + cleaned
-        headline = f'{user.name} - ' + trucated
-        url = f'https://twitter.com/{user.screen_name}/status/{status.id}'
+        text = '{} (@{}) - {}'.format(user.name, user.screen_name, cleaned)
+        headline = user.name + ' - ' + trucated
+        url = 'https://twitter.com/{}/status/{}'.format(user.screen_name, status.id)
         date = text_to_datetime(status.created_at)
         return Article('twitter', headline, date, text, url)
 
