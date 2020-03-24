@@ -78,8 +78,6 @@ class CoinDesk(ArticleScraper):
             return None
         date = text_to_datetime(date_match.group(1))
 
-        print(headline, date)
-
         text = []
 
         for p_match in re.finditer(r'<p class="text\s*">([\s\S]+?)<\/p>', article_html):
@@ -90,8 +88,6 @@ class CoinDesk(ArticleScraper):
 
         if len(text) == 0:
             return None
-
-        print('\n\n\n'.join(text))
 
         return Article('coindesk', headline, date, '\n\n\n'.join(text), self.url + url)
 

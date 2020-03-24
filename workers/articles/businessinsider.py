@@ -1,19 +1,27 @@
 from . import Article, clean_html_text, ArticleScraper, string_contains, text_to_datetime
 
 import asyncio
+import json
 import re
 
 
 TOPIC_URLS = [
     '/',
+    '/news'
     '/sai',
     '/clusterstock',
     '/transportation',
     '/politics'
     '/moneygame',
+    '/warroom'
     '/science',
     '/retail',
     '/enterprise'
+]
+
+DELETE_TEXT = [
+    'Here\'s the latest.',
+    'US-specific live updates can be found here.'
 ]
 
 IGNORE_TEXT = [
@@ -41,7 +49,9 @@ IGNORE_TEXT = [
     'AP Photo',
     'If you are a ',
     'contributed to ',
-    'Follow INSIDER on'
+    'Follow INSIDER on',
+    'This is a preview of',
+    'For typos, numerical, grammar'
 ]
 
 
@@ -62,22 +72,24 @@ class BusinessInsider(ArticleScraper):
         if headline == 'Whoops!':
             return None
 
-        date_match = re.search(r'byline-timestamp" data-timestamp="([\-+\dT:]+)"', article_html)
-        if date_match:
-            date = text_to_datetime(date_match.group(1))
-        else:
+        date_match = re.search(r'data-timestamp="([\-+\dTZ:]+)"', article_html)
+        if not date_match:
+            return None
+        date = text_to_datetime(date_match.group(1))
+
+        article_match = re.search(r'<script type="application\/ld\+json">([\s\S]+?)<\/script>', article_html)
+        if not article_match:
             return None
 
-        text = []
-
-        for p_match in re.finditer(r'<p\s+class="">([\s\S]+?)<\/p>', article_html):
-            paragraph = clean_html_text(p_match.group(1))
-            if paragraph.count(' ') <= 2 or string_contains(paragraph, IGNORE_TEXT):
-                continue
-            text.append(paragraph)
-
-        if len(text) == 0:
-            return None
+        article_text = json.loads(article_match.group(1).strip())['articleBody']
+        if '>>' in article_text:
+            article_text = article_text[:article_text.index('>>')]
+        article_text = re.sub('([a-z])([A-Z])', '\\1. \\2', article_text)
+        article_text = re.sub('\.([A-Z])', '. \\1', article_text)
+        for dtext in DELETE_TEXT:
+            article_text = article_text.replace(dtext, '')
+        text = clean_html_text(article_text).split('\n')
+        text = [p for p in text if not string_contains(p, IGNORE_TEXT)]
 
         return Article('businessinsider', headline, date, '\n\n\n'.join(text), self.url + url)
 
