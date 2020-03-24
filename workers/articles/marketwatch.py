@@ -46,7 +46,7 @@ class MarketWatch(ArticleScraper):
             return None
         headline = clean_html_text(headline_match.group(1))
 
-        date_match = re.search(r'>(\w+ \d+, \d+ \d+:\d+ [\.apm]+ \w+)<', article_html)
+        date_match = re.search(r'Published: ([^<]+?)<\/time>', article_html)
         if not date_match:
             return None
         date = text_to_datetime(date_match.group(1))

@@ -133,8 +133,10 @@ def text_to_datetime(html):
     
     # June 27, 2019 11:47 am ET
     # June 26, 2019 4:07 p.m. ET
+    # March 24, 2020 at 9:11 a.m. ET
     try:
-        time_text = _timezone_to_offset(text.replace('.', '').replace(',', '').replace('am', 'AM').replace('pm', 'PM'))
+        time_text = _timezone_to_offset(text.replace(' at ', ' ').replace('.', '')\
+            .replace(',', '').replace('am', 'AM').replace('pm', 'PM'))
         return pendulum.from_format(time_text, 'MMMM D YYYY h:mm A ZZ').in_tz(USE_TZ)
     except (ValueError, IndexError):
         pass
