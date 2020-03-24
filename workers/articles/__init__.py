@@ -82,6 +82,7 @@ def clean_html_text(html):
     html = re.sub(r'https:\/\/t.co\/[\w]+', ' ', html)
     html = re.sub(r'RT @\w+:', '', html)
     html = re.sub('([a-z])\s{2,}([A-Z])', '\\1 \\2', html)
+    html = html.replace(' (Updated)', '')
     return html.strip()
 
 

@@ -6,9 +6,12 @@ import re
 
 TOPIC_URLS = [
     '/',
-    '/category/technology-news',
-    '/category/markets-news',
-    '/category/business-news',
+    '/news',
+    '/features',
+    '/opinion'
+    '/category/tech',
+    '/category/markets',
+    '/category/business',
 ]
 
 IGNORE_URLS = [
@@ -25,7 +28,24 @@ IGNORE_URLS = [
     '/about',
     '/newsletters',
     '/category/',
-    '/advertising'
+    '/advertising',
+    '/data',
+    '/learn',
+    '/search',
+    '/webinars',
+    '/video',
+    '/privacy',
+    '/ico-calendar',
+    '/bitcoin-events',
+    '/news',
+    '/calculator',
+    '/terms',
+    '/crypto-investment-research',
+    '/features',
+    '/opinion',
+    '/coindesk-api',
+    '/tag',
+    '/author'
 ]
 
 IGNORE_TEXT = [
@@ -33,33 +53,36 @@ IGNORE_TEXT = [
     ' image via ',
     'via CoinDesk',
     'CoinDesk is a',
-    'Edit: '
+    'Edit: ',
+    'contributed reporting',
+    'See also: '
 ]
 
 
 class CoinDesk(ArticleScraper):
 
     def __init__(self):
-        self.url = 'https://www.coindesk.com/'
+        self.url = 'https://www.coindesk.com'
 
     async def read_article(self, url):
         
         article_html = await self._get(url)
             
-        headline_match = re.search(r'<h1>([^<]+)<\/h1>', article_html)
+        headline_match = re.search(r'<h1 class="heading\s*">([^<]+)<\/h1>', article_html)
         if not headline_match:
             return None
         headline = clean_html_text(headline_match.group(1))
 
-        date_match = re.search(r'<span>(\w+ \d+, \d+ at \d+:\d+ \w+)<\/span>', article_html)
-        if date_match:
-            date = text_to_datetime(date_match.group(1).replace(' at ', ' '))
-        else:
+        date_match = re.search(r'<time dateTime="([^"]+?)">', article_html)
+        if not date_match:
             return None
+        date = text_to_datetime(date_match.group(1))
+
+        print(headline, date)
 
         text = []
 
-        for p_match in re.finditer(r'<p>([\s\S]+?)<\/p>', article_html):
+        for p_match in re.finditer(r'<p class="text\s*">([\s\S]+?)<\/p>', article_html):
             paragraph = clean_html_text(p_match.group(1))
             if paragraph.count(' ') <= 2 or string_contains(paragraph, IGNORE_TEXT):
                 continue
@@ -67,6 +90,8 @@ class CoinDesk(ArticleScraper):
 
         if len(text) == 0:
             return None
+
+        print('\n\n\n'.join(text))
 
         return Article('coindesk', headline, date, '\n\n\n'.join(text), self.url + url)
 
@@ -77,7 +102,7 @@ class CoinDesk(ArticleScraper):
         article_urls = set()
         for url in topic_urls:
             list_html = await self._get(url)
-            for match in re.finditer(r'coindesk.com(\/[\w\-\/]+)"', list_html):
+            for match in re.finditer(r'href="(\/[\w\-\/]+)"', list_html):
                 if not string_contains(match.group(1), IGNORE_URLS):
                     article_urls.add(match.group(1))
 
