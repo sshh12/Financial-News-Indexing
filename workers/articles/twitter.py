@@ -7,13 +7,13 @@ import re
 from config import config
 
 
-TW_CONFIG = config['news']['twitter']
-USERS = TW_CONFIG['users']
+USERS = config['news']['twitter']['users']
+TW_CREDS = config['creds']['twitter']
 API = twitter.Api(
-    consumer_key=TW_CONFIG['consumer_key'],
-    consumer_secret=TW_CONFIG['consumer_secret'],
-    access_token_key=TW_CONFIG['access_token_key'],
-    access_token_secret=TW_CONFIG['access_token_secret']
+    consumer_key=TW_CREDS['consumer_key'],
+    consumer_secret=TW_CREDS['consumer_secret'],
+    access_token_key=TW_CREDS['access_token_key'],
+    access_token_secret=TW_CREDS['access_token_secret']
 )
 
 

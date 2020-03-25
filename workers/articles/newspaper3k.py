@@ -20,7 +20,13 @@ IGNORE_LINE_WITH = [
     'Fool on!',
     '- Getty Images',
     'Photo illustration by Slate',
-    '(Reporting by '
+    '(Reporting by ',
+    'Below is a snapshot of',
+    'Full details at ',
+    'This headline-only article is',
+    'Stop Googling for information and',
+    'Benzinga Pro',
+    'Start your FREE '
 ]
 
 

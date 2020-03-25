@@ -1,6 +1,4 @@
 prices: 
-  alphavantage:
-    api_key: **************
   stocks:
     - INX
     - DJI
@@ -106,6 +104,7 @@ news:
       - https://www.forbes.com/money
       - https://www.politico.com
       - https://www.bbc.com/news
+      - https://www.benzinga.com
   twitter:
     users:
       - realDonaldTrump

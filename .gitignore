@@ -3,3 +3,4 @@ prod.env
 *.pyc
 migrate*.py
 dump/
+creds.yaml

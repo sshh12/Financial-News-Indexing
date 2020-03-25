@@ -25,7 +25,7 @@ async def main():
     sources = [
         ('CryptoCompare', CryptoCompare(config['prices']['cryptos'])),
         ('AlphaVantage', AlphaVantage(config['prices']['stocks'], 
-            api_key=config['prices']['alphavantage']['api_key']))
+            api_key=config['creds']['alphavantage']['api_key']))
     ]
 
     ticks = []

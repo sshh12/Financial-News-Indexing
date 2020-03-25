@@ -18,6 +18,7 @@ from articles.twitter import Twitter
 from config import config
 
 import elasticsearch
+import traceback
 import asyncio
 import aiohttp
 
@@ -53,6 +54,7 @@ async def fetch_articles(name, source):
         return found
     except Exception as e:
         print('[{}] Error -> '.format(name), e)
+        traceback.print_exc()
         return []
 
 
