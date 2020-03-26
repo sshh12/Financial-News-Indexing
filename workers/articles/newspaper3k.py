@@ -26,7 +26,12 @@ IGNORE_LINE_WITH = [
     'This headline-only article is',
     'Stop Googling for information and',
     'Benzinga Pro',
-    'Start your FREE '
+    'Start your FREE ',
+    'Waiting for the chat to go live',
+    ' on Twitter here.',
+    'Listen to an episode of ',
+    'Read more:',
+    ' on Twitter here.'
 ]
 
 

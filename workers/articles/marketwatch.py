@@ -28,7 +28,11 @@ IGNORE_TEXT = [
     'click on this',
     'you understand and agree that we',
     'Recommended:',
-    'Related:'
+    'Related:',
+    'is a MarketWatch reporter',
+    ' reporter for MarketWatch.',
+    'Follow MarketWatch on ',
+    'is an editor for MarketWatch'
 ]
 
 

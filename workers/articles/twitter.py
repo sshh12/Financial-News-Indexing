@@ -13,7 +13,8 @@ API = twitter.Api(
     consumer_key=TW_CREDS['consumer_key'],
     consumer_secret=TW_CREDS['consumer_secret'],
     access_token_key=TW_CREDS['access_token_key'],
-    access_token_secret=TW_CREDS['access_token_secret']
+    access_token_secret=TW_CREDS['access_token_secret'],
+    tweet_mode='extended'
 )
 
 
@@ -31,15 +32,16 @@ class Twitter(ArticleScraper):
 
     def status_to_article(self, status):
         user = status.user
-        cleaned = clean_html_text(status.text)
-        if len(cleaned) < 10:
+        try:
+            cleaned = clean_html_text(status.full_text)
+            assert len(cleaned) > 10
+        except Exception as e:
             return None
         trucated = truncate_sentence(cleaned)
-        text = '{} (@{}) - {}'.format(user.name, user.screen_name, cleaned)
         headline = user.name + ' - ' + trucated
         url = 'https://twitter.com/{}/status/{}'.format(user.screen_name, status.id)
         date = text_to_datetime(status.created_at)
-        return Article('twitter', headline, date, text, url)
+        return Article('twitter', headline, date, cleaned, url)
 
     async def read_news(self):
         all_articles = []
