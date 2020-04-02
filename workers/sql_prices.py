@@ -1,7 +1,6 @@
 from tickers.alphavantage import AlphaVantage
 from tickers.cryptocompare import CryptoCompare
 from db import Symbol, OHLCV
-from datetime import timedelta
 from config import config
 
 import asyncio
@@ -31,7 +30,7 @@ def tick_to_OHLCV(sym_map, tick):
         'volume': tick.volume,
         'period': 60,
         'start': tick.date,
-        'end': tick.date + timedelta(minutes=1),
+        'end': tick.date.add(minutes=1),
         'source': tick.source
     }
     return update
@@ -66,7 +65,8 @@ async def main():
         source_ticks = [tick for tick in source_ticks if tick.volume > 0]
         updates.extend([tick_to_OHLCV(map_, tick) for tick in source_ticks])
 
-    OHLCV.insert_many(updates).execute()
+    print('Saving...', len(updates))
+    OHLCV.insert_many(updates).on_conflict('ignore').execute()
 
 
 if __name__ == "__main__":

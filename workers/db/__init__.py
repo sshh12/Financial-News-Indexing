@@ -28,10 +28,10 @@ class Symbol(Model):
 
 class Article(Model):
 
-    article_id = CharField(unique=True, primary_key=True) 
-    title = CharField()
+    symbols = ManyToManyField(Symbol, backref='articles')
+    title = TextField()
     content = TextField(null=True)
-    url = CharField()
+    url = TextField(unique=True)
     source = CharField()
     published = DateTimeField()
     found = DateTimeField()
@@ -40,14 +40,7 @@ class Article(Model):
         database = db
 
 
-class SymbolArticle(Model):
-
-    symbol = ForeignKeyField(Symbol)
-    article = ForeignKeyField(Article)
-
-    class Meta:
-        primary_key = CompositeKey('symbol', 'article')
-        database = db
+SymbolArticle = Article.symbols.get_through_model()
 
 
 class OHLCV(Model):
@@ -65,6 +58,9 @@ class OHLCV(Model):
 
     class Meta:
         database = db
+        indexes = (
+            (('symbol', 'source', 'start', 'period'), True),
+        )
 
 
 class Stat(Model):
@@ -76,13 +72,16 @@ class Stat(Model):
     value = DoubleField()
     published = DateTimeField()
     found = DateTimeField()
-    effect = DateTimeField()
+    effected = DateTimeField()
     period = IntegerField()
 
     class Meta:
         database = db
+        indexes = (
+            (('symbol', 'source', 'name', 'effected', 'period'), True),
+        )
 
 
-MODELS = [Symbol, Article, SymbolArticle, OHLCV, Stat]
-# db.drop_tables(MODELS)
+MODELS = [SymbolArticle, Symbol, Article, OHLCV, Stat]
+# db.drop_tables(MODELS, cascade=True)
 # db.create_tables(MODELS)

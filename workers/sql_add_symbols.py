@@ -1,6 +1,6 @@
 from meta.financialmodelingprep import FinancialModelingPrep
-from db import Symbol
 from config import config
+from db import Symbol
 
 import asyncio
 import aiohttp
@@ -8,12 +8,10 @@ import aiohttp
 
 async def main():
 
+    updates = []
+
     for crypto_sym in config['prices']['cryptos']:
-        symbol = Symbol(symbol=crypto_sym, name=crypto_sym, asset_type='crypto')
-        try:
-            symbol.save(force_insert=True)
-        except:
-            print(crypto_sym, 'already exists.')
+        updates.append(dict(symbol=crypto_sym, name=crypto_sym, industry=None, sector=None, asset_type='crypto'))
     
     async with aiohttp.ClientSession() as session:
 
@@ -33,11 +31,10 @@ async def main():
             desc = sym_info['profile']['description']
             industry = sym_info['profile']['industry']
             sector = sym_info['profile']['sector']
-            symbol = Symbol(symbol=sym, name=name, desc=desc, industry=industry, sector=sector, asset_type='stock')
-            try:
-                symbol.save(force_insert=True)
-            except:
-                print(sym, 'already exists.')
+            updates.append(dict(symbol=sym, name=name, desc=desc, industry=industry, sector=sector, asset_type='stock'))
+
+    print('Saving...', len(updates))
+    Symbol.insert_many(updates).on_conflict('ignore').execute()
 
 
 if __name__ == "__main__":
