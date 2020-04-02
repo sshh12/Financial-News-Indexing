@@ -6,7 +6,7 @@ import json
 
 class FinancialModelingPrep(MetaDataSource):
 
-    def __init__(self, symbols):
+    def __init__(self, symbols=[]):
         self.url = 'https://financialmodelingprep.com'
         self.symbols = symbols
 

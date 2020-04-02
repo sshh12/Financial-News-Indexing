@@ -15,20 +15,24 @@ def _chunks(items, size):
 
 class AlphaVantage(TickDataSource):
 
-    def __init__(self, symbols, api_key='demo'):
+    def __init__(self, symbols, api_keys=['demo']):
         self.url = 'https://www.alphavantage.co'
         self.symbols = symbols
-        self.api_key = api_key
+        self.api_keys = api_keys
 
-    async def read_stock_data(self, symbol, attempt=0):
+    async def read_stock_data(self, symbol, key_idx=0, attempt=0):
         
-        res_json = json.loads(await self._get('/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=1min&apikey={}'.format(symbol, self.api_key)))
+        api_key = self.api_keys[key_idx]
+        res_json = json.loads(await self._get('/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=1min&apikey={}'.format(symbol, api_key)))
 
         if 'Note' in res_json and 'call freq' in res_json['Note']:
-            if attempt > 2:
+            if attempt > 4:
                 return []
-            await asyncio.sleep(120)
-            return await self.read_stock_data(symbol, attempt=attempt+1)
+            if key_idx == len(self.api_keys) - 1:
+                await asyncio.sleep(120)
+                return await self.read_stock_data(symbol, attempt=attempt+1)
+            else:
+                return await self.read_stock_data(symbol, key_idx=key_idx+1)
 
         if 'Error Message' in res_json or 'Meta Data' not in res_json:
             print(symbol, res_json)

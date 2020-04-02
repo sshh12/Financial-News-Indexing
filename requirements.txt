@@ -6,3 +6,4 @@ newspaper3k
 Pillow==7.0.0
 twython==3.7.0
 python_twitter==3.5
+peewee==3.13.2

@@ -32,7 +32,8 @@ IGNORE_TEXT = [
     'is a MarketWatch reporter',
     ' reporter for MarketWatch.',
     'Follow MarketWatch on ',
-    'is an editor for MarketWatch'
+    'is an editor for MarketWatch',
+    ' is MarketWatch\'s '
 ]
 
 

@@ -31,7 +31,9 @@ IGNORE_LINE_WITH = [
     ' on Twitter here.',
     'Listen to an episode of ',
     'Read more:',
-    ' on Twitter here.'
+    ' on Twitter here.',
+    'Read the full column here',
+    'Catch up on the Latest'
 ]
 
 
