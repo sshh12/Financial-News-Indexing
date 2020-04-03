@@ -118,15 +118,17 @@ async def main():
         updates.extend([article_to_sql_article(a) for a in source_articles])
 
     print('Saving...', len(updates))
-    arts = []
+    need_symbols = []
     for art_update in updates:
         article, created = Article.get_or_create(url=art_update['url'], defaults=art_update)
-        arts.append(article)
+        if created:
+            need_symbols.append(article)
 
     with db.atomic():
-        for art in arts:
+        for art in need_symbols:
             symbols = find_obvious_symbols(symbols, art)
-            art.symbols.add(list(symbols))
+            if len(symbols) > 0:
+                art.symbols.add(list(symbols))
         
 
 

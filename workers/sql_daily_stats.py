@@ -40,7 +40,6 @@ def daily_rating_to_stat(rating):
 
 def daily_group_stat_to_stat(gstat):
     today = pendulum.today()
-    print(gstat.groups)
     updates = []
     for sector, change in gstat.groups.items():
         updates.append(({
