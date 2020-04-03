@@ -37,6 +37,7 @@ prices:
     - COST
     - BNTX
     - ZM
+    - SPX
   cryptos:
     - BTC
     - ETH
@@ -47,47 +48,21 @@ meta:
     - INX
     - DJI
     - MSFT
-    - TWLO
-    - LYFT
-    - UBER
     - AAPL
-    - GOOGL
-    - WMT
-    - ACB
-    - BAC
-    - JPM
-    - INTC
-    - BIDU
-    - TWTR
-    - TSLA
     - NFLX
-    - FB
-    - BABA
-    - SNAP
-    - AMZN
-    - T
-    - MU
-    - WORK
-    - BYND
     - GE
-    - FIT
-    - F
-    - AMD
-    - BA
-    - NVDA
-    - NKE
-    - PYPL
     - PFE
-    - COST
-    - BNTX
-    - ZM
+    - GOOGL
+    - UBER
+    - LYFT
+    - AMZN
 news:
   newpaper3k:
     sources:
       - https://techcrunch.com
       - https://cnn.com
       - https://money.cnn.com/data/markets/
-      - https://slate.com/
+      - https://slate.com
       - https://www.thestreet.com
       - https://fool.com
       - https://www.foxnews.com

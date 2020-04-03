@@ -87,6 +87,8 @@ def find_obvious_symbols(symbols, article):
         name = _strip_name(name)
         if _str_includes(text, sym) or _str_includes(headline, sym):
             comps.add(symbol)
+        elif ' $' + sym.lower() + ' ' in text or ' $' + sym.lower() + ' ' in headline:
+            comps.add(symbol)
         elif _str_includes(text, name) or _str_includes(headline, name):
             comps.add(symbol)
     return comps

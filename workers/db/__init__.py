@@ -69,11 +69,12 @@ class Stat(Model):
     category = CharField()
     name = CharField()
     source = CharField()
-    value = DoubleField()
-    published = DateTimeField()
-    found = DateTimeField()
-    effected = DateTimeField()
-    period = IntegerField()
+    value = DoubleField(null=True)
+    svalue = CharField(null=True)
+    published = DateTimeField(null=True)
+    found = DateTimeField(null=True)
+    effected = DateTimeField(null=True)
+    period = IntegerField(null=True)
 
     class Meta:
         database = db

@@ -2,5 +2,5 @@
 prod.env
 *.pyc
 migrate*.py
-dump/
+data/
 creds.yaml
