@@ -10,7 +10,7 @@ async def main():
 
     updates = []
 
-    for crypto_sym in config['prices']['cryptos']:
+    for crypto_sym in config['general']['cryptos']:
         updates.append(dict(symbol=crypto_sym, name=crypto_sym, industry=None, sector=None, asset_type='crypto'))
     
     async with aiohttp.ClientSession() as session:
@@ -18,7 +18,7 @@ async def main():
         fmp = FinancialModelingPrep()
         fmp._session = session
 
-        stock_symbols = config['prices']['stocks'] + config['meta']['stocks']
+        stock_symbols = config['prices']['stocks'] + config['meta']['stocks'] + config['general']['stocks']
         stock_symbols = list(set(stock_symbols))
 
         fetch_tasks = [fmp._call_api('company/profile/' + sym) for sym in stock_symbols]

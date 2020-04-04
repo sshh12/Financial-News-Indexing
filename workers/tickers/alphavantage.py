@@ -23,7 +23,6 @@ class AlphaVantage(TickDataSource):
     async def read_stock_data(self, symbol, key_idx=0, attempt=0):
         
         api_key = self.api_keys[key_idx]
-        print(symbol, key_idx)
         url = '/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=1min&apikey={}'.format(symbol.strip(), api_key)
         res_json = json.loads(await self._get(url))
 

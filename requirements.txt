@@ -1,9 +1,10 @@
-elasticsearch
-pendulum
-aiohttp
-nltk
-newspaper3k
+elasticsearch==6.3.1
+pendulum==2.0.5
+aiohttp==3.6.2
+nltk==3.2.4
+newspaper3k==0.2.8
 Pillow==7.0.0
 twython==3.7.0
 python_twitter==3.5
 peewee==3.13.2
+psycopg2==2.7.5

@@ -1,5 +1,6 @@
 prices: 
   stocks:
+    - SPX
     - INX
     - DJI
     - MSFT
@@ -56,6 +57,62 @@ meta:
     - UBER
     - LYFT
     - AMZN
+    - FB
+general:
+  stocks:
+    - INX
+    - DJI
+    - MSFT
+    - TWLO
+    - LYFT
+    - UBER
+    - AAPL
+    - GOOGL
+    - WMT
+    - ACB
+    - BAC
+    - JPM
+    - INTC
+    - BIDU
+    - TWTR
+    - TSLA
+    - NFLX
+    - FB
+    - BABA
+    - SNAP
+    - AMZN
+    - T
+    - MU
+    - WORK
+    - BYND
+    - GE
+    - FIT
+    - F
+    - AMD
+    - BA
+    - NVDA
+    - NKE
+    - PYPL
+    - PFE
+    - COST
+    - BNTX
+    - ZM
+    - SPX
+    - GLD
+    - SRS
+    - IVV
+    - BNTX
+    - NXGN
+    - VXX
+    - UAL
+    - ZIV
+    - JETS
+    - CUK
+  cryptos:
+    - BTC
+    - ETH
+    - LTC
+    - DOGE
 news:
   newpaper3k:
     sources:

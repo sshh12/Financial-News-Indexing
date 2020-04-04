@@ -1,5 +1,5 @@
 from meta.financialmodelingprep import FinancialModelingPrep
-from db import Symbol, Stat
+from db import Symbol, Stat, Article
 from config import config
 
 import pendulum
