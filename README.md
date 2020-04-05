@@ -2,7 +2,7 @@
 
 > A suite of market/financial news webscrapers.
 
-### PostgreSQL Usage
+### PostgreSQL Usage (`workers/sql_*.py`)
 
 1. Install [PostgreSQL](https://www.postgresql.org/download/)
 2. `$ pip install requirements.txt`
@@ -12,7 +12,7 @@
 0 0,2,4,6,8,12,14,16,18,20 * * * sudo python3 /projects/Financial-News-Indexing/workers/sql_prices.py >> /projects/log.txt 2>&1
 ```
 
-### Elastic Search Usage
+### Elastic Search Usage (`workers/es_*.py`)
 
 1. Install [Elastic Search](https://www.elastic.co/) on `localhost`
 2. `$ pip install requirements.txt`
