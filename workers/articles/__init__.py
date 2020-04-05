@@ -72,6 +72,7 @@ def clean_html_text(html):
     html = html.replace('‘', '\'').replace('’', '\'')
     html = html.replace('“', '').replace('”', '').replace('»', '>>')
     html = html.replace('✅', '').replace('→', '->').replace('💯', '').replace('🚨', '')
+    html = html.replace('Â\xa0', ' ').replace('Â½', '').replace('®', '').replace('\xa0', ' ')
     html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/style>', '', html)
     html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/script>', '', html)
     html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+@\|#~{}\(\);\?]*>', '', html)
@@ -165,7 +166,29 @@ def text_to_datetime(html):
     # Mon Mar 23 16:05:53 +0000 2020
     try:
         return pendulum.from_format(time_text, 'ddd MMM D HH:mm:ss ZZ YYYY').in_tz(USE_TZ)
-    except AttributeError:
+    except (ValueError, AttributeError):
+        pass
+
+    # April 02, 2020
+    try:
+        time_text = text.replace(',', '')
+        return pendulum.from_format(time_text, 'MMMM DD YYYY').in_tz(USE_TZ)
+    except (ValueError, AttributeError):
+        pass
+
+    # Apr022020
+    # Mar 10, 2020
+    try:
+        time_text = text.replace(',', '').replace(' ', '')
+        return pendulum.from_format(time_text, 'MMMDDYYYY').in_tz(USE_TZ)
+    except (ValueError, AttributeError):
+        pass
+
+    # 03/31/20
+    try:
+        time_text = text.replace('/', '-')
+        return pendulum.from_format(time_text, 'MM-DD-YY').in_tz(USE_TZ)
+    except (ValueError, AttributeError):
         pass
 
     raise ValueError('Not datetime: ' + text)
