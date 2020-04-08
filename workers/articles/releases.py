@@ -36,7 +36,7 @@ class RegexPRScraper(PRScraper):
             url = self.URL + match.group(type_to_group['url']).strip()
             title = clean_html_text(match.group(type_to_group['title']))
             releases.append(Article(self.NAME.lower(), title, date, "", url))
-        return self.SYMBOL, releases
+        return self.SYMBOL, self.NAME, releases
 
 
 class GetPressReleaseJSONScraper(PRScraper):
@@ -50,7 +50,7 @@ class GetPressReleaseJSONScraper(PRScraper):
             url = self.URL + item['LinkToDetailPage']
             title = clean_html_text(item['Headline'])
             releases.append(Article(self.NAME.lower(), title, date, "", url))
-        return self.SYMBOL, releases
+        return self.SYMBOL, self.NAME, releases
 
 
 class Gilead(RegexPRScraper):
@@ -180,6 +180,107 @@ class Pfizer(GetPressReleaseJSONScraper):
         )
 
 
+class Immunomedics(RegexPRScraper):
+
+    URL = 'https://www.immunomedics.com'
+    NAME = 'Immunomedics'
+    SYMBOL = 'IMMU'
+
+    async def read_prs(self):
+        year = pendulum.now().year
+        return await self.read_prs_with_regex(
+            r'<a href="https:\/\/www.immunomedics.com([^"]+)">\s*<div class="row">\s*<h6>([^<]+?)<\/h6>\s*<h5>([^<]+?)<\/h5>',
+            '/our-company/news-and-events/{}/'.format(year),
+            type_to_group={'date': 2, 'url': 1, 'title': 3}
+        )
+
+
+class EmergentBioSolutions(RegexPRScraper):
+
+    URL = 'https://investors.emergentbiosolutions.com'
+    NAME = 'Emergent Bio Solutions'
+    SYMBOL = 'EBS'
+
+    async def read_prs(self):
+        year = pendulum.now().year
+        return await self.read_prs_with_regex(
+            r'field-nir-date">([^<]+?)<\/td>[\s\S]+?<a href="([^"]+?)" class="[\w\-]+">([^>]+?)<',
+            '/news-releases?field_nir_news_date_value[min]={}'.format(year)
+        )
+
+
+class BioNTech(RegexPRScraper):
+
+    URL = 'https://investors.biontech.de'
+    NAME = 'BioNTech'
+    SYMBOL = 'BNTX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'field-nir-date">([^<]+?)<\/td>[\s\S]+?<a href="([^"]+?)" class="[\w\-]+">([^>]+?)<',
+            '/press-releases'
+        )
+
+
+class Urogen(RegexPRScraper):
+
+    URL = 'https://investors.urogen.com'
+    NAME = 'Urogen Pharma Ltd'
+    SYMBOL = 'URGN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">([^<]+?)<\/div>[\s\S]+?<a href="([^"]+?)" hreflang="\w+">([^<]+?)<',
+            '/news-releases'
+        )
+
+
+class Inovio(GetPressReleaseJSONScraper):
+
+    URL = 'http://ir.inovio.com'
+    NAME = 'Inovio Ltd'
+    SYMBOL = 'INO'
+
+    async def read_prs(self):
+        year = pendulum.now().year
+        return await self.read_prs_from_api(
+            '/Services/PressReleaseService.svc/GetPressReleaseList',
+            method='POST',
+            params={"serviceDto":{
+                "ViewType": "2","ViewDate": "","RevisionNumber": "1","LanguageId": "1",
+                "Signature": "","ItemCount": -1,"StartIndex": 0,"TagList": [],"IncludeTags":True},
+                "pressReleaseCategoryWorkflowId": "1cb807d2-208f-4bc3-9133-6a9ad45ac3b0",
+                "pressReleaseBodyType": 0,"pressReleaseSelection": 3,"excludeSelection": 1,"year": year}
+        )
+
+
+class Moderna(RegexPRScraper):
+
+    URL = 'https://investors.modernatx.com'
+    NAME = 'Moderna Inc'
+    SYMBOL = 'MRNA'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">([^<]+?)<\/div>[\s\S]+?<a href="([^"]+?)" hreflang="\w+">([^<]+?)<',
+            '/news-releases'
+        )
+
+
+class Moleculin(RegexPRScraper):
+
+    URL = 'https://ir.moleculin.com'
+    NAME = 'Moleculin Biotech'
+    SYMBOL = 'MBRX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'media-heading">\s*<a href="([^"]+)">\s*([^<]+)<\/a>\s*<\/h2>\s*<div class="date"><time datetime="([\d\- :]+)"',
+            '/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
 SCRAPERS = [
     Gilead,
     Kiniksa,
@@ -189,5 +290,11 @@ SCRAPERS = [
     Novavax,
     CytoDyn,
     Athersys,
-    Pfizer
+    Pfizer,
+    Immunomedics,
+    BioNTech,
+    Urogen,
+    Inovio,
+    Moderna,
+    Moleculin
 ]

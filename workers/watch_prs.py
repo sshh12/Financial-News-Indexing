@@ -23,8 +23,10 @@ async def _fetch_and_log(scrapers, cache, log_new=True):
         for scrap in scrapers:
             scrap._session = session
         fetch_tasks = [scrap.read_prs() for scrap in scrapers]
-        for symbol, prs in await asyncio.gather(*fetch_tasks):
+        for symbol, name, prs in await asyncio.gather(*fetch_tasks):
             prs = [pr_to_sql_article(pr) for pr in prs]
+            if len(prs) == 0:
+                print('WARN: nothing found for', name)
             for pr in prs:
                 key = (symbol, pr['title'])
                 if key not in cache and log_new:
@@ -34,7 +36,9 @@ async def _fetch_and_log(scrapers, cache, log_new=True):
 
 async def main():
 
-    scrapers = [S() for S in SCRAPERS]
+    print('Watching...')
+
+    scrapers = [Scraper() for Scraper in SCRAPERS]
     cache = {}
     first = True
 
