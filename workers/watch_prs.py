@@ -6,6 +6,17 @@ import aiohttp
 import re
 
 
+async def test_existing_scrapers(url=None):
+    scrapers = [Scraper(url=url) for Scraper in SCRAPERS]
+    async with aiohttp.ClientSession() as session:
+        for scrap in scrapers:
+            scrap._session = session
+        fetch_tasks = [scrap.read_prs() for scrap in scrapers]
+        for _, name, prs in await asyncio.gather(*fetch_tasks):
+            if len(prs) > 0:
+                print(name, prs)
+
+
 def pr_to_sql_article(article):
     update = {
         'title': article.headline,

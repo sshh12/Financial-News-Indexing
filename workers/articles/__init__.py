@@ -183,6 +183,13 @@ def text_to_datetime(html):
     except (ValueError, AttributeError):
         pass
 
+    # Apr 7, 2020
+    try:
+        time_text = text.replace(',', '')
+        return pendulum.from_format(time_text, 'MMM D YYYY').in_tz(USE_TZ)
+    except (ValueError, AttributeError):
+        pass
+
     # Apr022020
     # Mar 10, 2020
     try:

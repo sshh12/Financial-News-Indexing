@@ -8,17 +8,27 @@ import re
 
 class PRScraper:
 
-    def __init__(self):
-        pass
+    def __init__(self, url=None):
+        if url is None:
+            self._url = self.URL
+        else:
+            self._url = url
 
-    async def _get(self, url, method='GET', json={}):
+    async def _get(self, url, method='GET', json_params=None, form_params=None):
         try:
             if method == 'GET':
                 async with self._session.get(url, headers=HEADERS) as response:
                     return await response.text()
             elif method == 'POST':
-                async with self._session.post(url, headers=HEADERS, json=json) as response:
-                    return await response.text()
+                if json_params is not None:
+                    async with self._session.post(url, headers=HEADERS, json=json_params) as response:
+                        return await response.text()
+                elif form_params is not None:
+                    async with self._session.post(url, headers=HEADERS, data=form_params) as response:
+                        return await response.text()
+                else:
+                    async with self._session.post(url, headers=HEADERS) as response:
+                        return await response.text()
         except (ConnectionRefusedError, UnicodeDecodeError):
             return ''
 
@@ -28,13 +38,23 @@ class PRScraper:
 
 class RegexPRScraper(PRScraper):
 
-    async def read_prs_with_regex(self, regex, url_path, type_to_group={'date': 1, 'url': 2, 'title': 3}):
-        resp = await self._get(self.URL + url_path)
+    async def read_prs_with_regex(self, regex, url_path, \
+            type_to_group={'date': 1, 'url': 2, 'title': 3}, \
+            full_url_path=False, article_url_base=None, **kwargs):
+        req_url = self._url + url_path
+        if full_url_path:
+            req_url = url_path
+        resp = await self._get(req_url, **kwargs)
         releases = []
         for match in re.finditer(regex, resp):
             date = text_to_datetime(match.group(type_to_group['date']).strip())
-            url = self.URL + match.group(type_to_group['url']).strip()
+            if article_url_base is None:
+                url = self._url + match.group(type_to_group['url']).strip()
+            else:
+                url = article_url_base + match.group(type_to_group['url']).strip()
             title = clean_html_text(match.group(type_to_group['title']))
+            if len(title) == 0:
+                continue
             releases.append(Article(self.NAME.lower(), title, date, "", url))
         return self.SYMBOL, self.NAME, releases
 
@@ -42,12 +62,15 @@ class RegexPRScraper(PRScraper):
 class GetPressReleaseJSONScraper(PRScraper):
 
     async def read_prs_from_api(self, path, method='GET', params=None):
-        resp = await self._get(self.URL + path, method=method, json=params)
-        data = json.loads(resp)['GetPressReleaseListResult']
         releases = []
+        try:
+            resp = await self._get(self._url + path, method=method, json_params=params)
+            data = json.loads(resp)['GetPressReleaseListResult']
+        except:
+            return self.SYMBOL, self.NAME, releases
         for item in data:
             date = text_to_datetime(item['PressReleaseDate'])
-            url = self.URL + item['LinkToDetailPage']
+            url = self._url + item['LinkToDetailPage']
             title = clean_html_text(item['Headline'])
             releases.append(Article(self.NAME.lower(), title, date, "", url))
         return self.SYMBOL, self.NAME, releases
@@ -281,6 +304,162 @@ class Moleculin(RegexPRScraper):
         )
 
 
+class SCWORX(RegexPRScraper):
+
+    URL = 'https://ir.scworx.com'
+    NAME = 'SC WORX'
+    SYMBOL = 'WORX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'datetime="([\-\d :]+)">[\s\S]+?<a href="https:\/\/ir.scworx.com([^"]+)">([^<]+)<',
+            '/press-releases',
+        )
+
+
+class Agenus(RegexPRScraper):
+
+    URL = 'https://investor.agenusbio.com'
+    NAME = 'Agenus'
+    SYMBOL = 'AGEN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'"wd_date">([^<]+?)<\/div>\s*<div class="wd_title"><a href="https:\/\/investor.agenusbio.com([^"]+?)">([^<]+?)<\/a>',
+            '/press-releases?l=5',
+        )
+
+
+class ImmunoTech(RegexPRScraper):
+
+    URL = 'https://aimimmuno.com'
+    NAME = 'ImmunoTech'
+    SYMBOL = 'AIM'
+
+    async def read_prs(self):
+        params = '?b=2265&api=L4g4P2Y7S4&s=0&i=10&g=980&out=0&p=1&n=2&tl=0&sd=1&a=2&rss=1'
+        return await self.read_prs_with_regex(
+            r'HeadLinesDateCell">([^<]+?)<\/td[\s\S]+?https:\/\/aimimmuno.irpass.com([^"]+?)" title="([^"]+?)">',
+            'https://www.b2i.us/b2i/LibraryFeed.asp' + params,
+            full_url_path=True, 
+            article_url_base='https://aimimmuno.irpass.com',
+            method='POST'
+        )
+
+
+class Aldeyra(RegexPRScraper):
+
+    URL = 'https://ir.aldeyra.com'
+    NAME = 'Aldeyra Therapeutics'
+    SYMBOL = 'ALDX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>\s*<div class="[a-z- ]+">\s*<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class Altimmune(RegexPRScraper):
+
+    URL = 'https://ir.altimmune.com'
+    NAME = 'Altimmune'
+    SYMBOL = 'ALT'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/investors/press-releases'
+        )
+
+
+class Amgen(RegexPRScraper):
+
+    URL = 'http://investors.amgen.com'
+    NAME = 'Amgen'
+    SYMBOL = 'AMGN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'article-date">\s*([\w,/ \d\-]+)\s*<\/h3>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class AppliedDNASciences(RegexPRScraper):
+
+    URL = 'https://adnas.com'
+    NAME = 'Applied DNA Sciences'
+    SYMBOL = 'APDN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'>([^<]+?)<\/h5>[\S\s]+?>([^<]+)<\/h6>[\s\S]+?https:\/\/adnas.com([^"]+?)"',
+            '/wp-admin/admin-ajax.php',
+            type_to_group={'date': 2, 'url': 3, 'title': 1},
+            method='POST',
+            form_params={"action":"vc_get_vc_grid_data","vc_action":"vc_get_vc_grid_data","tag":"vc_basic_grid",
+            "data[visible_pages]":"5","data[page_id]":"3056","data[style]":"pagination","data[action]":"vc_get_vc_grid_data",
+            "data[shortcode_id]":"1517419843788-afc1f200c7c29bd235e132b0777b3d80-2","data[items_per_page]":"12","data[auto_play]":"false",
+            "data[gap]":"30","data[speed]":"-1000","data[loop]":"","data[animation_in]":"","data[animation_out]":"","data[arrows_design]":"vc_arrow-icon-arrow_07_left",
+            "data[arrows_color]":"chino","data[arrows_position]":"outside","data[paging_design]":"pagination_rounded","data[paging_color]":"chino",
+            "data[tag]":"vc_basic_grid","vc_post_id":"3056","_vcnonce":"d3fb5eab98"}
+        )
+
+
+class AppliedTherapeutics(RegexPRScraper):
+
+    URL = 'https://ir.appliedtherapeutics.com'
+    NAME = 'Applied Therapeutics'
+    SYMBOL = 'APLT'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/news-releases'
+        )
+
+
+class AptorumGroup(RegexPRScraper):
+
+    URL = 'http://ir.aptorumgroup.com'
+    NAME = 'Aptorum Group'
+    SYMBOL = 'APM'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/news-and-events/press-releases'
+        )
+
+
+class ArcturusTherapeutics(RegexPRScraper):
+
+    URL = 'https://ir.arcturusrx.com'
+    NAME = 'Arcturus Therapeutics'
+    SYMBOL = 'ARCT'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'class="field__item">([\w :,]+)<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class AstraZeneca(RegexPRScraper):
+
+    URL = 'https://www.astrazeneca.com'
+    NAME = 'AstraZeneca'
+    SYMBOL = 'AZN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="([^"]+?)"[\s\S]+?title">([^<]+?)<[\s\S]+?datetime="([\d\-]+)"',
+            '/media-centre/press-releases.html',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
 SCRAPERS = [
     Gilead,
     Kiniksa,
@@ -296,5 +475,15 @@ SCRAPERS = [
     Urogen,
     Inovio,
     Moderna,
-    Moleculin
+    Moleculin,
+    SCWORX,
+    Agenus,
+    ImmunoTech,
+    Aldeyra,
+    Altimmune,
+    Amgen,
+    AppliedDNASciences,
+    AppliedTherapeutics,
+    AptorumGroup,
+    AstraZeneca
 ]
