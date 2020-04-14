@@ -522,7 +522,7 @@ class Cocrystal(RegexPRScraper):
 
 class Diffusion(GetPressReleaseJSONScraper):
 
-    URL = 'http://investors.dynavax.com'
+    URL = 'https://investors.diffusionpharma.com'
     NAME = 'Diffusion Pharmaceuticals'
     SYMBOL = 'DFFN'
 
