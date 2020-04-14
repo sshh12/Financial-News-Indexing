@@ -1,5 +1,5 @@
-from tickers.alphavantage import AlphaVantage
-from tickers.cryptocompare import CryptoCompare
+from prices.alphavantage import AlphaVantage
+from prices.cryptocompare import CryptoCompare
 from config import config
 
 import elasticsearch

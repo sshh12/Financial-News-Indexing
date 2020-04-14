@@ -1,189 +1,33 @@
-prices: 
-  stocks:
-    - SPX
-    - INX
-    - DJI
-    - MSFT
-    - TWLO
-    - LYFT
-    - UBER
-    - AAPL
-    - GOOGL
-    - WMT
-    - ACB
-    - BAC
-    - JPM
-    - INTC
-    - BIDU
-    - TWTR
-    - TSLA
-    - NFLX
-    - FB
-    - BABA
-    - SNAP
-    - AMZN
-    - T
-    - MU
-    - WORK
-    - BYND
-    - GE
-    - FIT
-    - F
-    - AMD
-    - BA
-    - NVDA
-    - NKE
-    - PYPL
-    - PFE
-    - COST
-    - BNTX
-    - ZM
-    - SPX
-  cryptos:
-    - BTC
-    - ETH
-    - LTC
-    - DOGE
-meta: 
-  stocks:
-    - INX
-    - DJI
-    - MSFT
-    - AAPL
-    - NFLX
-    - GE
-    - PFE
-    - GOOGL
-    - UBER
-    - LYFT
-    - AMZN
-    - FB
 general:
-  stocks:
-    - INX
-    - DJI
-    - MSFT
-    - TWLO
-    - LYFT
-    - UBER
-    - AAPL
-    - GOOGL
-    - WMT
-    - ACB
-    - BAC
-    - JPM
-    - INTC
-    - BIDU
-    - TWTR
-    - TSLA
-    - NFLX
-    - FB
-    - BABA
-    - SNAP
-    - AMZN
-    - T
-    - MU
-    - WORK
-    - BYND
-    - GE
-    - FIT
-    - F
-    - AMD
-    - BA
-    - NVDA
-    - NKE
-    - PYPL
-    - PFE
-    - COST
-    - BNTX
-    - ZM
-    - SPX
-    - GLD
-    - SRS
-    - IVV
-    - BNTX
-    - NXGN
-    - VXX
-    - UAL
-    - ZIV
-    - JETS
-    - CUK
-  cryptos:
-    - BTC
-    - ETH
-    - LTC
-    - DOGE
+  cryptos: [BTC, DOGE, ETH, LTC]
+  stocks: [AAL, AAPL, ACB, AMD, AMZN, BA, BABA, BAC, BIDU, BNTX, BP, BYND, CHK, COST,
+    CRM, CUK, DAL, DBA, DIA, DIS, DJI, F, FB, FIT, FXE, GE, GILD, GLD, GOOGL, GXC,
+    HAL, IGV, INO, INTC, INX, ITA, IVV, IYT, JETS, JNJ, JPM, KCE, KIE, KO, LQD, LYFT,
+    MCD, MSFT, MU, NFLX, NKE, NVAX, NVDA, NXGN, PFE, PYPL, QQQ, SHY, SNAP, SPX, SRS,
+    T, TIP, TLT, TSLA, TWLO, TWTR, UAL, UBER, UNG, USO, V, VGK, VIX, VNQ, VXX, WMT,
+    WORK, XBI, XHB, XLB, XLE, XLF, XLI, XLK, XLP, XLU, XLV, XLY, XOM, XPH, XRT, XSD,
+    ZIV, ZM]
 news:
   newpaper3k:
-    sources:
-      - https://techcrunch.com
-      - https://cnn.com
-      - https://money.cnn.com/data/markets/
-      - https://slate.com
-      - https://www.thestreet.com
-      - https://fool.com
-      - https://www.foxnews.com
-      - https://www.nytimes.com
-      - https://www.huffpost.com
-      - https://www.nbcnews.com
-      - https://www.washingtonpost.com
-      - https://www.theguardian.com/us
-      - https://abcnews.go.com
-      - https://www.bbc.com/news
-      - https://www.usatoday.com
-      - https://www.kiplinger.com
-      - https://www.bloomberg.com/markets
-      - https://www.forbes.com/money
-      - https://www.politico.com
-      - https://www.bbc.com/news
-      - https://www.benzinga.com
+    sources: ['https://abcnews.go.com', 'https://cnn.com', 'https://fool.com', 'https://money.cnn.com/data/markets/',
+      'https://slate.com', 'https://techcrunch.com', 'https://www.bbc.com/news', 'https://www.benzinga.com',
+      'https://www.bloomberg.com/markets', 'https://www.forbes.com/money', 'https://www.foxnews.com',
+      'https://www.huffpost.com', 'https://www.kiplinger.com', 'https://www.nbcnews.com',
+      'https://www.nytimes.com', 'https://www.politico.com', 'https://www.theguardian.com/us',
+      'https://www.thestreet.com', 'https://www.usatoday.com', 'https://www.washingtonpost.com']
+  sources: [Barrons, Benzinga, Bloomberg, BusinessInsider, CNBC, CNN, CoinDesk, IBTimes,
+    MarketWatch, Newspaper3k, Reuters, SeekingAlpha, TheStreet, Twitter, Verge, WashingtonPost,
+    Yahoo]
   twitter:
-    users:
-      - realDonaldTrump
-      - stlouisfed
-      - coindesk
-      - paulkrugman
-      - EIAgov
-      - RedDogT3
-      - alaidi
-      - forexcrunch
-      - DailyFXTeam
-      - PeterLBrandt
-      - elerianm
-      - Ralph_Acampora
-      - jimcramer
-      - rayner_teo
-      - stocktwits
-      - breakoutstocks
-      - bespokeinvest
-      - WSJMarkets
-      - stephanie_link
-      - nytimesbusiness
-      - IBDinvestors
-      - ReformedBroker
-      - TheStalwart
-      - VitalikButerin
-      - LizAnnSonders
-      - charliebilello
-      - ScottMinerd
-      - RyanDetrick
-      - KeithMcCullough
-      - cullenroche
-  sources:
-    - WashingtonPost
-    - Yahoo
-    - BusinessInsider
-    - TheStreet
-    - CNN
-    - Verge
-    - CNBC
-    - IBTimes
-    - Benzinga
-    - Barrons
-    - Bloomberg
-    - MarketWatch
-    - SeekingAlpha
-    - Reuters
-    - CoinDesk
-    - Newspaper3k
-    - Twitter
+    users: [DailyFXTeam, EIAgov, IBDinvestors, KeithMcCullough, LizAnnSonders, PeterLBrandt,
+      Ralph_Acampora, RedDogT3, ReformedBroker, RyanDetrick, ScottMinerd, TheStalwart,
+      VitalikButerin, WSJMarkets, alaidi, bespokeinvest, breakoutstocks, charliebilello,
+      coindesk, cullenroche, elerianm, forexcrunch, jimcramer, nytimesbusiness, paulkrugman,
+      rayner_teo, realDonaldTrump, stephanie_link, stlouisfed, stocktwits]
+prices:
+  cryptos: [BTC, DOGE, ETH, LTC]
+  stocks: [AAPL, ACB, AMD, AMZN, BA, BABA, BAC, BIDU, BNTX, BYND, COST, DJI, F, FB,
+    FIT, GE, GOOGL, INTC, INX, JPM, LYFT, MSFT, MU, NFLX, NKE, NVDA, PFE, PYPL, SNAP,
+    SPX, T, TSLA, TWLO, TWTR, UBER, WMT, WORK, ZM]
+stats:
+  stocks: [AAPL, AMZN, DJI, FB, GE, GOOGL, INX, LYFT, MSFT, NFLX, PFE, UBER]

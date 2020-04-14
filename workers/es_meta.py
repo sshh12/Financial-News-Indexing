@@ -1,4 +1,4 @@
-from meta.financialmodelingprep import FinancialModelingPrep
+from stats.financialmodelingprep import FinancialModelingPrep
 from config import config
 
 import elasticsearch
@@ -25,7 +25,7 @@ async def fetch_meta_data(name, source):
 async def main():
 
     sources = [
-        ('FinancialModelingPrep', FinancialModelingPrep(config['meta']['stocks']))
+        ('FinancialModelingPrep', FinancialModelingPrep(config['stats']['stocks']))
     ]
 
     ratings = []

@@ -1,4 +1,4 @@
-from meta.financialmodelingprep import FinancialModelingPrep
+from stats.financialmodelingprep import FinancialModelingPrep
 from config import config
 from db import Symbol
 
@@ -18,7 +18,7 @@ async def main():
         fmp = FinancialModelingPrep()
         fmp._session = session
 
-        stock_symbols = config['prices']['stocks'] + config['meta']['stocks'] + config['general']['stocks']
+        stock_symbols = config['prices']['stocks'] + config['stats']['stocks'] + config['general']['stocks']
         stock_symbols = list(set(stock_symbols))
 
         fetch_tasks = [fmp._call_api('company/profile/' + sym) for sym in stock_symbols]

@@ -63,7 +63,7 @@ async def main():
         sym_map[sym.symbol] = sym
 
     sources = [
-        ('FinancialModelingPrep', FinancialModelingPrep(config['meta']['stocks']))
+        ('FinancialModelingPrep', FinancialModelingPrep(config['stats']['stocks']))
     ]
 
     stats = []
