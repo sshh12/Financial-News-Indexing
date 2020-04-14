@@ -20,6 +20,7 @@ async def main():
 
         stock_symbols = config['prices']['stocks'] + config['stats']['stocks'] + config['general']['stocks']
         stock_symbols = list(set(stock_symbols))
+        stock_symbols_not_found = set(stock_symbols)
 
         fetch_tasks = [fmp._call_api('company/profile/' + sym) for sym in stock_symbols]
         for sym_info in await asyncio.gather(*fetch_tasks):
@@ -32,6 +33,9 @@ async def main():
             industry = sym_info['profile']['industry']
             sector = sym_info['profile']['sector']
             updates.append(dict(symbol=sym, name=name, desc=desc, industry=industry, sector=sector, asset_type='stock'))
+            stock_symbols_not_found.remove(sym)
+
+    print('Not found:', stock_symbols_not_found)
 
     print('Saving...', len(updates))
     Symbol.insert_many(updates).on_conflict('ignore').execute()
