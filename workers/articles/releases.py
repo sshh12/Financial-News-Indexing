@@ -393,6 +393,9 @@ class AppliedDNASciences(RegexPRScraper):
     SYMBOL = 'APDN'
 
     async def read_prs(self):
+        meta_resp = await self._get(self._url + '/press-releases/')
+        nonce_match = re.search(r'data-vc-public-nonce="([^"]+?)"', meta_resp)
+        nonce = nonce_match.group(1)
         return await self.read_prs_with_regex(
             r'>([^<]+?)<\/h5>[\S\s]+?>([^<]+)<\/h6>[\s\S]+?https:\/\/adnas.com([^"]+?)"',
             '/wp-admin/admin-ajax.php',
@@ -403,7 +406,7 @@ class AppliedDNASciences(RegexPRScraper):
             "data[shortcode_id]":"1517419843788-afc1f200c7c29bd235e132b0777b3d80-2","data[items_per_page]":"12","data[auto_play]":"false",
             "data[gap]":"30","data[speed]":"-1000","data[loop]":"","data[animation_in]":"","data[animation_out]":"","data[arrows_design]":"vc_arrow-icon-arrow_07_left",
             "data[arrows_color]":"chino","data[arrows_position]":"outside","data[paging_design]":"pagination_rounded","data[paging_color]":"chino",
-            "data[tag]":"vc_basic_grid","vc_post_id":"3056","_vcnonce":"d3fb5eab98"}
+            "data[tag]":"vc_basic_grid","vc_post_id":"3056","_vcnonce":nonce}
         )
 
 
@@ -460,6 +463,89 @@ class AstraZeneca(RegexPRScraper):
         )
 
 
+class Capricor(RegexPRScraper):
+
+    URL = 'http://capricor.com'
+    NAME = 'Capricor'
+    SYMBOL = 'CAPR'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<td>([A-Z][^<]+?)<\/td>\s*<td>\s*<a href="http:\/\/www.irdirect.net([^"]+?)"[ clas="inktrge_b]+?>([^<]+?)<',
+            'http://www.irdirect.net/CAPR/press_releases_iframe?per_page=10',
+            full_url_path=True, 
+            article_url_base='http://www.irdirect.net',
+        )
+
+
+class CELSCI(RegexPRScraper):
+
+    URL = 'https://cel-sci.com'
+    NAME = 'CELSCI'
+    SYMBOL = 'CVM'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<td>([A-Z][^<]+?)<\/td>\s*<td>\s*<a href="http:\/\/www.irdirect.net([^"]+?)"[ clas="inktrge_b]+?>([^<]+?)<',
+            'http://www.irdirect.net/cvm/press_releases_iframe?per_page=10',
+            full_url_path=True, 
+            article_url_base='http://www.irdirect.net',
+        )
+
+
+class Cidara(RegexPRScraper):
+
+    URL = 'https://ir.cidara.com'
+    NAME = 'Cidara'
+    SYMBOL = 'CDTX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'class="datetime">([<>="\w /]+?)<\/time>\s*<\/td>[\s\S]*?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/news-releases'
+        )
+
+
+class Cocrystal(RegexPRScraper):
+
+    URL = 'https://ir.cocrystalpharma.com'
+    NAME = 'Cocrystal Pharma'
+    SYMBOL = 'COCP'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'clearfix">\s*<a href="https:\/\/ir.cocrystalpharma.com([^"]+?)"[\s\S]+?media-heading">([^<]+?)<[\s\S]+?datetime="([\d\-: ]+?)"',
+            '/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Diffusion(GetPressReleaseJSONScraper):
+
+    URL = 'http://investors.dynavax.com'
+    NAME = 'Diffusion Pharmaceuticals'
+    SYMBOL = 'DFFN'
+
+    async def read_prs(self):
+        return await self.read_prs_from_api(
+            '/feed/PressRelease.svc/GetPressReleaseList?apiKey=BF185719B0464B3CB809D23926182246' + 
+            '&LanguageId=1&bodyType=3&pressReleaseDateFilter=3&categoryId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0&pageSize=-1' + 
+            '&pageNumber=0&tagList=&includeTags=true&year=-1&excludeSelection=1')
+
+
+class Dynavax(RegexPRScraper):
+
+    URL = 'http://investors.dynavax.com'
+    NAME = 'Dynavax'
+    SYMBOL = 'DVAX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<p>([^<]+?)<\/p>[\s\S]+?<a href="([^"]+?)" hreflang="\w+">([^<]+?)<',
+            '/press-releases'
+        )
+
+
 SCRAPERS = [
     Gilead,
     Kiniksa,
@@ -485,5 +571,11 @@ SCRAPERS = [
     AppliedDNASciences,
     AppliedTherapeutics,
     AptorumGroup,
-    AstraZeneca
+    AstraZeneca,
+    Capricor,
+    CELSCI,
+    Cidara,
+    Cocrystal,
+    Diffusion,
+    Dynavax
 ]

@@ -92,18 +92,13 @@ async def main():
     for chunk in _chunks(rh_symbols, 50):
         popularity = rbh.get_bulk_popularity(chunk)
         for symbol, pop in popularity.items():
-            stats.extend(rh_pop_to_stat(symbol.symbol, pop))
+            stats.extend(rh_pop_to_stat(sym_map[symbol.symbol], pop))
         ratings = rbh.get_bulk_ratings(chunk)
         for symbol, rating in ratings.items():
-            stats.extend(rh_rating_to_stat(symbol.symbol, rating))
+            stats.extend(rh_rating_to_stat(sym_map[symbol.symbol], rating))
 
     print('Saving...', len(stats))
-    for update, sym in stats:
-        update['symbol'] = sym_map[sym]
-        query = {}
-        for key in ['symbol', 'source', 'name', 'effected', 'period']:
-            query[key] = update[key]
-        st, created = Stat.get_or_create(**query, defaults=update)
+    Stat.insert_many(stats).on_conflict('ignore').execute()
 
 
 if __name__ == "__main__":

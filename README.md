@@ -46,9 +46,12 @@ postgres:
 ```
 
 ### Sources
+
+#### Prices
 * Alphavantage
 * Crypto Compare
-* Financial Modeling Prep
+
+#### Articles
 * Barrons
 * Benzinga
 * Bloomberg
@@ -65,4 +68,8 @@ postgres:
 * Washington Post
 * Yahoo
 * Twitter
-* Misc in Newspaper3k
+* Misc from Newspaper3k
+
+#### Stats
+* Financial Modeling Prep
+* Robinhood
