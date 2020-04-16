@@ -19,7 +19,8 @@ def rh_pop_to_stat(symbol, pop):
     now = pendulum.now()
     if pop is None:
         return []
-    updates = [({
+    updates = [{
+        'symbol': symbol,
         'category': 'Robinhood',
         'name': 'Robinhood Popularity',
         'source': 'robinhood',
@@ -29,7 +30,7 @@ def rh_pop_to_stat(symbol, pop):
         'effected': now, 
         'published': now,
         'period': 0
-    }, symbol)]
+    }]
     return updates
 
 
@@ -40,7 +41,8 @@ def rh_rating_to_stat(symbol, rating):
     br = rating['num_buy_ratings']
     hr = rating['num_hold_ratings']
     sr = rating['num_sell_ratings']
-    updates = [({
+    updates = [{
+        'symbol': symbol,
         'category': 'Robinhood',
         'name': 'Robinhood Buy Rating',
         'source': 'robinhood',
@@ -50,7 +52,8 @@ def rh_rating_to_stat(symbol, rating):
         'effected': now, 
         'published': now,
         'period': 0
-    }, symbol), ({
+    }, {
+        'symbol': symbol,
         'category': 'Robinhood',
         'name': 'Robinhood Sell Rating',
         'source': 'robinhood',
@@ -60,7 +63,7 @@ def rh_rating_to_stat(symbol, rating):
         'effected': now, 
         'published': now,
         'period': 0
-    }, symbol)]
+    }]
     return updates
 
 

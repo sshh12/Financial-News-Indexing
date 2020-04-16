@@ -73,6 +73,7 @@ def clean_html_text(html):
     html = html.replace('“', '').replace('”', '').replace('»', '>>')
     html = html.replace('✅', '').replace('→', '->').replace('💯', '').replace('🚨', '')
     html = html.replace('Â\xa0', ' ').replace('Â½', '').replace('®', '').replace('\xa0', ' ')
+    html = html.replace('™', '')
     html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/style>', '', html)
     html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/script>', '', html)
     html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+@\|#~{}\(\);\?]*>', '', html)
@@ -180,6 +181,13 @@ def text_to_datetime(html):
     try:
         time_text = text.replace(',', '')
         return pendulum.from_format(time_text, 'DD MMMM YYYY').in_tz(USE_TZ)
+    except (ValueError, AttributeError):
+        pass
+
+    # 11 Mar. 2020
+    try:
+        time_text = text.replace(',', '').replace('.', '')
+        return pendulum.from_format(time_text, 'DD MMM YYYY').in_tz(USE_TZ)
     except (ValueError, AttributeError):
         pass
 

@@ -2,6 +2,7 @@ from . import Article, clean_html_text, text_to_datetime, HEADERS
 
 import pendulum
 import asyncio
+import aiohttp
 import json
 import re
 
@@ -15,21 +16,20 @@ class PRScraper:
             self._url = url
 
     async def _get(self, url, method='GET', json_params=None, form_params=None):
+        kwargs = {'headers': HEADERS}
+        if json_params is not None:
+            kwargs['json'] = json_params
+        elif form_params is not None:
+            kwargs['data'] = form_params
         try:
             if method == 'GET':
-                async with self._session.get(url, headers=HEADERS) as response:
-                    return await response.text()
+                async with self._session.get(url, **kwargs) as response:
+                    text = await response.text()
             elif method == 'POST':
-                if json_params is not None:
-                    async with self._session.post(url, headers=HEADERS, json=json_params) as response:
-                        return await response.text()
-                elif form_params is not None:
-                    async with self._session.post(url, headers=HEADERS, data=form_params) as response:
-                        return await response.text()
-                else:
-                    async with self._session.post(url, headers=HEADERS) as response:
-                        return await response.text()
-        except (ConnectionRefusedError, UnicodeDecodeError):
+                async with self._session.post(url, **kwargs) as response:
+                    text = await response.text()
+            return text
+        except (ConnectionRefusedError, UnicodeDecodeError, aiohttp.client_exceptions.ClientOSError):
             return ''
 
     async def read_prs(self):
@@ -218,20 +218,6 @@ class Immunomedics(RegexPRScraper):
         )
 
 
-class EmergentBioSolutions(RegexPRScraper):
-
-    URL = 'https://investors.emergentbiosolutions.com'
-    NAME = 'Emergent Bio Solutions'
-    SYMBOL = 'EBS'
-
-    async def read_prs(self):
-        year = pendulum.now().year
-        return await self.read_prs_with_regex(
-            r'field-nir-date">([^<]+?)<\/td>[\s\S]+?<a href="([^"]+?)" class="[\w\-]+">([^>]+?)<',
-            '/news-releases?field_nir_news_date_value[min]={}'.format(year)
-        )
-
-
 class BioNTech(RegexPRScraper):
 
     URL = 'https://investors.biontech.de'
@@ -395,6 +381,8 @@ class AppliedDNASciences(RegexPRScraper):
     async def read_prs(self):
         meta_resp = await self._get(self._url + '/press-releases/')
         nonce_match = re.search(r'data-vc-public-nonce="([^"]+?)"', meta_resp)
+        if not nonce_match:
+            return []
         nonce = nonce_match.group(1)
         return await self.read_prs_with_regex(
             r'>([^<]+?)<\/h5>[\S\s]+?>([^<]+)<\/h6>[\s\S]+?https:\/\/adnas.com([^"]+?)"',
@@ -546,6 +534,196 @@ class Dynavax(RegexPRScraper):
         )
 
 
+class Enanta(GetPressReleaseJSONScraper):
+
+    URL = 'https://www.enanta.com'
+    NAME = 'Enanta'
+    SYMBOL = 'ENTA'
+
+    async def read_prs(self):
+        year = pendulum.now().year
+        return await self.read_prs_from_api(
+            '/feed/PressRelease.svc/GetPressReleaseList?apiKey=BF185719B0464B3CB809D23926182246' + 
+            '&pressReleaseCategoryWorkflowId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0&bodyType=0' + 
+            '&pressReleaseDateFilter=3&pageSize=-1&tagList=&includeTags=true&year={}&excludeSelection=1'.format(year))
+
+
+class HeatBiologics(RegexPRScraper):
+
+    URL = 'https://www.heatbio.com'
+    NAME = 'Heat Biologics'
+    SYMBOL = 'HTBX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'media-heading">\s*<a href="([^"]+)">\s*([^<]+)<\/a>\s*<\/h2>\s*<div class="date"><time datetime="([\d\- :]+)"',
+            '/news-media/news-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Mallinckrodt(RegexPRScraper):
+
+    URL = 'http://www.mallinckrodt.com'
+    NAME = 'Mallinckrodt'
+    SYMBOL = 'MNK'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="([^"]+?)">([^<]+)<\/a>\s*<span class="news-list-item-date">([^<]+?)<\/',
+            '/about/news-and-media/',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class IMAB(RegexPRScraper):
+
+    URL = 'http://www.i-mabbiopharma.com'
+    NAME = 'I-MAB'
+    SYMBOL = 'IMAB'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'class="date1">\s*([^<]+?)<\/div>\s*?<h3><a href="([^"]+?)">\s*([^<]+?)<\/a',
+            '/en/news.aspx',
+            article_url_base='http://www.i-mabbiopharma.com/en/'
+        )
+
+
+class JohnsonJohnson(RegexPRScraper):
+
+    URL = 'https://johnsonandjohnson.gcs-web.com'
+    NAME = 'Johnson & Johnson'
+    SYMBOL = 'JNJ'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time"><span class="relSummaryToggle"><\/span>([^<]+?)<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class Kamada(RegexPRScraper):
+
+    URL = 'https://www.kamada.com'
+    NAME = 'Kamada'
+    SYMBOL = 'KMDA'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'"dateDiv">([^<]+?)<\/div>\s*?<div class="newsText">\s*?<h3><a href="https:\/\/www.kamada.com([^"]+)">([^<]+?)<',
+            '/news-main/'
+        )
+
+
+class Karyopharm(RegexPRScraper):
+
+    URL = 'https://investors.karyopharm.com'
+    NAME = 'Karyopharm Therapeutics'
+    SYMBOL = 'KPTI'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'class="datetime">([<>="\w, /]+?)<\/time>\s*<\/td>[\s\S]*?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class LaJolla(RegexPRScraper):
+
+    URL = 'http://ir.lajollapharmaceutical.com'
+    NAME = 'La Jolla Pharmaceutical'
+    SYMBOL = 'LJPC'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'news--headline">\s*([^<]+?)<\/div>[\s\S]+?date-time">([^<]+?)<[\s\S]+?<a href="([^"]+?)"',
+            '/press-releases',
+            type_to_group={'date': 2, 'url': 3, 'title': 1}
+        )
+
+
+class Ligand(RegexPRScraper):
+
+    URL = 'https://investor.ligand.com'
+    NAME = 'Ligand Pharmaceuticals'
+    SYMBOL = 'LGND'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'media">\s*<a href="https:\/\/investor.ligand.com([^"]+)">[\s\S]+?media-heading">([^<]+?)<\/h2>\s*?<p class="date"><time datetime="([\d:\- ]+)"',
+            '/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class VirBio(RegexPRScraper):
+
+    URL = 'https://investors.vir.bio'
+    NAME = 'Vir Biotechnology'
+    SYMBOL = 'VIR'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">([^<]+?)<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<\/a>',
+            '/press-releases'
+        )
+
+
+class VBIVacc(RegexPRScraper):
+
+    URL = 'https://www.vbivaccines.com'
+    NAME = 'VBI Vaccines'
+    SYMBOL = 'VBIV'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="https:\/\/www.vbivaccines.com([^"]+?)"[\s\S]+?mark">([^<]+)<[\s\S]+?datetime="([\d\-T:]+)"',
+            '/wire/'
+        )
+
+
+class Vaxart(RegexPRScraper):
+
+    URL = 'https://investors.vaxart.com'
+    NAME = 'Vaxart'
+    SYMBOL = 'VXRT'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-wrap">\s*([^<]+)<\/td>\s*?<td>\s*<a href="([^"]+?)" class="[\w\-]+">\s*?([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class Sanofi(RegexPRScraper):
+
+    URL = 'https://www.sanofi.com'
+    NAME = 'Sanofi'
+    SYMBOL = 'SNY'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a title="([^"]+)" href="([^"]+)">[\s\S]+?osw-js-date">([^<]+?)<',
+            '/en/media-room/press-releases',
+            type_to_group={'date': 3, 'url': 2, 'title': 1}
+        )
+
+
+class Vanda(RegexPRScraper):
+
+    URL = 'https://www.vandapharma.com'
+    NAME = 'Vanda Pharmaceuticals'
+    SYMBOL = 'VNDA'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<h6>([^<]+?)<\/h6>\s*<a href="([^"]+?)" target="_blank"><p>\s*?([^<]+?)<',
+            '/investors',
+            article_url_base=""
+        )
+
+
 SCRAPERS = [
     Gilead,
     Kiniksa,
@@ -577,5 +755,17 @@ SCRAPERS = [
     Cidara,
     Cocrystal,
     Diffusion,
-    Dynavax
+    Dynavax,
+    Enanta,
+    HeatBiologics,
+    IMAB,
+    JohnsonJohnson,
+    Kamada,
+    Karyopharm,
+    LaJolla,
+    Ligand,
+    VirBio,
+    Vaxart,
+    Sanofi,
+    Vanda
 ]

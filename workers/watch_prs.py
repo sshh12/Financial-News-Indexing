@@ -1,20 +1,10 @@
 from articles.releases import SCRAPERS
 from config import config
 
+import pendulum
 import asyncio
 import aiohttp
 import re
-
-
-async def test_existing_scrapers(url=None):
-    scrapers = [Scraper(url=url) for Scraper in SCRAPERS]
-    async with aiohttp.ClientSession() as session:
-        for scrap in scrapers:
-            scrap._session = session
-        fetch_tasks = [scrap.read_prs() for scrap in scrapers]
-        for _, name, prs in await asyncio.gather(*fetch_tasks):
-            if len(prs) > 0:
-                print(name, prs)
 
 
 def pr_to_sql_article(article):
@@ -29,19 +19,22 @@ def pr_to_sql_article(article):
     return update
 
 
-async def _fetch_and_log(scrapers, cache, log_new=True):
+async def _fetch_and_log(scrapers, cache, log_new=True, log_empty=False):
     async with aiohttp.ClientSession() as session:
         for scrap in scrapers:
             scrap._session = session
         fetch_tasks = [scrap.read_prs() for scrap in scrapers]
         for symbol, name, prs in await asyncio.gather(*fetch_tasks):
             prs = [pr_to_sql_article(pr) for pr in prs]
-            if len(prs) == 0:
+            if len(prs) == 0 and log_empty:
                 print('WARN: nothing found for', name)
             for pr in prs:
                 key = (symbol, pr['title'])
                 if key not in cache and log_new:
-                    print(symbol, pr['title'], pr['url'])
+                    print(str(pendulum.now()), symbol)
+                    print(pr['title'])
+                    print(pr['url'])
+                    print('-'*80)
                 cache[key] = pr
 
 
@@ -54,7 +47,7 @@ async def main():
     first = True
 
     while True:
-        await _fetch_and_log(scrapers, cache, log_new=(not first))
+        await _fetch_and_log(scrapers, cache, log_empty=first, log_new=(not first))
         first = False
         await asyncio.sleep(60)
         
