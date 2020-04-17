@@ -6,8 +6,11 @@ import asyncio
 import aiohttp
 import re
 
+import nest_asyncio
+nest_asyncio.apply()
 
-def pr_to_sql_article(article):
+
+def _pr_to_sql_article(article):
     update = {
         'title': article.headline,
         'content': article.content,
@@ -19,22 +22,39 @@ def pr_to_sql_article(article):
     return update
 
 
-async def _fetch_and_log(scrapers, cache, log_new=True, log_empty=False):
+def _send_slack(date, symbol, title, url, _cache=[]):
+    from slack import WebClient
+    if len(_cache) == 0:
+        _cache.append(WebClient(token=config['creds']['slack']['token']))
+    client = _cache[0]
+    msg = '`{}` *{}* {} {}'.format(str(date), symbol, title, url)
+    client.chat_postMessage(
+        channel=config['creds']['slack']['pr_channel'],
+        text=msg)
+
+
+def _on_new_pr(date, symbol, title, url):
+    if 'slack' in config['notify']:
+        _send_slack(date, symbol, title, url)
+    print(str(date), symbol)
+    print(title)
+    print(url)
+    print('-'*80)
+
+
+async def poll_prs(scrapers, cache, log_new=True, log_empty=False):
     async with aiohttp.ClientSession() as session:
         for scrap in scrapers:
             scrap._session = session
         fetch_tasks = [scrap.read_prs() for scrap in scrapers]
         for symbol, name, prs in await asyncio.gather(*fetch_tasks):
-            prs = [pr_to_sql_article(pr) for pr in prs]
+            prs = [_pr_to_sql_article(pr) for pr in prs]
             if len(prs) == 0 and log_empty:
                 print('WARN: nothing found for', name)
             for pr in prs:
                 key = (symbol, pr['title'])
                 if key not in cache and log_new:
-                    print(str(pendulum.now()), symbol)
-                    print(pr['title'])
-                    print(pr['url'])
-                    print('-'*80)
+                    _on_new_pr(pendulum.now(), symbol, pr['title'], pr['url'])
                 cache[key] = pr
 
 
@@ -47,9 +67,9 @@ async def main():
     first = True
 
     while True:
-        await _fetch_and_log(scrapers, cache, log_empty=first, log_new=(not first))
+        await poll_prs(scrapers, cache, log_empty=first, log_new=(not first))
         first = False
-        await asyncio.sleep(60)
+        await asyncio.sleep(45)
         
 
 

@@ -325,7 +325,7 @@ class ImmunoTech(RegexPRScraper):
     async def read_prs(self):
         params = '?b=2265&api=L4g4P2Y7S4&s=0&i=10&g=980&out=0&p=1&n=2&tl=0&sd=1&a=2&rss=1'
         return await self.read_prs_with_regex(
-            r'HeadLinesDateCell">([^<]+?)<\/td[\s\S]+?https:\/\/aimimmuno.irpass.com([^"]+?)" title="([^"]+?)">',
+            r'DateCell">([^<]+?)<[\s\S]+?<a href="https:\/\/aimimmuno.irpass.com([^"]+)" class="\w+?" title="([^"]+?)"',
             'https://www.b2i.us/b2i/LibraryFeed.asp' + params,
             full_url_path=True, 
             article_url_base='https://aimimmuno.irpass.com',
@@ -724,6 +724,87 @@ class Vanda(RegexPRScraper):
         )
 
 
+class TranslateBio(RegexPRScraper):
+
+    URL = 'https://investors.translate.bio'
+    NAME = 'Translate Bio'
+    SYMBOL = 'VNDA'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<p>\s*<span>([\.\d]+<\/span>\s*\d+)\s*<\/p>[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+)<',
+            '/investors/news-and-events'
+        )
+
+
+class Mesoblast(RegexPRScraper):
+
+    URL = 'http://investorsmedia.mesoblast.com'
+    NAME = 'Mesoblast'
+    SYMBOL = 'MESO'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'">(\d+ \w+ \d+)<\/span>[\s\S]+?<a href="http:\/\/investorsmedia.mesoblast.com([^"]+)"[\s\S]+?">([^<]+?)<',
+            '/asx-announcements'
+        )
+
+
+class Tonix(RegexPRScraper):
+
+    URL = 'https://www.tonixpharma.com'
+    NAME = 'Tonix Pharmaceuticals'
+    SYMBOL = 'HTBX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'media">\s*<a href="([^"]+)">[\s\S]+?media-heading">([^<]+)<\/h2>[\s\S]+?<time datetime="([\d\- :]+)"',
+            '/news-events/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Takeda(RegexPRScraper):
+
+    URL = 'https://www.takeda.com'
+    NAME = 'Takeda Pharmaceutical'
+    SYMBOL = 'TAK'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'ShortNumericalDate">\s*([/\d]+)\s*<[\s\S]+?<a href="([^"]+?)"[\s\S]+?<p>([^<]+?)<',
+            '/investors/'
+        )
+
+
+class CanFite(RegexPRScraper):
+
+    URL = 'https://ir.canfite.com'
+    NAME = 'Can-Fite BioPharma'
+    SYMBOL = 'CANF'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="https:\/\/ir.canfite.com([^"]+)"><span class="block">([^<]+?)<\/span>\s*([^<]+?)<',
+            '/press-releases',
+            type_to_group={'date': 2, 'url': 1, 'title': 3}
+        )
+
+
+class Pluristem(RegexPRScraper):
+
+    URL = 'https://www.pluristem.com'
+    NAME = 'Pluristem Therapeutics'
+    SYMBOL = 'PSTI'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<td class="date">([^<]+?)<[\s\S]+?title">([^<]+)<[\s\S]+?href="https:\/\/www.pluristem.com([^"]+?)">',
+            '/news/',
+            type_to_group={'date': 1, 'url': 3, 'title': 2}
+        )
+
+
 SCRAPERS = [
     Gilead,
     Kiniksa,
@@ -767,5 +848,11 @@ SCRAPERS = [
     VirBio,
     Vaxart,
     Sanofi,
-    Vanda
+    Vanda,
+    TranslateBio,
+    Mesoblast,
+    Tonix,
+    Takeda,
+    CanFite,
+    Pluristem
 ]

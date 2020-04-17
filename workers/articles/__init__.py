@@ -207,8 +207,10 @@ def text_to_datetime(html):
         pass
 
     # 03/31/20
+    # 03.27 2020
+    # 03 27 2020
     try:
-        time_text = text.replace('/', '-')
+        time_text = text.replace('.', ' ').replace('/', '-').replace(' ', '-')
         return pendulum.from_format(time_text, 'MM-DD-YY').in_tz(USE_TZ)
     except (ValueError, AttributeError):
         pass
