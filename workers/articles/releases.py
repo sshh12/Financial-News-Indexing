@@ -47,11 +47,15 @@ class RegexPRScraper(PRScraper):
         resp = await self._get(req_url, **kwargs)
         releases = []
         for match in re.finditer(regex, resp):
-            date = text_to_datetime(match.group(type_to_group['date']).strip())
+            if type_to_group['date'] != -1:
+                date = text_to_datetime(match.group(type_to_group['date']).strip())
+            else:
+                date = pendulum.now()
             if article_url_base is None:
                 url = self._url + match.group(type_to_group['url']).strip()
             else:
                 url = article_url_base + match.group(type_to_group['url']).strip()
+            url = url.replace(' ', '%20')
             title = clean_html_text(match.group(type_to_group['title']))
             if len(title) == 0:
                 continue
@@ -805,54 +809,174 @@ class Pluristem(RegexPRScraper):
         )
 
 
+class NanoViricides(RegexPRScraper):
+
+    URL = 'http://www.nanoviricides.com'
+    NAME = 'NanoViricides'
+    SYMBOL = 'NNVC'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'>(\w+ \d+, \d+) - <a href="([^"]+)"[\s\S]+?>([^<]+?)<\/a>',
+            '/companynews.html',
+            article_url_base="http://www.nanoviricides.com/"
+        )
+
+
+class Novan(RegexPRScraper):
+
+    URL = 'https://novan.gcs-web.com'
+    NAME = 'Novan'
+    SYMBOL = 'NOVN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+?)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+?)<\/a>',
+            '/press-releases'
+        )
+
+
+class OncoSec(RegexPRScraper):
+
+    URL = 'https://ir.oncosec.com'
+    NAME = 'OncoSec'
+    SYMBOL = 'ONCS'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="([^"]+?)">\s*([^<]+?)<[\s\S]+?datetime="([\d\-: ]+)"',
+            '/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Regeneron(RegexPRScraper):
+
+    URL = 'https://investor.regeneron.com'
+    NAME = 'Regeneron'
+    SYMBOL = 'REGN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'headline">\s*?<a href="([^"]+)" hreflang="en">([^<]+?)<\/a>',
+            '/index.php/press-releases',
+            type_to_group={'date': -1, 'url': 1, 'title': 2}
+        )
+
+
+class Soligenix(RegexPRScraper):
+
+    URL = 'http://ir.soligenix.com'
+    NAME = 'Soligenix'
+    SYMBOL = 'SNGX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'"wd_date">([^<]+?)<\/div>\s*?<div class="wd_title"><a href="http:\/\/ir.soligenix.com([^"]+?)">([^<]+?)<\/a>',
+            '/news-releases',
+        )
+
+
+class Sorrento(RegexPRScraper):
+
+    URL = 'http://investors.sorrentotherapeutics.com'
+    NAME = 'Sorrento Therapeutics'
+    SYMBOL = 'SRNE'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="([^"]+?)" hreflang="en">([^<]+?)<[\s\S]+?date-time">\s*(\w+ \d+, \d+)\s*<',
+            '/news-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Catalyst(RegexPRScraper):
+
+    URL = 'https://ir.catalystpharma.com'
+    NAME = 'Catalyst Pharmaceuticals'
+    SYMBOL = 'CPRX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date"><\/a>\s*(\w+ \d+, \d+)\s*<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class Viking(RegexPRScraper):
+
+    URL = 'http://ir.vikingtherapeutics.com'
+    NAME = 'Viking Therapeutics'
+    SYMBOL = 'VKTX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'wd_date">(\w+ \d+, \d+)<[\s\S]+?<a href="http:\/\/ir.vikingtherapeutics.com([^"]+?)">([^<]+)<',
+            '/press-releases'
+        )
+
+
+class Oragenics(RegexPRScraper):
+
+    URL = 'https://www.oragenics.com'
+    NAME = 'Oragenics'
+    SYMBOL = 'ONCS'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="([^"]+?)"\s*>([^<]+?)<[\s\S]+?datetime="([\d\- :]+)"',
+            '/news-media/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Biocept(RegexPRScraper):
+
+    URL = 'http://ir.biocept.com'
+    NAME = 'Biocept'
+    SYMBOL = 'BIOC'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'datetime">(\w+ \d+, \d+)<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class Titan(RegexPRScraper):
+
+    URL = 'https://ir.titanpharm.com'
+    NAME = 'Titan Pharmaceuticals'
+    SYMBOL = 'TTNP'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="https:\/\/ir.titanpharm.com([^"]+)">\s*([^<]+)<\/a>\s*<\/h2>[\s\S]+?datetime="([\d\- :]+)"',
+            '/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Amarin(RegexPRScraper):
+
+    URL = 'https://investor.amarincorp.com'
+    NAME = 'Amarin'
+    SYMBOL = 'AMRN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'datetime">(\w+ \d+, \d+)<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
 SCRAPERS = [
-    Gilead,
-    Kiniksa,
-    Akero,
-    Fate,
-    Citius,
-    Novavax,
-    CytoDyn,
-    Athersys,
-    Pfizer,
-    Immunomedics,
-    BioNTech,
-    Urogen,
-    Inovio,
-    Moderna,
-    Moleculin,
-    SCWORX,
-    Agenus,
-    ImmunoTech,
-    Aldeyra,
-    Altimmune,
-    Amgen,
-    AppliedDNASciences,
-    AppliedTherapeutics,
-    AptorumGroup,
-    AstraZeneca,
-    Capricor,
-    CELSCI,
-    Cidara,
-    Cocrystal,
-    Diffusion,
-    Dynavax,
-    Enanta,
-    HeatBiologics,
-    IMAB,
-    JohnsonJohnson,
-    Kamada,
-    Karyopharm,
-    LaJolla,
-    Ligand,
-    VirBio,
-    Vaxart,
-    Sanofi,
-    Vanda,
-    TranslateBio,
-    Mesoblast,
-    Tonix,
-    Takeda,
-    CanFite,
-    Pluristem
+    Gilead, Kiniksa, Akero, Fate, Citius, Novavax, CytoDyn, Athersys, Pfizer, Immunomedics,
+    BioNTech, Urogen, Inovio, Moderna, Moleculin, SCWORX, Agenus, ImmunoTech, Aldeyra, Altimmune,
+    Amgen, AppliedDNASciences, AppliedTherapeutics, AptorumGroup, AstraZeneca, Capricor, CELSCI,
+    Cidara, Cocrystal, Diffusion, Dynavax, Enanta, HeatBiologics, IMAB, JohnsonJohnson, Kamada,
+    Karyopharm, LaJolla, Ligand, VirBio, Vaxart, Sanofi, Vanda, TranslateBio, Mesoblast, Tonix,
+    Takeda, CanFite, Pluristem, NanoViricides, Novan, OncoSec, Regeneron, Soligenix, Sorrento,
+    Catalyst, Viking, Oragenics, Biocept, Titan, Amarin
 ]
