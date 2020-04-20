@@ -15,8 +15,9 @@ class PRScraper:
         else:
             self._url = url
 
-    async def _get(self, url, method='GET', json_params=None, form_params=None):
-        kwargs = {'headers': HEADERS}
+    async def _get(self, url, method='GET', \
+            json_params=None, form_params=None, headers=HEADERS):
+        kwargs = {'headers': headers}
         if json_params is not None:
             kwargs['json'] = json_params
         elif form_params is not None:
@@ -34,9 +35,6 @@ class PRScraper:
 
     async def read_prs(self):
         raise NotImplementedError()
-
-
-class RegexPRScraper(PRScraper):
 
     async def read_prs_with_regex(self, regex, url_path, \
             type_to_group={'date': 1, 'url': 2, 'title': 3}, \
@@ -62,9 +60,6 @@ class RegexPRScraper(PRScraper):
             releases.append(Article(self.NAME.lower(), title, date, "", url))
         return self.SYMBOL, self.NAME, releases
 
-
-class GetPressReleaseJSONScraper(PRScraper):
-
     async def read_prs_from_api(self, path, method='GET', params=None):
         releases = []
         try:
@@ -80,7 +75,7 @@ class GetPressReleaseJSONScraper(PRScraper):
         return self.SYMBOL, self.NAME, releases
 
 
-class Gilead(RegexPRScraper):
+class Gilead(PRScraper):
 
     URL = 'https://www.gilead.com'
     NAME = 'Gilead Sciences'
@@ -93,7 +88,7 @@ class Gilead(RegexPRScraper):
         )
 
 
-class Kiniksa(RegexPRScraper):
+class Kiniksa(PRScraper):
 
     URL = 'https://investors.kiniksa.com'
     NAME = 'Kiniksa Pharmaceuticals'
@@ -106,7 +101,7 @@ class Kiniksa(RegexPRScraper):
         )
 
 
-class Akero(RegexPRScraper):
+class Akero(PRScraper):
 
     URL = 'https://ir.akerotx.com'
     NAME = 'Akero Therapeutics'
@@ -119,7 +114,7 @@ class Akero(RegexPRScraper):
         )
 
 
-class Fate(RegexPRScraper):
+class Fate(PRScraper):
 
     URL = 'https://ir.fatetherapeutics.com'
     NAME = 'Fate Therapeutics'
@@ -132,7 +127,7 @@ class Fate(RegexPRScraper):
         )
 
 
-class Citius(RegexPRScraper):
+class Citius(PRScraper):
 
     URL = 'https://ir.citiuspharma.com'
     NAME = 'Citius Pharmaceuticals'
@@ -146,7 +141,7 @@ class Citius(RegexPRScraper):
         )
 
 
-class Novavax(RegexPRScraper):
+class Novavax(PRScraper):
 
     URL = 'http://ir.novavax.com'
     NAME = 'Novavax'
@@ -159,7 +154,7 @@ class Novavax(RegexPRScraper):
         )
 
 
-class CytoDyn(RegexPRScraper):
+class CytoDyn(PRScraper):
 
     URL = 'https://www.cytodyn.com'
     NAME = 'CytoDyn'
@@ -173,7 +168,7 @@ class CytoDyn(RegexPRScraper):
         )
 
 
-class Athersys(GetPressReleaseJSONScraper):
+class Athersys(PRScraper):
 
     URL = 'https://www.athersys.com'
     NAME = 'Athersys'
@@ -187,7 +182,7 @@ class Athersys(GetPressReleaseJSONScraper):
             '&pageSize=-1&pageNumber=0&tagList=&includeTags=true&year={}&excludeSelection=1'.format(year))
 
 
-class Pfizer(GetPressReleaseJSONScraper):
+class Pfizer(PRScraper):
 
     URL = 'https://investors.pfizer.com'
     NAME = 'Pfizer'
@@ -207,7 +202,7 @@ class Pfizer(GetPressReleaseJSONScraper):
         )
 
 
-class Immunomedics(RegexPRScraper):
+class Immunomedics(PRScraper):
 
     URL = 'https://www.immunomedics.com'
     NAME = 'Immunomedics'
@@ -222,7 +217,7 @@ class Immunomedics(RegexPRScraper):
         )
 
 
-class BioNTech(RegexPRScraper):
+class BioNTech(PRScraper):
 
     URL = 'https://investors.biontech.de'
     NAME = 'BioNTech'
@@ -235,7 +230,7 @@ class BioNTech(RegexPRScraper):
         )
 
 
-class Urogen(RegexPRScraper):
+class Urogen(PRScraper):
 
     URL = 'https://investors.urogen.com'
     NAME = 'Urogen Pharma Ltd'
@@ -248,7 +243,7 @@ class Urogen(RegexPRScraper):
         )
 
 
-class Inovio(GetPressReleaseJSONScraper):
+class Inovio(PRScraper):
 
     URL = 'http://ir.inovio.com'
     NAME = 'Inovio Ltd'
@@ -267,7 +262,7 @@ class Inovio(GetPressReleaseJSONScraper):
         )
 
 
-class Moderna(RegexPRScraper):
+class Moderna(PRScraper):
 
     URL = 'https://investors.modernatx.com'
     NAME = 'Moderna Inc'
@@ -280,7 +275,7 @@ class Moderna(RegexPRScraper):
         )
 
 
-class Moleculin(RegexPRScraper):
+class Moleculin(PRScraper):
 
     URL = 'https://ir.moleculin.com'
     NAME = 'Moleculin Biotech'
@@ -294,7 +289,7 @@ class Moleculin(RegexPRScraper):
         )
 
 
-class SCWORX(RegexPRScraper):
+class SCWORX(PRScraper):
 
     URL = 'https://ir.scworx.com'
     NAME = 'SC WORX'
@@ -307,7 +302,7 @@ class SCWORX(RegexPRScraper):
         )
 
 
-class Agenus(RegexPRScraper):
+class Agenus(PRScraper):
 
     URL = 'https://investor.agenusbio.com'
     NAME = 'Agenus'
@@ -320,7 +315,7 @@ class Agenus(RegexPRScraper):
         )
 
 
-class ImmunoTech(RegexPRScraper):
+class ImmunoTech(PRScraper):
 
     URL = 'https://aimimmuno.com'
     NAME = 'ImmunoTech'
@@ -337,7 +332,7 @@ class ImmunoTech(RegexPRScraper):
         )
 
 
-class Aldeyra(RegexPRScraper):
+class Aldeyra(PRScraper):
 
     URL = 'https://ir.aldeyra.com'
     NAME = 'Aldeyra Therapeutics'
@@ -350,7 +345,7 @@ class Aldeyra(RegexPRScraper):
         )
 
 
-class Altimmune(RegexPRScraper):
+class Altimmune(PRScraper):
 
     URL = 'https://ir.altimmune.com'
     NAME = 'Altimmune'
@@ -363,7 +358,7 @@ class Altimmune(RegexPRScraper):
         )
 
 
-class Amgen(RegexPRScraper):
+class Amgen(PRScraper):
 
     URL = 'http://investors.amgen.com'
     NAME = 'Amgen'
@@ -376,7 +371,7 @@ class Amgen(RegexPRScraper):
         )
 
 
-class AppliedDNASciences(RegexPRScraper):
+class AppliedDNASciences(PRScraper):
 
     URL = 'https://adnas.com'
     NAME = 'Applied DNA Sciences'
@@ -402,7 +397,7 @@ class AppliedDNASciences(RegexPRScraper):
         )
 
 
-class AppliedTherapeutics(RegexPRScraper):
+class AppliedTherapeutics(PRScraper):
 
     URL = 'https://ir.appliedtherapeutics.com'
     NAME = 'Applied Therapeutics'
@@ -415,7 +410,7 @@ class AppliedTherapeutics(RegexPRScraper):
         )
 
 
-class AptorumGroup(RegexPRScraper):
+class AptorumGroup(PRScraper):
 
     URL = 'http://ir.aptorumgroup.com'
     NAME = 'Aptorum Group'
@@ -428,7 +423,7 @@ class AptorumGroup(RegexPRScraper):
         )
 
 
-class ArcturusTherapeutics(RegexPRScraper):
+class ArcturusTherapeutics(PRScraper):
 
     URL = 'https://ir.arcturusrx.com'
     NAME = 'Arcturus Therapeutics'
@@ -441,7 +436,7 @@ class ArcturusTherapeutics(RegexPRScraper):
         )
 
 
-class AstraZeneca(RegexPRScraper):
+class AstraZeneca(PRScraper):
 
     URL = 'https://www.astrazeneca.com'
     NAME = 'AstraZeneca'
@@ -455,7 +450,7 @@ class AstraZeneca(RegexPRScraper):
         )
 
 
-class Capricor(RegexPRScraper):
+class Capricor(PRScraper):
 
     URL = 'http://capricor.com'
     NAME = 'Capricor'
@@ -470,7 +465,7 @@ class Capricor(RegexPRScraper):
         )
 
 
-class CELSCI(RegexPRScraper):
+class CELSCI(PRScraper):
 
     URL = 'https://cel-sci.com'
     NAME = 'CELSCI'
@@ -485,7 +480,7 @@ class CELSCI(RegexPRScraper):
         )
 
 
-class Cidara(RegexPRScraper):
+class Cidara(PRScraper):
 
     URL = 'https://ir.cidara.com'
     NAME = 'Cidara'
@@ -498,7 +493,7 @@ class Cidara(RegexPRScraper):
         )
 
 
-class Cocrystal(RegexPRScraper):
+class Cocrystal(PRScraper):
 
     URL = 'https://ir.cocrystalpharma.com'
     NAME = 'Cocrystal Pharma'
@@ -512,7 +507,7 @@ class Cocrystal(RegexPRScraper):
         )
 
 
-class Diffusion(GetPressReleaseJSONScraper):
+class Diffusion(PRScraper):
 
     URL = 'https://investors.diffusionpharma.com'
     NAME = 'Diffusion Pharmaceuticals'
@@ -525,7 +520,7 @@ class Diffusion(GetPressReleaseJSONScraper):
             '&pageNumber=0&tagList=&includeTags=true&year=-1&excludeSelection=1')
 
 
-class Dynavax(RegexPRScraper):
+class Dynavax(PRScraper):
 
     URL = 'http://investors.dynavax.com'
     NAME = 'Dynavax'
@@ -538,7 +533,7 @@ class Dynavax(RegexPRScraper):
         )
 
 
-class Enanta(GetPressReleaseJSONScraper):
+class Enanta(PRScraper):
 
     URL = 'https://www.enanta.com'
     NAME = 'Enanta'
@@ -552,7 +547,7 @@ class Enanta(GetPressReleaseJSONScraper):
             '&pressReleaseDateFilter=3&pageSize=-1&tagList=&includeTags=true&year={}&excludeSelection=1'.format(year))
 
 
-class HeatBiologics(RegexPRScraper):
+class HeatBiologics(PRScraper):
 
     URL = 'https://www.heatbio.com'
     NAME = 'Heat Biologics'
@@ -566,7 +561,7 @@ class HeatBiologics(RegexPRScraper):
         )
 
 
-class Mallinckrodt(RegexPRScraper):
+class Mallinckrodt(PRScraper):
 
     URL = 'http://www.mallinckrodt.com'
     NAME = 'Mallinckrodt'
@@ -580,7 +575,7 @@ class Mallinckrodt(RegexPRScraper):
         )
 
 
-class IMAB(RegexPRScraper):
+class IMAB(PRScraper):
 
     URL = 'http://www.i-mabbiopharma.com'
     NAME = 'I-MAB'
@@ -594,7 +589,7 @@ class IMAB(RegexPRScraper):
         )
 
 
-class JohnsonJohnson(RegexPRScraper):
+class JohnsonJohnson(PRScraper):
 
     URL = 'https://johnsonandjohnson.gcs-web.com'
     NAME = 'Johnson & Johnson'
@@ -607,7 +602,7 @@ class JohnsonJohnson(RegexPRScraper):
         )
 
 
-class Kamada(RegexPRScraper):
+class Kamada(PRScraper):
 
     URL = 'https://www.kamada.com'
     NAME = 'Kamada'
@@ -620,7 +615,7 @@ class Kamada(RegexPRScraper):
         )
 
 
-class Karyopharm(RegexPRScraper):
+class Karyopharm(PRScraper):
 
     URL = 'https://investors.karyopharm.com'
     NAME = 'Karyopharm Therapeutics'
@@ -633,7 +628,7 @@ class Karyopharm(RegexPRScraper):
         )
 
 
-class LaJolla(RegexPRScraper):
+class LaJolla(PRScraper):
 
     URL = 'http://ir.lajollapharmaceutical.com'
     NAME = 'La Jolla Pharmaceutical'
@@ -647,7 +642,7 @@ class LaJolla(RegexPRScraper):
         )
 
 
-class Ligand(RegexPRScraper):
+class Ligand(PRScraper):
 
     URL = 'https://investor.ligand.com'
     NAME = 'Ligand Pharmaceuticals'
@@ -661,7 +656,7 @@ class Ligand(RegexPRScraper):
         )
 
 
-class VirBio(RegexPRScraper):
+class VirBio(PRScraper):
 
     URL = 'https://investors.vir.bio'
     NAME = 'Vir Biotechnology'
@@ -674,7 +669,7 @@ class VirBio(RegexPRScraper):
         )
 
 
-class VBIVacc(RegexPRScraper):
+class VBIVacc(PRScraper):
 
     URL = 'https://www.vbivaccines.com'
     NAME = 'VBI Vaccines'
@@ -683,11 +678,12 @@ class VBIVacc(RegexPRScraper):
     async def read_prs(self):
         return await self.read_prs_with_regex(
             r'<a href="https:\/\/www.vbivaccines.com([^"]+?)"[\s\S]+?mark">([^<]+)<[\s\S]+?datetime="([\d\-T:]+)"',
-            '/wire/'
+            '/wire/',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
         )
 
 
-class Vaxart(RegexPRScraper):
+class Vaxart(PRScraper):
 
     URL = 'https://investors.vaxart.com'
     NAME = 'Vaxart'
@@ -700,7 +696,7 @@ class Vaxart(RegexPRScraper):
         )
 
 
-class Sanofi(RegexPRScraper):
+class Sanofi(PRScraper):
 
     URL = 'https://www.sanofi.com'
     NAME = 'Sanofi'
@@ -714,7 +710,7 @@ class Sanofi(RegexPRScraper):
         )
 
 
-class Vanda(RegexPRScraper):
+class Vanda(PRScraper):
 
     URL = 'https://www.vandapharma.com'
     NAME = 'Vanda Pharmaceuticals'
@@ -728,7 +724,7 @@ class Vanda(RegexPRScraper):
         )
 
 
-class TranslateBio(RegexPRScraper):
+class TranslateBio(PRScraper):
 
     URL = 'https://investors.translate.bio'
     NAME = 'Translate Bio'
@@ -741,7 +737,7 @@ class TranslateBio(RegexPRScraper):
         )
 
 
-class Mesoblast(RegexPRScraper):
+class Mesoblast(PRScraper):
 
     URL = 'http://investorsmedia.mesoblast.com'
     NAME = 'Mesoblast'
@@ -754,7 +750,7 @@ class Mesoblast(RegexPRScraper):
         )
 
 
-class Tonix(RegexPRScraper):
+class Tonix(PRScraper):
 
     URL = 'https://www.tonixpharma.com'
     NAME = 'Tonix Pharmaceuticals'
@@ -768,7 +764,7 @@ class Tonix(RegexPRScraper):
         )
 
 
-class Takeda(RegexPRScraper):
+class Takeda(PRScraper):
 
     URL = 'https://www.takeda.com'
     NAME = 'Takeda Pharmaceutical'
@@ -781,7 +777,7 @@ class Takeda(RegexPRScraper):
         )
 
 
-class CanFite(RegexPRScraper):
+class CanFite(PRScraper):
 
     URL = 'https://ir.canfite.com'
     NAME = 'Can-Fite BioPharma'
@@ -795,7 +791,7 @@ class CanFite(RegexPRScraper):
         )
 
 
-class Pluristem(RegexPRScraper):
+class Pluristem(PRScraper):
 
     URL = 'https://www.pluristem.com'
     NAME = 'Pluristem Therapeutics'
@@ -809,7 +805,7 @@ class Pluristem(RegexPRScraper):
         )
 
 
-class NanoViricides(RegexPRScraper):
+class NanoViricides(PRScraper):
 
     URL = 'http://www.nanoviricides.com'
     NAME = 'NanoViricides'
@@ -823,7 +819,7 @@ class NanoViricides(RegexPRScraper):
         )
 
 
-class Novan(RegexPRScraper):
+class Novan(PRScraper):
 
     URL = 'https://novan.gcs-web.com'
     NAME = 'Novan'
@@ -836,7 +832,7 @@ class Novan(RegexPRScraper):
         )
 
 
-class OncoSec(RegexPRScraper):
+class OncoSec(PRScraper):
 
     URL = 'https://ir.oncosec.com'
     NAME = 'OncoSec'
@@ -850,7 +846,7 @@ class OncoSec(RegexPRScraper):
         )
 
 
-class Regeneron(RegexPRScraper):
+class Regeneron(PRScraper):
 
     URL = 'https://investor.regeneron.com'
     NAME = 'Regeneron'
@@ -864,7 +860,7 @@ class Regeneron(RegexPRScraper):
         )
 
 
-class Soligenix(RegexPRScraper):
+class Soligenix(PRScraper):
 
     URL = 'http://ir.soligenix.com'
     NAME = 'Soligenix'
@@ -877,7 +873,7 @@ class Soligenix(RegexPRScraper):
         )
 
 
-class Sorrento(RegexPRScraper):
+class Sorrento(PRScraper):
 
     URL = 'http://investors.sorrentotherapeutics.com'
     NAME = 'Sorrento Therapeutics'
@@ -891,7 +887,7 @@ class Sorrento(RegexPRScraper):
         )
 
 
-class Catalyst(RegexPRScraper):
+class Catalyst(PRScraper):
 
     URL = 'https://ir.catalystpharma.com'
     NAME = 'Catalyst Pharmaceuticals'
@@ -904,7 +900,7 @@ class Catalyst(RegexPRScraper):
         )
 
 
-class Viking(RegexPRScraper):
+class Viking(PRScraper):
 
     URL = 'http://ir.vikingtherapeutics.com'
     NAME = 'Viking Therapeutics'
@@ -917,7 +913,7 @@ class Viking(RegexPRScraper):
         )
 
 
-class Oragenics(RegexPRScraper):
+class Oragenics(PRScraper):
 
     URL = 'https://www.oragenics.com'
     NAME = 'Oragenics'
@@ -931,7 +927,7 @@ class Oragenics(RegexPRScraper):
         )
 
 
-class Biocept(RegexPRScraper):
+class Biocept(PRScraper):
 
     URL = 'http://ir.biocept.com'
     NAME = 'Biocept'
@@ -944,7 +940,7 @@ class Biocept(RegexPRScraper):
         )
 
 
-class Titan(RegexPRScraper):
+class Titan(PRScraper):
 
     URL = 'https://ir.titanpharm.com'
     NAME = 'Titan Pharmaceuticals'
@@ -958,7 +954,7 @@ class Titan(RegexPRScraper):
         )
 
 
-class Amarin(RegexPRScraper):
+class Amarin(PRScraper):
 
     URL = 'https://investor.amarincorp.com'
     NAME = 'Amarin'
@@ -971,6 +967,167 @@ class Amarin(RegexPRScraper):
         )
 
 
+class AbbVie(PRScraper):
+
+    URL = 'https://news.abbvie.com'
+    NAME = 'AbbVie'
+    SYMBOL = 'ABBV'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date">(\w+ \d+, \d+)<[\s\S]+?<a href="([^"]+?)" target="_self" title="([^"]+?)"',
+            '/news/press-releases/'
+        )
+
+
+class Geron(PRScraper):
+
+    URL = 'https://ir.geron.com'
+    NAME = 'Geron'
+    SYMBOL = 'GERN'
+
+    async def read_prs(self):
+        year = pendulum.now().year
+        return await self.read_prs_from_api(
+            '/feed/PressRelease.svc/GetPressReleaseList?apiKey=BF185719B0464B3CB809D23926182246' + 
+            '&LanguageId=1&bodyType=0&pressReleaseDateFilter=3&categoryId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0&pageSize=-1' + 
+            '&pageNumber=0&tagList=&includeTags=true&year={}&excludeSelection=1'.format(year))
+
+
+class Onconova(PRScraper):
+
+    URL = 'https://investor.onconova.com'
+    NAME = 'Onconova Therapeutics'
+    SYMBOL = 'ONTX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'datetime">(\w+ \d+, \d+)<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class ImmunoGen(PRScraper):
+
+    URL = 'http://investor.immunogen.com'
+    NAME = 'ImmunoGen'
+    SYMBOL = 'IMGN'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'datetime">(\w+ \d+, \d+)<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class Milestone(PRScraper):
+
+    URL = 'https://investors.milestonepharma.com'
+    NAME = 'Milestone Pharmaceuticals'
+    SYMBOL = 'MIST'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class BioCryst(PRScraper):
+
+    URL = 'http://ir.biocryst.com'
+    NAME = 'BioCryst'
+    SYMBOL = 'BCRX'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<td>\s*(\w+ \d+, \d+)\s*?<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class Matinas(PRScraper):
+
+    URL = 'https://www.matinasbiopharma.com'
+    NAME = 'Matinas BioPharma'
+    SYMBOL = 'MTNB'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'datetime="([\d\- :]+)"[\s\S]+?<a href="([^"]+?)">([^<]+?)<',
+            '/media/press-releases'
+        )
+
+
+class Verastem(PRScraper):
+
+    URL = 'https://investor.verastem.com'
+    NAME = 'Verastem'
+    SYMBOL = 'VSTM'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/news-releases'
+        )
+
+
+class GW(PRScraper):
+
+    URL = 'http://ir.gwpharm.com'
+    NAME = 'GW Pharmaceuticals'
+    SYMBOL = 'GWPH'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class Exelixis(PRScraper):
+
+    URL = 'https://ir.exelixis.com'
+    NAME = 'Exelixis'
+    SYMBOL = 'EXEL'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'>(\d+\/\d+\/\d+)<[\s\S]+?<a href="([^"]+?)" hreflang="en">([^<]+?)<',
+            '/press-releases'
+        )
+
+
+class Selecta(PRScraper):
+
+    URL = 'https://selectabio.com'
+    NAME = 'Selecta Biosciences'
+    SYMBOL = 'SELB'
+
+    async def read_prs(self):
+        resp = await self._get(self._url + '/phpSide/index.php', 
+            method='POST', form_params={'url': 'News'},
+            headers={
+                'referer': 'https://www.selectabio.com/investors&media/news&events/',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'same-site',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' + 
+                    ' (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'
+            })
+        releases = []
+        try:
+            items = json.loads(resp)['data']
+        except:
+            items = []   
+        for item in items:
+            date = text_to_datetime(item['releaseDate']['dateUTC'])
+            url = item['link']['hostedUrl']
+            title = clean_html_text(item['title'])
+            releases.append(Article(self.NAME.lower(), title, date, "", url))
+        return self.SYMBOL, self.NAME, releases
+
+
 SCRAPERS = [
     Gilead, Kiniksa, Akero, Fate, Citius, Novavax, CytoDyn, Athersys, Pfizer, Immunomedics,
     BioNTech, Urogen, Inovio, Moderna, Moleculin, SCWORX, Agenus, ImmunoTech, Aldeyra, Altimmune,
@@ -978,5 +1135,6 @@ SCRAPERS = [
     Cidara, Cocrystal, Diffusion, Dynavax, Enanta, HeatBiologics, IMAB, JohnsonJohnson, Kamada,
     Karyopharm, LaJolla, Ligand, VirBio, Vaxart, Sanofi, Vanda, TranslateBio, Mesoblast, Tonix,
     Takeda, CanFite, Pluristem, NanoViricides, Novan, OncoSec, Regeneron, Soligenix, Sorrento,
-    Catalyst, Viking, Oragenics, Biocept, Titan, Amarin
+    Catalyst, Viking, Oragenics, Biocept, Titan, Amarin, AbbVie, Geron, Onconova, VBIVacc,
+    ImmunoGen, Milestone, BioCryst, Matinas, Verastem, GW, Exelixis, Selecta
 ]

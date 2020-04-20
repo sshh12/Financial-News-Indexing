@@ -6,8 +6,10 @@ import asyncio
 import aiohttp
 import re
 
-import nest_asyncio
-nest_asyncio.apply()
+import nest_asyncio; nest_asyncio.apply()
+
+
+CFG = config['watch']
 
 
 def _pr_to_sql_article(article):
@@ -34,12 +36,13 @@ def _send_slack(date, symbol, title, url, _cache=[]):
 
 
 def _on_new_pr(date, symbol, title, url):
-    if 'slack' in config['notify']:
+    if 'slack' in CFG['notify']:
         _send_slack(date, symbol, title, url)
-    print(str(date), symbol)
-    print(title)
-    print(url)
-    print('-'*80)
+    if 'stdio' in CFG['notify']:
+        print(str(date), symbol)
+        print(title)
+        print(url)
+        print('-'*80)
 
 
 async def poll_prs(scrapers, cache, log_new=True, log_empty=False):
@@ -60,18 +63,20 @@ async def poll_prs(scrapers, cache, log_new=True, log_empty=False):
 
 async def main():
 
-    print('Watching...')
+    print('Watching ({})...'.format(len(SCRAPERS)))
 
     scrapers = [Scraper() for Scraper in SCRAPERS]
     cache = {}
-    first = True
-
+    
+    i = 0
     while True:
-        await poll_prs(scrapers, cache, log_empty=first, log_new=(not first))
-        first = False
-        await asyncio.sleep(45)
+        try:
+            await poll_prs(scrapers, cache, log_empty=(i == 0), log_new=(i > 0))
+        except Exception as e:
+            print('Poll error', e)
+        await asyncio.sleep(CFG['delay'])
+        i += 1
         
-
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()

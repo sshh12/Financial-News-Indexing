@@ -34,4 +34,6 @@ prices:
     SPX, T, TSLA, TWLO, TWTR, UBER, WMT, WORK, ZM]
 stats:
   stocks: [AAPL, AMZN, DJI, FB, GE, GOOGL, INX, LYFT, MSFT, NFLX, PFE, UBER]
-notify: [slack]
+watch:
+  notify: [stdio, slack]
+  delay: 45
