@@ -3,7 +3,6 @@ import os
 
 
 PROJECT_DIR = os.path.join(os.path.dirname(__file__), '..')
-CONFIG_FN = os.path.join(PROJECT_DIR, 'config.yaml')
 
 
 def _clean_recur(data):
@@ -15,13 +14,14 @@ def _clean_recur(data):
             data[key] = list_sorted
 
 
-def main():
-    with open(CONFIG_FN, 'r') as f:
+def clean(fn):
+    with open(fn, 'r') as f:
         config = yaml.safe_load(f)
     _clean_recur(config)
-    with open(CONFIG_FN, 'w') as f:
+    with open(fn, 'w') as f:
         config = yaml.safe_dump(config, f)
 
 
 if __name__ == '__main__':
-    main()
+    clean(os.path.join(PROJECT_DIR, 'config.yaml'))
+    clean(os.path.join(PROJECT_DIR, 'keywords.yaml'))

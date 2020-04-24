@@ -3,6 +3,7 @@ import hashlib
 import time
 import re
 
+from config import config
 from . import analyze
 
 
@@ -236,3 +237,25 @@ def truncate_sentence(text):
             return len(text)
     idx = min([first_index('.'), first_index('?'), first_index('!'), first_index('\n')])
     return text[:idx+1]
+
+
+def tokenize(text):
+    text = re.sub(r'[!\.\?\n\r]', '', text)
+    text = re.sub(r'\s{2,}', ' ', text)
+    return text.split(' ')
+
+
+def extract_symbols(text, _token_to_sym={}):
+    symbs = set()
+    for match in re.finditer(r'\$([A-Z\.]+)\b', text):
+        symbs.add(match.group(1))
+    tokens = tokenize(text)
+    if len(_token_to_sym) == 0:
+        for sym, kwords in config['keywords']['symbols'].items():
+            for kw in kwords:
+                _token_to_sym[kw] = sym
+    for token in tokens:
+        sym = _token_to_sym.get(token)
+        if sym is not None:
+            symbs.add(sym)
+    return symbs
