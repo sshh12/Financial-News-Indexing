@@ -1128,6 +1128,114 @@ class Selecta(PRScraper):
         return self.SYMBOL, self.NAME, releases
 
 
+class Centogene(PRScraper):
+
+    URL = 'https://investors.centogene.com'
+    NAME = 'Centogene'
+    SYMBOL = 'CNTG'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'date-time">\s*([\w, \d\-]+)\s*<\/div>[\s\S]+?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class Corbus(PRScraper):
+
+    URL = 'https://ir.corbuspharma.com'
+    NAME = 'Corbus Pharmaceuticals'
+    SYMBOL = 'CRBP'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'<a href="https:\/\/ir.corbuspharma.com([^"]+?)"[\s\S]+?heading">([^<]+?)<[\s\S]+?datetime="([\d\- :]+)"',
+            '/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class OPK(PRScraper):
+
+    URL = 'https://www.opko.com'
+    NAME = 'OPKO Health'
+    SYMBOL = 'OPK'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'heading">\s*?<a href="([^"]+?)"[\s\S]+?([^<]+?)<[\s\S]+?datetime="([\d\- :]+)"',
+            '/investors/news-events/press-releases',
+            type_to_group={'date': 3, 'url': 1, 'title': 2}
+        )
+
+
+class Abbott(PRScraper):
+
+    URL = 'https://abbott.mediaroom.com'
+    NAME = 'Abbott'
+    SYMBOL = 'ABT'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'"wd_date">([^<]+?)<\/div>[\s\S]+?wd_title"><a href="https:\/\/abbott.mediaroom.com([^"]+?)">([^<]+?)<',
+            '/press-releases?l=5',
+        )
+
+
+class Teva(PRScraper):
+
+    URL = 'https://ir.tevapharm.com'
+    NAME = 'Teva Pharmaceutical'
+    SYMBOL = 'TEVA'
+
+    async def read_prs(self):
+        year = pendulum.now().year
+        return await self.read_prs_from_api(
+            '/feed/PressRelease.svc/GetPressReleaseList?apiKey=BF185719B0464B3CB809D23926182246' + 
+            '&LanguageId=1&bodyType=0&pressReleaseDateFilter=3&categoryId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0' + 
+            '&pageSize=-1&pageNumber=0&tagList=&includeTags=true&year={}&excludeSelection=1'.format(year))
+
+
+class AytuBio(PRScraper):
+
+    URL = 'https://aytubio.com'
+    NAME = 'Aytu BioScience'
+    SYMBOL = 'AYTU'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'"wd_date">([^<]+?)<\/div>[\s\S]+?wd_title"><a href="https:\/\/irdirect.net([^"]+?)" target="_blank">([^<]+?)<',
+            'https://irdirect.net/{}/press_releases?years_pagination=1&per_page=10&template=aytu'.format(self.SYMBOL),
+            full_url_path=True
+        )
+
+
+class Zynerba(PRScraper):
+
+    URL = 'http://ir.zynerba.com'
+    NAME = 'Zynerba Pharmaceuticals'
+    SYMBOL = 'ZYNE'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'class="datetime">([<>="\w ,/]+?)<\/time>\s*<\/td>[\s\S]*?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
+class Cara(PRScraper):
+
+    URL = 'http://ir.caratherapeutics.com'
+    NAME = 'Cara Therapeutics'
+    SYMBOL = 'CARA'
+
+    async def read_prs(self):
+        return await self.read_prs_with_regex(
+            r'class="datetime">([<>="\w ,/]+?)<\/time>\s*<\/td>[\s\S]*?<a href="([^"]+)" hreflang="\w+">([^<]+)<\/a>',
+            '/press-releases'
+        )
+
+
 SCRAPERS = [
     Gilead, Kiniksa, Akero, Fate, Citius, Novavax, CytoDyn, Athersys, Pfizer, Immunomedics,
     BioNTech, Urogen, Inovio, Moderna, Moleculin, SCWORX, Agenus, ImmunoTech, Aldeyra, Altimmune,
@@ -1136,5 +1244,6 @@ SCRAPERS = [
     Karyopharm, LaJolla, Ligand, VirBio, Vaxart, Sanofi, Vanda, TranslateBio, Mesoblast, Tonix,
     Takeda, CanFite, Pluristem, NanoViricides, Novan, OncoSec, Regeneron, Soligenix, Sorrento,
     Catalyst, Viking, Oragenics, Biocept, Titan, Amarin, AbbVie, Geron, Onconova, VBIVacc,
-    ImmunoGen, Milestone, BioCryst, Matinas, Verastem, GW, Exelixis, Selecta
+    ImmunoGen, Milestone, BioCryst, Matinas, Verastem, GW, Exelixis, Selecta, Centogene, Corbus,
+    OPK, Abbott, Teva, AytuBio, Zynerba, Cara
 ]
