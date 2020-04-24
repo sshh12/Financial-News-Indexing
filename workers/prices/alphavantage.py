@@ -75,7 +75,6 @@ class AlphaVantage(TickDataSource):
         
         first_chunk = True
         for symbols in _chunks(self.symbols, MAX_REQ_PER_MIN * len(self.api_keys)):
-            print('CHUNK')
             if not first_chunk:
                 await asyncio.sleep(61)
             fetch_tasks = [self.read_stock_data(symbol.upper(), key_idx=i % len(self.api_keys), period=period) 

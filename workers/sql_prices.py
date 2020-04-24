@@ -78,7 +78,7 @@ async def main_daily():
     for sym in Symbol.select():
         stock_map[sym.symbol] = sym
 
-    stocks = list(set(config['general']['stocks']) & set(stock_map))
+    stocks = list(set(config['prices']['stocks']) & set(stock_map))
 
     sources = [
         ('AlphaVantage', AlphaVantage(stocks, 

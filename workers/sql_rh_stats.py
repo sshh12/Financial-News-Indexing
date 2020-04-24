@@ -74,13 +74,14 @@ async def main():
         sym_map[sym.symbol] = sym
 
     symbols = list(set(config['general']['stocks']) & set(sym_map))
-
-    rbh = Robinhood()
+    
     try:
+        rbh = Robinhood()
         rbh.load_login('data/rh.login')
         _ = rbh.cash
     except Exception as e:
         print(e)
+        rbh = Robinhood()
         rbh.login(username=RH_CREDS['username'], password=RH_CREDS['password'])
         rbh.save_login('data/rh.login')
 
