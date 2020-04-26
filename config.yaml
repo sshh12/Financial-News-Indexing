@@ -35,8 +35,8 @@ prices:
 stats:
   stocks: [AAPL, AMZN, DJI, FB, GE, GOOGL, INX, LYFT, MSFT, NFLX, PFE, UBER]
 watch:
-  delay: 10
-  notify: [slack, stdio]
   twitter:
     GILD: [GileadSciences]
     _: [ForexLive, LiveSquawk, MarketCurrents, realDonaldTrump]
+  prs:
+    delay: 10

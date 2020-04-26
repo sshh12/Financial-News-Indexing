@@ -1,4 +1,4 @@
-from articles import clean_html_text
+from articles import clean_html_text, extract_symbols
 from config import config
 from . import Stream
 import tweepy
@@ -38,17 +38,24 @@ class StreamTwitter(Stream):
 
     def start(self):
         users = [self._name_to_id(name) for name in self.name_to_symb]
+        while True:
+            try:
+                self._run(users)
+            except Exception as e:
+                print(e)
+
+    def _run(self, user_ids):
         listener = _Listener()
         listener.on_status = self._on_tweet
         stream = tweepy.Stream(auth=self.api.auth, listener=listener)
-        stream.filter(follow=[self._name_to_id(name) for name in CFG])
+        stream.filter(follow=user_ids)
 
     def _name_to_id(self, name):
         return str(self.api.get_user(name).id)
 
     def _parse_tweet(self, status):
         text = None
-        if hasattr(status, "retweeted_status"):  # Check if Retweet
+        if hasattr(status, "retweeted_status"):
             try:
                 text = status.retweeted_status.extended_tweet["full_text"]
             except AttributeError:
@@ -63,8 +70,12 @@ class StreamTwitter(Stream):
     def _on_tweet(self, tweet):
         text = self._parse_tweet(tweet)
         name = tweet.author.screen_name
-        data = dict(source='twitter', title=text)
+        if name not in self.name_to_symb:
+            return
+        data = dict(source='twitter', type='tweet', text=text, author=name)
+        symbs = extract_symbols(text)
         symb = self.name_to_symb.get(name)
         if symb is not None and symb != '_':
-            data['symbols'] = [symb]
+            symbs.add(symb)
+        data['symbols'] = list(symbs)
         self.on_event(data)
