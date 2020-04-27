@@ -47,6 +47,12 @@ postgres:
 
 ### Sources
 
+#### Streaming
+
+* TDAmeritrade
+* Twitter
+* Misc Press Releases
+
 #### Prices
 * Alphavantage
 * Crypto Compare

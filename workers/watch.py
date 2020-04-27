@@ -1,5 +1,5 @@
 from stream.twitter import StreamTwitter
-# from stream.tdameritrade import StreamTDA
+from stream.tdameritrade import StreamTDA
 from stream.prs import StreamPRs
 from notify.slack import slack_evt
 
