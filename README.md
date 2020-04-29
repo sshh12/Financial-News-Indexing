@@ -2,6 +2,11 @@
 
 > A suite of market/financial news webscrapers.
 
+### Streaming Usage
+
+1. `$ pip install requirements.txt`
+2. `python workers\watch.py`
+
 ### PostgreSQL Usage (`workers/sql_*.py`)
 
 1. Install [PostgreSQL](https://www.postgresql.org/download/)
@@ -43,6 +48,14 @@ postgres:
     user: '...'
     password: '...'
     host: '...'
+robinhood:
+    username: '...'
+    password: '...'
+slack:
+    token: '...'
+    channel: '...'
+tda:
+    consumer_key: '...'
 ```
 
 ### Sources
