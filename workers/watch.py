@@ -16,6 +16,9 @@ def main():
     strm_twitter = StreamTwitter()
     strm_twitter.on_event = on_event
     strm_twitter.start_async()
+    strm_tda = StreamTDA()
+    strm_tda.on_event = on_event
+    strm_tda.start_async()
     strm_prs = StreamPRs()
     strm_prs.on_event = on_event
     strm_prs.start()

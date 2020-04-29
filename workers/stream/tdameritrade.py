@@ -1,15 +1,31 @@
 from pymeritrade import TDAClient
 from config import config
 from . import Stream
+import os
 
 
 CREDS = config['creds']['tda']
+CFG = config['watch']['tda']
 
 
 class StreamTDA(Stream):
 
     def __init__(self):
-        pass
+        self.tda = TDAClient(CREDS['consumer_key'])
+        self.tda.load_login(os.path.join('data', 'tda-login'))
+        self.stream = self.tda.create_stream(debug=False)
 
     def start(self):
-        pass
+        self.stream.start()
+        self.stream.subscribe('news', symbols=CFG['news'], fields=[0, 5, 9, 10])
+        for id_, item in self.stream.live_data():
+            for key, stream_data in item.items():
+                evt = self._news_to_evt(stream_data)
+                if evt is not None:
+                    self.on_event(evt)
+
+    def _news_to_evt(self, news):
+        evt = dict(title=news['5'], type='article', source=news['10'], hot=news['9'], symbols=[news['key']])
+        if evt['title'] == 'N/A':
+            return None
+        return evt
