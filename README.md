@@ -70,6 +70,8 @@ tda:
 * RTTNews
 * BusinessWire
 * Moodys
+* US Federal Reserve
+* US BLS
 * Misc Press Releases
 
 #### Prices

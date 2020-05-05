@@ -5,6 +5,8 @@ from articles.prnewswire import PRNewsWire
 from articles.rttnews import RTTNews
 from articles.moodys import Moodys
 from articles.businesswire import BusinessWire
+from articles.federalreserve import FederalReserve
+from articles.usbls import USBLS
 from articles import extract_symbols
 from config import config
 from . import StreamPoll
@@ -20,7 +22,9 @@ SOURCES = {
     'seekingalpha': SeekingAlpha,
     'rtt': RTTNews,
     'moodys': Moodys,
-    'businesswire': BusinessWire
+    'businesswire': BusinessWire,
+    'federalreserve': FederalReserve,
+    'usbls': USBLS
 }
 
 
