@@ -35,7 +35,9 @@ prices:
 stats:
   stocks: [AAPL, AMZN, DJI, FB, GE, GOOGL, INX, LYFT, MSFT, NFLX, PFE, UBER]
 watch:
-  news: {delay: 10}
+  news:
+    delay: 10
+    sources: [businesswire, marketwatch, moodys, prnewswire, reuters, rtt, seekingalpha]
   prs: {delay: 10}
   tda:
     news: [AAPL, ABBV, ABT, AGEN, AIM, AKRO, ALDX, ALT, AMGN, AMRN, AMZN, APDN, APLT,
@@ -47,4 +49,5 @@ watch:
       VNDA, VSTM, VXRT, WORX, ZYNE]
   twitter:
     GILD: [GileadSciences]
-    _: [ForexLive, LiveSquawk, MarketCurrents, realDonaldTrump]
+    TSLA: [elonmusk]
+    _: [ForexLive, LiveSquawk, MarketCurrents, MoodysInvSvc, realDonaldTrump]

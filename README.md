@@ -5,7 +5,7 @@
 ### Streaming Usage
 
 1. `$ pip install requirements.txt`
-2. `python workers\watch.py`
+2. `$ python workers\watch.py`
 
 ### PostgreSQL Usage (`workers/sql_*.py`)
 
@@ -66,6 +66,10 @@ tda:
 * Twitter
 * MarketWatch
 * SeekingAlpha
+* PRNewsWire
+* RTTNews
+* BusinessWire
+* Moodys
 * Misc Press Releases
 
 #### Prices

@@ -1,5 +1,10 @@
 from articles.seekingalpha import SeekingAlpha
 from articles.marketwatch import MarketWatch
+from articles.reuters import Reuters
+from articles.prnewswire import PRNewsWire
+from articles.rttnews import RTTNews
+from articles.moodys import Moodys
+from articles.businesswire import BusinessWire
 from articles import extract_symbols
 from config import config
 from . import StreamPoll
@@ -8,12 +13,21 @@ import aiohttp
 
 
 CFG = config['watch']['news']
+SOURCES = {
+    'prnewswire': PRNewsWire,
+    'reuters': Reuters,
+    'marketwatch': MarketWatch,
+    'seekingalpha': SeekingAlpha,
+    'rtt': RTTNews,
+    'moodys': Moodys,
+    'businesswire': BusinessWire
+}
 
 
 class StreamNews(StreamPoll):
 
     def __init__(self):
-        self.scrapers = [MarketWatch(), SeekingAlpha()]
+        self.scrapers = [SOURCES[name]() for name in CFG['sources']]
         self.cache = set()
         self.delay = CFG['delay']
 

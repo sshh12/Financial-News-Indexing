@@ -68,3 +68,13 @@ class Reuters(ArticleScraper):
 
     async def read_news(self):
         return await self.read_news_list(TOPIC_URLS)
+
+    async def read_latest_headlines(self):
+        index_html = await self._get('/finance/markets')
+        headlines = []
+        for match in re.finditer(r'href="([^"]+?)">\s*?<h3 class="story-title">\s*([^<]+?)<', index_html):
+            url = self.url + match.group(1)
+            headline = clean_html_text(match.group(2))
+            headline = re.sub(r'([A-Z])-([A-Z])', '\\1 - \\2', headline)
+            headlines.append((url, headline))
+        return 'reuters', headlines

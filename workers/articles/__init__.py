@@ -47,9 +47,9 @@ class Article:
 
 class ArticleScraper:
 
-    async def _get(self, url_part):
+    async def _get(self, url_part, headers=HEADERS):
         try:
-            async with self._session.get(self.url + url_part, headers=HEADERS) as response:
+            async with self._session.get(self.url + url_part, headers=headers) as response:
                 return await response.text()
         except (ConnectionRefusedError, UnicodeDecodeError):
             return ''
@@ -248,6 +248,8 @@ def tokenize(text):
 def extract_symbols(text, _token_to_sym={}):
     symbs = set()
     for match in re.finditer(r'\$([A-Z\.]+)\b', text):
+        symbs.add(match.group(1))
+    for match in re.finditer(r' \(([A-Z\.]+)\)', text):
         symbs.add(match.group(1))
     tokens = tokenize(text)
     if len(_token_to_sym) == 0:

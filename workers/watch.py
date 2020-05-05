@@ -9,8 +9,6 @@ import nest_asyncio; nest_asyncio.apply()
 
 def on_event(evt):
     print(evt)
-    if evt.get('type') == 'pr':
-        slack_evt(evt)
 
 
 def main():
