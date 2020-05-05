@@ -64,6 +64,8 @@ tda:
 
 * TDAmeritrade
 * Twitter
+* MarketWatch
+* SeekingAlpha
 * Misc Press Releases
 
 #### Prices

@@ -84,3 +84,12 @@ class SeekingAlpha(ArticleScraper):
 
     async def read_news(self):
         return await self.read_news_list()
+
+    async def read_latest_headlines(self):
+        index_html = await self._get('/market-news')
+        headlines = []
+        for match in re.finditer(r'href="([^"]+?)" class="[\w-]+" sasource="market_news\w+">([^<]+?)<', index_html):
+            url = self.url + match.group(1)
+            headline = clean_html_text(match.group(2))
+            headlines.append((url, headline))
+        return 'seekingalpha', headlines

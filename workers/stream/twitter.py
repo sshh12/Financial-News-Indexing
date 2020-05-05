@@ -69,6 +69,8 @@ class StreamTwitter(Stream):
 
     def _on_tweet(self, tweet):
         text = self._parse_tweet(tweet)
+        if len(text) == 0:
+            return
         name = tweet.author.screen_name
         if name not in self.name_to_symb:
             return

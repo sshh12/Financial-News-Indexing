@@ -1,4 +1,6 @@
 symbols:
+  CAR: [Avis]
+  CRM: [Salesforce, Salesforces]
   DB: [Deutsche Bank]
   DLAKY: [Lufthansa]
   EADSY: [Airbus]
@@ -13,4 +15,6 @@ symbols:
   PUMP: [Oil, oil]
   SKX: [Skechers]
   T: [AT&T, AT&T Inc.]
+  TSN: [Tyson Foods, Tyson Fresh Meats]
   USO: [Oil, oil]
+  JETS: [Airline]

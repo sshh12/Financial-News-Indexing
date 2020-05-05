@@ -105,3 +105,12 @@ class MarketWatch(ArticleScraper):
 
     async def read_news(self):
         return await self.read_news_list()
+
+    async def read_latest_headlines(self):
+        index_html = await self._get('/latest-news')
+        headlines = []
+        for match in re.finditer(r'headline"><a[ "=\w]+?href="(https:\/\/www.marketwatch.com[^"]+?)">([^<]+?)<', index_html):
+            url = match.group(1).replace('?mod=newsviewer_click', '')
+            headline = clean_html_text(match.group(2))
+            headlines.append((url, headline))
+        return 'marketwatch', headlines

@@ -35,6 +35,7 @@ prices:
 stats:
   stocks: [AAPL, AMZN, DJI, FB, GE, GOOGL, INX, LYFT, MSFT, NFLX, PFE, UBER]
 watch:
+  news: {delay: 10}
   prs: {delay: 10}
   tda:
     news: [AAPL, ABBV, ABT, AGEN, AIM, AKRO, ALDX, ALT, AMGN, AMRN, AMZN, APDN, APLT,

@@ -1,6 +1,6 @@
 from articles.releases import SCRAPERS
 from config import config
-from . import Stream
+from . import StreamPoll
 import asyncio
 import aiohttp
 
@@ -8,25 +8,12 @@ import aiohttp
 CFG = config['watch']['prs']
 
 
-class StreamPRs(Stream):
+class StreamPRs(StreamPoll):
 
     def __init__(self):
         self.scrapers = [Scraper() for Scraper in SCRAPERS[:10]]
         self.cache = set()
-
-    def start(self):
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self._run())
-
-    async def _run(self):
-        i = 0
-        while True:
-            try:
-                await self._poll(print_empty=(i == 0), emit_events=(i > 0))
-            except Exception as e:
-                print('Poll error', e)
-            await asyncio.sleep(CFG['delay'])
-            i += 1
+        self.delay = CFG['delay']
 
     async def _poll(self, print_empty=True, emit_events=True):
         async with aiohttp.ClientSession() as session:
