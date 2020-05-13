@@ -69,6 +69,7 @@ tda:
 * PRNewsWire
 * RTTNews
 * BusinessWire
+* GlobeNewsWire
 * Moodys
 * US Federal Reserve
 * US BLS

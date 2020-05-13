@@ -37,8 +37,8 @@ stats:
 watch:
   news:
     delay: 10
-    sources: [businesswire, federalreserve, marketwatch, moodys, prnewswire, reuters,
-      rtt, seekingalpha, usbls]
+    sources: [businesswire, federalreserve, globenewswire, marketwatch, moodys, prnewswire,
+      reuters, rtt, seekingalpha, usbls]
   prs: {delay: 10}
   tda:
     news: [AAPL, ABBV, ABT, AGEN, AIM, AKRO, ALDX, ALT, AMGN, AMRN, AMZN, APDN, APLT,
