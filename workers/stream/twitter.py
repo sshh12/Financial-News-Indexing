@@ -42,7 +42,7 @@ class StreamTwitter(Stream):
             try:
                 self._run(users)
             except Exception as e:
-                print(e)
+                self.on_event(dict(type='error', name='twitter', desc=str(e), source=str(self)))
 
     def _run(self, user_ids):
         listener = _Listener()

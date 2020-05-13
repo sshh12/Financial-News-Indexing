@@ -36,8 +36,8 @@ class StreamPoll(Stream):
         i = 0
         while True:
             try:
-                await self._poll(print_empty=(i == 0), emit_events=(i > 0))
+                await self._poll(emit_empty=(i == 0), emit_events=(i > 0))
             except Exception as e:
-                print('Poll error', e)
+                self.on_event(dict(type='error', name='polling', desc=str(e), source=str(self)))
             await asyncio.sleep(self.delay)
             i += 1

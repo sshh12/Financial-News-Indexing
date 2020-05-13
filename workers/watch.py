@@ -3,11 +3,13 @@ from stream.tdameritrade import StreamTDA
 from stream.prs import StreamPRs
 from stream.news import StreamNews
 from notify.slack import slack_evt
+import pendulum
 
 import nest_asyncio; nest_asyncio.apply()
 
 
 def on_event(evt):
+    evt['date'] = str(pendulum.now())
     print(evt)
 
 
