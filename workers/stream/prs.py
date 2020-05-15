@@ -11,7 +11,7 @@ CFG = config['watch']['prs']
 class StreamPRs(StreamPoll):
 
     def __init__(self):
-        self.scrapers = [Scraper() for Scraper in SCRAPERS[:10]]
+        self.scrapers = [Scraper() for Scraper in SCRAPERS]
         self.cache = set()
         self.delay = CFG['delay']
 

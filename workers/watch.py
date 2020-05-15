@@ -2,6 +2,7 @@ from stream.twitter import StreamTwitter
 from stream.tdameritrade import StreamTDA
 from stream.prs import StreamPRs
 from stream.news import StreamNews
+from stream.stats import StreamStats
 from notify.slack import slack_evt
 import pendulum
 
@@ -28,6 +29,10 @@ def main():
     strm_prs = StreamPRs()
     strm_prs.on_event = on_event
     strm_prs.start_async()
+
+    strm_stats = StreamStats()
+    strm_stats.on_event = on_event
+    strm_stats.start_async()
 
     strm_news = StreamNews()
     strm_news.on_event = on_event

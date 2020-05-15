@@ -14,6 +14,7 @@ HEADERS = {
     'accept-encoding': 'gzip, deflate, br',
     'accept-language': 'en-US,en;q=0.9,la;q=0.8',
     'cache-control': 'no-cache',
+    'upgrade-insecure-requests': '1',
     'pragma': 'no-cache'
 }
 

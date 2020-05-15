@@ -73,6 +73,7 @@ tda:
 * Moodys
 * US Federal Reserve
 * US BLS
+* FinViz
 * Misc Press Releases
 
 #### Prices
