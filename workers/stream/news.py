@@ -40,7 +40,8 @@ class StreamNews(StreamPoll):
         self.delay = CFG['delay']
 
     async def _poll(self, emit_empty=True, emit_events=True):
-        async with aiohttp.ClientSession() as session:
+        timeout = aiohttp.ClientTimeout(total=15)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             for scrap in self.scrapers:
                 scrap._session = session
             fetch_tasks = [scrap.read_latest_headlines() for scrap in self.scrapers]
