@@ -15,19 +15,19 @@ class StreamPRs(StreamPoll):
         self.cache = set()
         self.delay = CFG['delay']
 
-    async def _poll(self, emit_empty=True, emit_events=True):
-        timeout = aiohttp.ClientTimeout(total=15)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            for scrap in self.scrapers:
-                scrap._session = session
-            fetch_tasks = [scrap.read_prs() for scrap in self.scrapers]
-            for symbol, name, prs in await asyncio.gather(*fetch_tasks):
-                if len(prs) == 0 and emit_empty:
-                    self.on_event(dict(type='error', name='empty', desc=name, source=str(self)))
-                for pr in prs:
-                    key = (symbol, pr.headline)
-                    if key not in self.cache and emit_events:
-                        data = dict(source=name, type='pr', title=pr.headline, 
-                            url=pr.url, published=pr.date, symbols=[symbol])
-                        self.on_event(data)
-                    self.cache.add(key)
+    async def get_polls(self):
+        polls = []
+        for scrap in self.scrapers:
+            polls.append((scrap, scrap.read_prs, self.delay))
+        return polls
+
+    def on_poll_data(self, symbol, name, prs, emit_empty=False, emit_events=True):
+        if len(prs) == 0 and emit_empty:
+            self.on_event(dict(type='error', name='empty', desc=name, source=str(self)))
+        for pr in prs:
+            key = (symbol, pr.headline)
+            if key not in self.cache and emit_events:
+                data = dict(source=name, type='pr', title=pr.headline, 
+                    url=pr.url, published=pr.date, symbols=[symbol])
+                self.on_event(data)
+            self.cache.add(key)
