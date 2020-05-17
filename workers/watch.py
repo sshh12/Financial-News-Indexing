@@ -4,6 +4,7 @@ from stream.prs import StreamPRs
 from stream.news import StreamNews
 from stream.stats import StreamStats
 from notify.slack import slack_evt
+import hashlib
 import pendulum
 
 import nest_asyncio; nest_asyncio.apply()
@@ -12,6 +13,19 @@ import nest_asyncio; nest_asyncio.apply()
 def on_event(evt):
     evt['date'] = str(pendulum.now())
     print(evt)
+
+
+def es_make_on_event():
+    import elasticsearch
+    es = elasticsearch.Elasticsearch()
+    def on_event(evt):
+        evt['date'] = str(pendulum.now())
+        id_ = hashlib.sha1(bytes(repr(evt), 'utf-8')).hexdigest()
+        try:
+            es.create('index-events', id_, evt)
+        except Exception as e:
+            pass
+    return on_event
 
 
 def main():
