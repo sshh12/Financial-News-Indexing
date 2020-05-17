@@ -1,4 +1,5 @@
 from threading import Thread
+import traceback
 import asyncio
 import aiohttp
 
@@ -36,19 +37,28 @@ class StreamPoll(Stream):
     def get_polls(self):
         return []
 
+    def on_poll_data(self, *args, **kwargs):
+        raise NotImplementedError()
+
     async def _poll(self, obj, func, delay):
-        timeout = aiohttp.ClientTimeout(total=delay)
+        timeout = aiohttp.ClientTimeout(total=delay * 2)
         async with aiohttp.ClientSession(timeout=timeout) as session:
             obj._session = session
             i = 0
+            errors = 0
             while True:
                 try:
                     args = await func()
                     self.on_poll_data(*args, emit_empty=(i == 0), emit_events=(i > 0))
                 except Exception as e:
-                    self.on_event(dict(type='error', name='polling', desc=str(e), source=str(self)))
+                    self.on_event(dict(type='error', name='polling', 
+                        desc=str(func), traceback=repr(traceback.format_stack()), source=str(self)))
+                    errors += 1
                 await asyncio.sleep(self.delay)
                 i += 1
+                if errors / i > 0.5:
+                    self.on_event(dict(type='error', name='stop-polling', desc=str(func), source=str(self)))
+                    break
 
     async def do_polling(self):
         polls = await self.get_polls()
