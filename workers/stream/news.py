@@ -8,6 +8,7 @@ from articles.businesswire import BusinessWire
 from articles.federalreserve import FederalReserve
 from articles.globenewswire import GlobeNewsWire
 from articles.accesswire import AccessWire
+from articles.stocktwits import StockTwits
 from articles.usbls import USBLS
 from articles import extract_symbols
 from config import config
@@ -28,7 +29,8 @@ SOURCES = {
     'federalreserve': FederalReserve,
     'usbls': USBLS,
     'globenewswire': GlobeNewsWire,
-    'accesswire': AccessWire
+    'accesswire': AccessWire,
+    'stocktwits': StockTwits
 }
 
 

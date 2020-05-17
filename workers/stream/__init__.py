@@ -52,11 +52,11 @@ class StreamPoll(Stream):
                     self.on_poll_data(*args, emit_empty=(i == 0), emit_events=(i > 0))
                 except Exception as e:
                     self.on_event(dict(type='error', name='polling', 
-                        desc=str(func), traceback=repr(traceback.format_stack()), source=str(self)))
+                        desc=str(func), traceback=repr(traceback.format_stack()) + ' -> ' + repr(e), source=str(self)))
                     errors += 1
                 await asyncio.sleep(self.delay)
                 i += 1
-                if errors / i > 0.5:
+                if i > 20 and errors / i > 0.5:
                     self.on_event(dict(type='error', name='stop-polling', desc=str(func), source=str(self)))
                     break
 
