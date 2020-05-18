@@ -18,7 +18,10 @@ class StockTwits(ArticleScraper):
             'Authorization': 'OAuth ' + CREDS['access_token']
         }
         resp = await self._get('/api/2/' + path, headers=headers)
-        return json.loads(resp)
+        try:
+            return json.loads(resp)
+        except:
+            raise Exception('Stocktwits request was blocked.')
 
     async def read_twits(self):
         data = await self._call_api('streams/suggested.json')

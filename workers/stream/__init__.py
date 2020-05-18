@@ -54,11 +54,11 @@ class StreamPoll(Stream):
                     self.on_event(dict(type='error', name='polling', 
                         desc=str(func), traceback=repr(traceback.format_stack()) + ' -> ' + repr(e), source=str(self)))
                     errors += 1
-                await asyncio.sleep(self.delay)
                 i += 1
-                if i > 20 and errors / i > 0.5:
+                if i > 20 and errors / i > 0.25:
                     self.on_event(dict(type='error', name='stop-polling', desc=str(func), source=str(self)))
                     break
+                await asyncio.sleep(self.delay)
 
     async def do_polling(self):
         polls = await self.get_polls()

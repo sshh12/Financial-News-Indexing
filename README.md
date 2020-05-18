@@ -75,6 +75,7 @@ tda:
 * US Federal Reserve
 * US BLS
 * FinViz
+* Zacks
 * StockTwits
 * Misc Press Releases
 

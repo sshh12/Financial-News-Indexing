@@ -63,9 +63,14 @@ class FinViz(MetaDataSource):
 
     async def read_calendar(self):
         resp = await self._get('/calendar.ashx')
+        resp = re.sub('<span style="color:#\d+;">', '', resp)
+        resp = re.sub('<\/span>', '', resp)
         events = []
         for match in re.finditer(CALENDAR_REGEX, resp):
-            events.append([match.group(i) for i in range(1, 8)])
+            event = [match.group(i) for i in range(1, 8)]
+            if event[4].strip() == '-':
+                continue
+            events.append(event)
         return events
 
     async def read_stats(self):
