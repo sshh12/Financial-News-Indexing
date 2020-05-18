@@ -54,6 +54,12 @@ class ArticleScraper:
         except (ConnectionRefusedError, UnicodeDecodeError):
             return ''
 
+    async def _post_json(self, url_part, headers=HEADERS, json=None):
+        try:
+            async with self._session.post(self.url + url_part, headers=headers, json=json) as response:
+                return await response.text()
+        except (ConnectionRefusedError, UnicodeDecodeError):
+            return ''
 
 
 def hash_sha1(text):
@@ -251,7 +257,7 @@ def extract_symbols(text, _token_to_sym={}):
         symbs.add(match.group(1))
     for match in re.finditer(r' \(([A-Z\.]+)\)', text):
         symbs.add(match.group(1))
-    tokens = tokenize(text)
+    tokens = tokenize(text.replace('\'s ', ' '))
     if len(_token_to_sym) == 0:
         for sym, kwords in config['keywords']['symbols'].items():
             for kw in kwords:

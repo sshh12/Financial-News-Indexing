@@ -41,6 +41,6 @@ class StockTwits(ArticleScraper):
         headlines = []
         twits = await self.read_twits()
         for author, body, sent in twits:
-            title = '{} [{}] -- {}'.format(author, sent, body)
-            headlines.append(('http://www.stocktwits.com', title))
+            text = '{} [{}] -- {}'.format(author, sent, body)
+            headlines.append(('http://www.stocktwits.com', '', text))
         return 'stocktwits', headlines

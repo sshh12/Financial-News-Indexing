@@ -37,8 +37,8 @@ stats:
 watch:
   news:
     delay: 10
-    sources: [accesswire, businesswire, federalreserve, globenewswire, marketwatch,
-      moodys, prnewswire, reuters, rtt, seekingalpha, stocktwits, usbls]
+    sources: [accesswire, businesswire, federalreserve, fitch, globenewswire, marketwatch,
+      moodys, prnewswire, reuters, rtt, seekingalpha, stat, stocktwits, usbls]
   prs: {delay: 10}
   stats:
     delay: 10
