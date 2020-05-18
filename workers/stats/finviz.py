@@ -91,7 +91,7 @@ class FinViz(MetaDataSource):
         sigs = await self.read_signals()
         for sym, sig in sigs:
             stats.append(dict(source='finviz', type='signal',
-                name=sig, symbols=[sig], found_date=date
+                name=sig, symbols=[sym], event_time=date
             ))
         events = await self.read_calendar()
         for event in events:

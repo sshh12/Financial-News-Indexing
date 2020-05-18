@@ -19,7 +19,7 @@ def clean(fn):
         config = yaml.safe_load(f)
     _clean_recur(config)
     with open(fn, 'w') as f:
-        config = yaml.safe_dump(config, f)
+        yaml.safe_dump(config, f)
 
 
 if __name__ == '__main__':

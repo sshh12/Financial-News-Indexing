@@ -42,7 +42,7 @@ watch:
   prs: {delay: 10}
   stats:
     delay: 10
-    sources: [finviz]
+    sources: [finviz, zacks]
   tda:
     news: [AAPL, ABBV, ABT, AGEN, AIM, AKRO, ALDX, ALT, AMGN, AMRN, AMZN, APDN, APLT,
       APM, ARCT, ATHX, AYTU, AZN, BCRX, BIOC, BNTX, CANF, CAPR, CARA, CDTX, CNTG,
