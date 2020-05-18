@@ -19,10 +19,10 @@ def es_make_on_event():
     import elasticsearch
     es = elasticsearch.Elasticsearch()
     def on_event(evt):
-        evt['date'] = str(pendulum.now())
         id_ = hashlib.sha1(bytes(repr(evt), 'utf-8')).hexdigest()
+        evt['date'] = str(pendulum.now())
         try:
-            es.create('index-events', id_, evt)
+            es.create(index='index-events', id=id_, body=evt, doc_type='event')
         except Exception as e:
             pass
     return on_event
