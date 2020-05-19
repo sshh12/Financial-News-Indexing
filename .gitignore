@@ -4,3 +4,4 @@ prod.env
 migrate*.py
 data/
 creds.yaml
+*temp*.py

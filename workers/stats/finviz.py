@@ -84,7 +84,7 @@ class FinViz(MetaDataSource):
         trades = await self.read_insider_trades()
         for trade in trades:
             stats.append(dict(source='finviz', type='insidetrade',
-                fullname=trade[1], position=trade[2], action_date=trade[3], action=trade[4],
+                fullname=trade[1], position=trade[2], event_date=trade[3], name=trade[4],
                 cost=trade[5], shares=trade[6], value=trade[7], shares_total=trade[8],
                 symbols=[trade[0]]
             ))

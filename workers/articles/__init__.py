@@ -76,6 +76,7 @@ def clean_html_text(html):
     html = html.replace('•', '*').replace('●', '* ')
     html = html.replace('\r', '').replace('…', '...')
     html = html.replace('—', '-').replace('&ndash;', '-').replace('&mdash;', '-').replace('ー', '-')
+    html = html.replace('&oacute', 'ó')
     html = html.replace('‘', '\'').replace('’', '\'')
     html = html.replace('“', '').replace('”', '').replace('»', '>>')
     html = html.replace('✅', '').replace('→', '->').replace('💯', '').replace('🚨', '')
@@ -246,7 +247,7 @@ def truncate_sentence(text):
 
 
 def tokenize(text):
-    text = re.sub(r'[!\.\?\n\r]', '', text)
+    text = re.sub(r'[!\.\?\n\r,]', '', text)
     text = re.sub(r'\s{2,}', ' ', text)
     return text.split(' ')
 
@@ -257,13 +258,16 @@ def extract_symbols(text, _token_to_sym={}):
         symbs.add(match.group(1))
     for match in re.finditer(r' \(([A-Z\.]+)\)', text):
         symbs.add(match.group(1))
-    tokens = tokenize(text.replace('\'s ', ' '))
+    plain_text = re.sub(r'[!,#\.\?\n\r]', '', text).replace('\'s ', ' ')
     if len(_token_to_sym) == 0:
         for sym, kwords in config['keywords']['symbols'].items():
             for kw in kwords:
                 _token_to_sym[kw] = sym
-    for token in tokens:
-        sym = _token_to_sym.get(token)
-        if sym is not None:
+    for token, sym in _token_to_sym.items():
+        try:
+            idx = plain_text.index(token)
+        except ValueError:
+            continue
+        if idx == 0 or plain_text[idx - 1] == ' ':
             symbs.add(sym)
     return symbs
