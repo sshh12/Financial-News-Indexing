@@ -74,20 +74,32 @@ def hash_sha1(text):
 
 
 def clean_html_text(html):
-    html = html.replace('&rsquo;', '\'').replace('&lsquo;', '\'')
-    html = html.replace('&ldquo;', '"').replace('&rdquo;', '"').replace('&quot;', '"')
-    html = html.replace('&amp;', '&')
-    html = html.replace('&copy;', '')
-    html = html.replace('&nbsp;', ' ')
-    html = html.replace('&lt;', '<').replace('&gt;', '>')
-    html = html.replace('•', '*').replace('●', '* ')
-    html = html.replace('\r', '').replace('…', '...')
-    html = html.replace('—', '-').replace('&ndash;', '-').replace('&mdash;', '-').replace('ー', '-')
-    html = html.replace('&oacute;', 'ó').replace('&mu;', 'μ').replace('&eacute;', 'é').replace('&ouml;', 'ö')
-    html = html.replace('‘', '\'').replace('’', '\'').replace('“', '').replace('”', '').replace('»', '>>')
-    html = html.replace('✅', '').replace('→', '->').replace('💯', '').replace('🚨', '')
-    html = html.replace('Â\xa0', ' ').replace('Â½', '').replace('®', '').replace('\xa0', ' ')
-    html = html.replace('™', '').replace('&reg;', '').replace('&auml;', 'ä').replace('&iacute;', 'í').replace('&uacute;', 'ú')
+    html_codes = [
+        ('&rsquo;', '\''), ('&lsquo;', '\''),
+        ('&ldquo;', '"'), ('&rdquo;', '"'), ('&quot;', '"'),
+        ('&amp;', '&'),
+        ('&copy;', ''),
+        ('&nbsp;', ' '),
+        ('&lt;', '<'), ('&gt;', '>'),
+        ('&ndash;', '-'), ('&mdash;', '-'),
+        ('&oacute;', 'o'), ('&mu;', 'μ'), ('&eacute;', 'e'), ('&ouml;', 'o'),
+        ('&reg;', ''), ('&auml;', 'a'), ('&iacute;', 'i'), ('&uacute;', 'u'),
+        ('&raquo;', '"'), ('&laquo;', '"'), ('&ocirc;', 'o'), ('&agrave;', 'a'),
+        ('&Eacute;', 'E'), ('&ucirc;', 'u'), ('&Agrave;', 'A'), ('&egrave;', 'e'),
+        ('&ugrave;', 'u'), ('&aacute;', 'a'), ('&ocirc;', 'o'), ('&trade;', '')
+    ]
+    weird_tokens = [
+        ('•', '*'), ('●', '* '),
+        ('\r', ''), ('…', '...'),
+        ('—', '-'), ('ー', '-'),
+        ('‘', '\''), ('’', '\''), 
+        ('“', ''), ('”', ''), ('»', '"'), ('«', '"'),
+        ('™', ''),
+        ('Â\xa0', ' '), ('Â½', ''), ('®', ''), ('\xa0', ' '),
+        ('✅', ''), ('→', '->'), ('💯', ''), ('🚨', '')
+    ]
+    for bad_token, repl in (html_codes + weird_tokens):
+        html = html.replace(bad_token, repl)
     html = re.sub(r'<style[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/style>', '', html)
     html = re.sub(r'<script[\s\w=":/\.\-,\'!%&+@\|{}\(\);#~\?]*>([\s\S]+?)<\/script>', '', html)
     html = re.sub(r'<\w+[\s\w=":/\.\-,\'!%&+@\|#~{}\(\);\?]*>', '', html)
@@ -282,6 +294,12 @@ def extract_symbols(text, strict=False, _token_to_sym={}):
             symbs.add(sym)
 
     for match in re.finditer(r'NASDAQ:\s?([A-Z\.]+)\b', text):
+        symbs.add(match.group(1))
+
+    for match in re.finditer(r'ticker:\s*([A-Z\.]+?)\b', text):
+        symbs.add(match.group(1))
+
+    for match in re.finditer(r'NYSE\/?[A-Z]*?:\s?([A-Z\.]+)\b', text):
         symbs.add(match.group(1))
 
     if not strict:

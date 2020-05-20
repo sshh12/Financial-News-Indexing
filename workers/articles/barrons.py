@@ -24,19 +24,25 @@ class Barrons(ArticleScraper):
     def __init__(self):
         self.url = 'https://www.barrons.com'
 
-    async def read_article(self, url):
+    async def read_article(self, url, parse_headline=True, parse_date=True):
 
         article_html = await self._get(url)
 
-        headline_match = re.search(r'itemprop="headline">([^<]+)<\/h1>', article_html)
-        if not headline_match:
-            return None
-        headline = clean_html_text(headline_match.group(1))
+        text = []
+        headline = ''
+        date = ''
 
-        date_match = re.search(r'(\w+ \d+, \w+ \d+:\d+ \w+ \w+)\s+<\/time>', article_html)
-        if not date_match:
-            return None
-        date = text_to_datetime(date_match.group(1))
+        if parse_headline:
+            headline_match = re.search(r'itemprop="headline">([^<]+)<\/h1>', article_html)
+            if not headline_match:
+                return None
+            headline = clean_html_text(headline_match.group(1))
+
+        if parse_date:
+            date_match = re.search(r'(\w+ \d+, \w+ \d+:\d+ \w+ \w+)\s+<\/time>', article_html)
+            if not date_match:
+                return None
+            date = text_to_datetime(date_match.group(1))
 
         text = []
 
@@ -82,3 +88,8 @@ class Barrons(ArticleScraper):
             headline = clean_html_text(match.group(2))
             headlines.append((url, headline))
         return 'barrons', headlines
+
+    async def resolve_url_to_content(self, url):
+        art = await self.read_article(url.replace(self.url, ''), 
+            parse_headline=False, parse_date=False)
+        return art.content

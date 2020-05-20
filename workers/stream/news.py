@@ -13,6 +13,7 @@ from articles.usbls import USBLS
 from articles.stat import STAT
 from articles.fitch import Fitch
 from articles.thestreet import TheStreet
+from articles.cnn import CNN
 from articles.barrons import Barrons
 from articles import extract_symbols, hash_sha1
 from config import config
@@ -38,7 +39,8 @@ SOURCES = {
     'stat': STAT,
     'fitch': Fitch,
     'thestreet': TheStreet,
-    'barrons': Barrons
+    'barrons': Barrons,
+    'cnn': CNN
 }
 
 

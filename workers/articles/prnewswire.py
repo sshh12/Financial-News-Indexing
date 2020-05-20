@@ -8,7 +8,9 @@ import re
 TRIM_AT = [
     'About ResearchAndMarkets.com',
     'MEDIA CONTACTS:',
-    'Forward-Looking Statements'
+    'Forward-Looking Statements',
+    'Media Contact Information:',
+    'CONTACT:'
 ]
 
 

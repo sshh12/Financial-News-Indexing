@@ -5,7 +5,8 @@ import re
 
 TRIM_AT = [
     'Forward-Looking Statements',
-    'This press release contains forward-looking statements'
+    'This press release contains forward-looking statements',
+    'Safe Harbor Statement'
 ]
 
 
