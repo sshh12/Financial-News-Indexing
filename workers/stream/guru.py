@@ -44,7 +44,8 @@ class StreamGuru(StreamPoll):
                 else:
                     diff_data[key + '_new'] = new_val
                     diff_data[key + '_prev'] = og_val
-            diff_data.update(dict(source=source, type='financials', name='guru-diff', symbols=[sym]))
-            self.on_event(diff_data)
+            if len(diff_data) > 0:
+                diff_data.update(dict(source=source, type='financials', name='guru-diff', symbols=[sym]))
+                self.on_event(diff_data)
         fin_data.update(dict(source=source, type='financials', name='guru-spot', symbols=[sym]))
         self.on_event(fin_data)

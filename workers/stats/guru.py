@@ -25,10 +25,14 @@ def _flatten_guru(d, parent_key='', sep='_'):
         new_key = new_key.replace(' ', '_').replace('meidum', 'medium').lower()
         if isinstance(v, dict):
             items.extend(_flatten_guru(v, new_key, sep=sep).items())
-        elif isinstance(v, list) or 'display_name' in k or 'origin_key' in k:
+        elif isinstance(v, list) or ('display_name' in k 
+                or 'origin_key' in k 
+                or k.endswith('_display') 
+                or k.endswith('_name')):
             pass
         else:
             items.append((new_key, v))
+    del d['timestamp']
     return dict(items)
 
 

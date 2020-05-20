@@ -44,18 +44,20 @@ class StreamPoll(Stream):
         timeout = aiohttp.ClientTimeout(total=delay * 2)
         async with aiohttp.ClientSession(timeout=timeout) as session:
             obj._session = session
-            i = 0
-            errors = 0
+            polls = 0
+            polls_err = 0
+            polls_no_err = 0
             while True:
                 try:
                     args = await func()
-                    await self.on_poll_data(*args, obj=obj, emit_empty=(i == 0), emit_events=(i > 0))
+                    await self.on_poll_data(*args, obj=obj, emit_empty=(polls == 0), emit_events=(polls_no_err > 0))
+                    polls_no_err += 1
                 except Exception as e:
                     self.on_event(dict(type='error', name='polling', 
                         desc=str(func), traceback=repr(traceback.format_stack()) + ' -> ' + repr(e), source=str(self)))
-                    errors += 1
-                i += 1
-                if i > 20 and errors / i > 0.25:
+                    polls_err += 1
+                polls = 0
+                if polls > 20 and polls_err / polls > 0.25:
                     self.on_event(dict(type='error', name='stop-polling', desc=str(func), source=str(self)))
                     break
                 await asyncio.sleep(self.delay)

@@ -23,8 +23,8 @@ def es_make_on_event():
         id_ = hashlib.sha1(bytes(repr(evt), 'utf-8')).hexdigest()
         evt['date'] = str(pendulum.now())
         index = 'index-events'
-        if evt.get('name') == 'guru-spot':
-            index = 'index-guru'
+        if 'guru-' in evt.get('name', ''):
+            index = 'index-' + evt['name']
         try:
             es.create(index=index, id=id_, body=evt, doc_type='event')
         except Exception as e:
