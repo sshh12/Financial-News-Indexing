@@ -29,7 +29,7 @@ class StreamStats(StreamPoll):
             polls.append((scrap, scrap.read_stats, self.delay))
         return polls
 
-    def on_poll_data(self, name, stats, emit_empty=False, emit_events=True):
+    async def on_poll_data(self, name, stats, emit_empty=False, emit_events=True, **kwargs):
         if len(stats) == 0 and emit_empty:
             self.on_event(dict(type='error', name='empty', desc=name, source=str(self)))
         for stat in stats:

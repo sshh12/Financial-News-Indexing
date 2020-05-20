@@ -37,7 +37,7 @@ class StreamPoll(Stream):
     def get_polls(self):
         return []
 
-    def on_poll_data(self, *args, **kwargs):
+    async def on_poll_data(self, *args, **kwargs):
         raise NotImplementedError()
 
     async def _poll(self, obj, func, delay):
@@ -49,7 +49,7 @@ class StreamPoll(Stream):
             while True:
                 try:
                     args = await func()
-                    self.on_poll_data(*args, emit_empty=(i == 0), emit_events=(i > 0))
+                    await self.on_poll_data(*args, obj=obj, emit_empty=(i == 0), emit_events=(i > 0))
                 except Exception as e:
                     self.on_event(dict(type='error', name='polling', 
                         desc=str(func), traceback=repr(traceback.format_stack()) + ' -> ' + repr(e), source=str(self)))

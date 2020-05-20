@@ -80,7 +80,5 @@ class Barrons(ArticleScraper):
         for match in re.finditer(r'headline-link--[\w\d ]+" href="([^"]+?)">([^<]+?)<', index_html):
             url = match.group(1)
             headline = clean_html_text(match.group(2))
-            print(url)
-            print(headline)
             headlines.append((url, headline))
         return 'barrons', headlines

@@ -21,7 +21,7 @@ class StreamPRs(StreamPoll):
             polls.append((scrap, scrap.read_prs, self.delay))
         return polls
 
-    def on_poll_data(self, symbol, name, prs, emit_empty=False, emit_events=True):
+    async def on_poll_data(self, symbol, name, prs, emit_empty=False, emit_events=True, **kwargs):
         if len(prs) == 0 and emit_empty:
             self.on_event(dict(type='error', name='empty', desc=name, source=str(self)))
         for pr in prs:

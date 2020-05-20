@@ -1,3 +1,4 @@
+import newspaper
 import pendulum
 import hashlib
 import time
@@ -61,6 +62,12 @@ class ArticleScraper:
         except (ConnectionRefusedError, UnicodeDecodeError):
             return ''
 
+    async def read_latest_headlines(self):
+        return 'unk', []
+
+    async def resolve_url_to_content(self):
+        return None
+
 
 def hash_sha1(text):
     return hashlib.sha1(bytes(text, 'utf-8')).hexdigest()
@@ -94,6 +101,12 @@ def clean_html_text(html):
     html = html.replace(' (Updated)', '')
     return html.strip()
 
+
+def url_to_n3karticle(url):
+    art = newspaper.Article(url)
+    art.download()
+    art.parse()
+    return art
 
 def _timezone_to_offset(date_string):
     return date_string\
@@ -251,12 +264,9 @@ def tokenize(text):
     return text.split(' ')
 
 
-def extract_symbols(text, _token_to_sym={}):
+def extract_symbols(text, strict=False, _token_to_sym={}):
     symbs = set()
-    for match in re.finditer(r'\$([A-Z\.]+)\b', text):
-        symbs.add(match.group(1))
-    for match in re.finditer(r' \(([A-Z\.]+)\)', text):
-        symbs.add(match.group(1))
+
     plain_text = re.sub(r'[!,#\.\?\n\r]', '', text).replace('\'s ', ' ')
     if len(_token_to_sym) == 0:
         for sym, kwords in config['keywords']['symbols'].items():
@@ -265,8 +275,19 @@ def extract_symbols(text, _token_to_sym={}):
     for token, sym in _token_to_sym.items():
         try:
             idx = plain_text.index(token)
+            end_idx = idx + len(token)
         except ValueError:
             continue
-        if idx == 0 or plain_text[idx - 1] == ' ':
+        if (idx == 0 or plain_text[idx - 1] == ' ') and (end_idx == len(plain_text) or plain_text[end_idx] == ' '):
             symbs.add(sym)
+
+    for match in re.finditer(r'NASDAQ: ([A-Z\.]+)\b', text):
+        symbs.add(match.group(1))
+
+    if not strict:
+        for match in re.finditer(r'\$([A-Z\.]+)\b', text):
+            symbs.add(match.group(1))
+        for match in re.finditer(r' \(([A-Z\.]+)\)', text):
+            symbs.add(match.group(1))
+    
     return symbs
