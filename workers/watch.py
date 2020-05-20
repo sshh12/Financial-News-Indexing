@@ -3,6 +3,7 @@ from stream.tdameritrade import StreamTDA
 from stream.prs import StreamPRs
 from stream.news import StreamNews
 from stream.stats import StreamStats
+from stream.guru import StreamGuru
 from notify.slack import slack_evt
 import hashlib
 import pendulum
@@ -21,8 +22,11 @@ def es_make_on_event():
     def on_event(evt):
         id_ = hashlib.sha1(bytes(repr(evt), 'utf-8')).hexdigest()
         evt['date'] = str(pendulum.now())
+        index = 'index-events'
+        if evt.get('name') == 'guru-spot':
+            index = 'index-guru'
         try:
-            es.create(index='index-events', id=id_, body=evt, doc_type='event')
+            es.create(index=index, id=id_, body=evt, doc_type='event')
         except Exception as e:
             pass
     return on_event
@@ -50,7 +54,11 @@ def main():
 
     strm_news = StreamNews()
     strm_news.on_event = on_event
-    strm_news.start()
+    strm_news.start_async()
+
+    strm_guru = StreamGuru()
+    strm_guru.on_event = on_event
+    strm_guru.start()
 
 
 if __name__ == '__main__':
