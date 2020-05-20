@@ -57,7 +57,11 @@ class StreamNews(StreamPoll):
 
     async def _resolve_and_add_evt(self, scraper, evt):
         url = evt.get('url', '')
-        text = await scraper.resolve_url_to_content(url)
+        try:
+            text = await scraper.resolve_url_to_content(url)
+        except Exception as e:
+            text = None
+            self.on_event(dict(type='error', name='polling', desc=repr(e), source=str(scraper)))
         if text is None:
             self.on_event(evt)
         else:

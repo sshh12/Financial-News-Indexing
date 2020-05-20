@@ -65,7 +65,7 @@ class ArticleScraper:
     async def read_latest_headlines(self):
         return 'unk', []
 
-    async def resolve_url_to_content(self):
+    async def resolve_url_to_content(self, url):
         return None
 
 
@@ -281,7 +281,7 @@ def extract_symbols(text, strict=False, _token_to_sym={}):
         if (idx == 0 or plain_text[idx - 1] == ' ') and (end_idx == len(plain_text) or plain_text[end_idx] == ' '):
             symbs.add(sym)
 
-    for match in re.finditer(r'NASDAQ: ([A-Z\.]+)\b', text):
+    for match in re.finditer(r'NASDAQ:\s?([A-Z\.]+)\b', text):
         symbs.add(match.group(1))
 
     if not strict:

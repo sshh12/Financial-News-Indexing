@@ -1,4 +1,7 @@
-from . import Article, clean_html_text, ArticleScraper, string_contains, text_to_datetime
+from . import (
+    Article, clean_html_text, ArticleScraper, 
+    string_contains, text_to_datetime
+)
 
 import asyncio
 import re
@@ -40,31 +43,39 @@ class SeekingAlpha(ArticleScraper):
     def __init__(self):
         self.url = 'https://seekingalpha.com'
 
-    async def read_article(self, url):
+    async def read_article(self, url, parse_headline=True, parse_date=True, parse_text=True):
 
         article_html = await self._get(url)
 
-        headline_match = re.search(r'itemprop="headline">([^<]+)<', article_html)
-        if not headline_match:
-            return None
-        headline = clean_html_text(headline_match.group(1))
-
-        date_match = re.search(r'content="([\d\-T:Z]+)" itemprop="datePub', article_html)
-        date = text_to_datetime(date_match.group(1))
-
-        if string_contains(headline, IGNORE_HEADLINE):
-            return None
-
         text = []
+        headline = ''
+        date = None
 
-        for bullet_match in re.finditer(r'<p class="bullets_li">([\s\S]+?)<\/p>', article_html):
-            bullet_text = clean_html_text(bullet_match.group(1))
-            if len(bullet_text) == 0 or string_contains(bullet_text, IGNORE_TEXT):
-                continue
-            text.append(bullet_text)
+        if parse_headline:
+            headline_match = re.search(r'itemprop="headline">([^<]+)<', article_html)
+            if not headline_match:
+                return None
+            headline = clean_html_text(headline_match.group(1))
+            if string_contains(headline, IGNORE_HEADLINE):
+                return None
 
-        if len(text) < 2:
-            return None
+        if parse_date:
+            date_match = re.search(r'content="([\d\-T:Z]+)" itemprop="datePub', article_html)
+            date = text_to_datetime(date_match.group(1))
+
+        if parse_text:
+            for bullet_match in re.finditer(r'<p class="bullets_li">([^<]+?)<\/p>', article_html):
+                bullet_text = clean_html_text(bullet_match.group(1))
+                if len(bullet_text) == 0 or string_contains(bullet_text, IGNORE_TEXT):
+                    continue
+                text.append(bullet_text)
+            for p_match in re.finditer(r'<p class="p p1">([^<]+?)<\/p>', article_html):
+                p_text = clean_html_text(p_match.group(1))
+                if len(p_text) == 0 or string_contains(p_text, IGNORE_TEXT):
+                    continue
+                text.append(p_text)
+            if len(text) < 2:
+                return None
 
         return Article('seekingalpha', headline, date, '\n\n\n'.join(text), self.url + url)
 
@@ -93,3 +104,8 @@ class SeekingAlpha(ArticleScraper):
             headline = clean_html_text(match.group(2))
             headlines.append((url, headline))
         return 'seekingalpha', headlines
+
+    async def resolve_url_to_content(self, url):
+        art = await self.read_article(url.replace(self.url, ''), 
+            parse_headline=False, parse_date=False)
+        return art.content
