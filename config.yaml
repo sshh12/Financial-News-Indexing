@@ -35,6 +35,15 @@ prices:
 stats:
   stocks: [AAPL, AMZN, DJI, FB, GE, GOOGL, INX, LYFT, MSFT, NFLX, PFE, UBER]
 watch:
+  guru:
+    delay: 10800
+    stocks: [AAPL, ABBV, ABT, AGEN, AIM, AKRO, ALDX, ALT, AMGN, AMRN, AMZN, APDN,
+      APLT, APM, ARCT, ATHX, AYTU, AZN, BCRX, BIOC, BNTX, CANF, CAPR, CARA, CDTX,
+      CNTG, COCP, CPRX, CRBP, CTXR, CVM, CYDY, DAL, DFFN, DVAX, ENTA, EXEL, FATE,
+      GERN, GILD, GWPH, HTBX, IMAB, IMGN, IMMU, INO, JNJ, KMDA, KNSA, KPTI, LGND,
+      LJPC, LUV, MBRX, MESO, MIST, MNK, MRNA, MTNB, NNVC, NOVN, NVAX, ONCS, ONTX,
+      OPK, PFE, PSTI, REGN, SELB, SNGX, SNY, SRNE, TAK, TEVA, TSLA, TTNP, URGN, VBIV,
+      VIR, VKTX, VNDA, VSTM, VXRT, WORX, ZYNE]
   news:
     delay: 10
     sources: [accesswire, barrons, businesswire, cnn, federalreserve, fitch, globenewswire,
