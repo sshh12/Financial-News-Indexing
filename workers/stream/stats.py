@@ -2,6 +2,7 @@ from config import config
 from articles import hash_sha1
 from stats.finviz import FinViz
 from stats.zacks import Zacks
+from stats.earningscast import EarningsCast
 from . import StreamPoll
 import asyncio
 import aiohttp
@@ -10,7 +11,8 @@ import aiohttp
 CFG = config['watch']['stats']
 SOURCES = {
     'finviz': FinViz,
-    'zacks': Zacks
+    'zacks': Zacks,
+    'earningscast': EarningsCast
 }
 
 

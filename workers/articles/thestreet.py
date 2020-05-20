@@ -87,3 +87,13 @@ class TheStreet(ArticleScraper):
 
     async def read_news(self):
         return await self.read_news_list(TOPIC_URLS)
+
+    async def read_latest_headlines(self):
+        index_html = await self._get('/')
+        headlines = []
+        for match in re.finditer(r'Title" href="([^"]+?)"[ <>h2clas="m\-eiptxrdongv]+?>([^<]+?)<[ /<>h2clas="m\-eiptxrdongvby]+>([^<]+?)<', index_html):
+            url = self.url + match.group(1)
+            headline = clean_html_text(match.group(2))
+            text = clean_html_text(match.group(3))
+            headlines.append((url, headline, text))
+        return 'thestreet', headlines

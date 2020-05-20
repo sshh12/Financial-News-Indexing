@@ -73,3 +73,14 @@ class Barrons(ArticleScraper):
 
     async def read_news(self):
         return await self.read_news_list()
+
+    async def read_latest_headlines(self):
+        index_html = await self._get('/real-time?mod=hp_LATEST&mod=hp_LATEST')
+        headlines = []
+        for match in re.finditer(r'headline-link--[\w\d ]+" href="([^"]+?)">([^<]+?)<', index_html):
+            url = match.group(1)
+            headline = clean_html_text(match.group(2))
+            print(url)
+            print(headline)
+            headlines.append((url, headline))
+        return 'barrons', headlines

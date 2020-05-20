@@ -72,6 +72,9 @@ tda:
 * GlobeNewsWire
 * AccessWire
 * Moodys
+* TheStreet
+* EarningsCast
+* Barrons
 * US Federal Reserve
 * US BLS
 * FinViz
@@ -99,7 +102,6 @@ tda:
 * Verge
 * Washington Post
 * Yahoo
-* Twitter
 * Misc from Newspaper3k
 
 #### Stats

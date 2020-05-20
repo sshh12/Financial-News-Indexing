@@ -37,12 +37,13 @@ stats:
 watch:
   news:
     delay: 10
-    sources: [accesswire, businesswire, federalreserve, fitch, globenewswire, marketwatch,
-      moodys, prnewswire, reuters, rtt, seekingalpha, stat, stocktwits, usbls]
+    sources: [accesswire, barrons, businesswire, federalreserve, fitch, globenewswire,
+      marketwatch, moodys, prnewswire, reuters, rtt, seekingalpha, stat, stocktwits,
+      thestreet, usbls]
   prs: {delay: 10}
   stats:
     delay: 10
-    sources: [finviz, zacks]
+    sources: [earningscast, finviz, zacks]
   tda:
     news: [AAPL, ABBV, ABT, AGEN, AIM, AKRO, ALDX, ALT, AMGN, AMRN, AMZN, APDN, APLT,
       APM, ARCT, ATHX, AYTU, AZN, BCRX, BIOC, BNTX, CANF, CAPR, CARA, CDTX, CNTG,
@@ -54,4 +55,5 @@ watch:
   twitter:
     GILD: [GileadSciences]
     TSLA: [elonmusk]
-    _: [ForexLive, LiveSquawk, MarketCurrents, MoodysInvSvc, realDonaldTrump]
+    _: [ForexLive, LiveSquawk, MarketCurrents, MoodysInvSvc, RANsquawk, fintel_io,
+      newsfilterio, quant_data, realDonaldTrump, stock_titan]

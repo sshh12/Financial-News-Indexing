@@ -12,6 +12,8 @@ from articles.stocktwits import StockTwits
 from articles.usbls import USBLS
 from articles.stat import STAT
 from articles.fitch import Fitch
+from articles.thestreet import TheStreet
+from articles.barrons import Barrons
 from articles import extract_symbols
 from config import config
 from . import StreamPoll
@@ -34,7 +36,9 @@ SOURCES = {
     'accesswire': AccessWire,
     'stocktwits': StockTwits,
     'stat': STAT,
-    'fitch': Fitch
+    'fitch': Fitch,
+    'thestreet': TheStreet,
+    'barrons': Barrons
 }
 
 
