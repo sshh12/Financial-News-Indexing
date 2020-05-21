@@ -17,6 +17,7 @@ IGNORE_TEXT = [
     'Thank you for subscribing',
     ' will be released at',
     '(Image: ',
+    'Already have an account?'
     'Source: '
 ]
 
@@ -26,19 +27,23 @@ class Benzinga(ArticleScraper):
     def __init__(self):
         self.url = 'https://www.benzinga.com'
 
-    async def read_article(self, url):
+    async def read_article(self, url, parse_headline=True, parse_date=True):
         
         article_html = await self._get(url)
 
-        headline_match = re.search(r'>([^<]+)<\/h1>', article_html)
-        if not headline_match:
-            return None
-        headline = clean_html_text(headline_match.group(1))
-
-        date_match = re.search(r'date">\s+(\w+ \d+, \d+ \d+:\d+\w\w\s+)<\/span>', article_html)
-        date = text_to_datetime(date_match.group(1))
-
+        headline = ''
+        date = ''
         text = []
+
+        if parse_headline:
+            headline_match = re.search(r'>([^<]+)<\/h1>', article_html)
+            if not headline_match:
+                return None
+            headline = clean_html_text(headline_match.group(1))
+
+        if parse_date:
+            date_match = re.search(r'date">\s+(\w+ \d+, \d+ \d+:\d+\w\w\s+)<\/span>', article_html)
+            date = text_to_datetime(date_match.group(1))
 
         for p_match in re.finditer(r'<p>([\s\S]+?)<\/p>', article_html):
             paragraph = clean_html_text(p_match.group(1))
@@ -68,3 +73,19 @@ class Benzinga(ArticleScraper):
 
     async def read_news(self):
         return await self.read_news_list(TOPIC_URLS)
+
+    async def read_latest_headlines(self):
+        index_html = await self._get('/')
+        headlines = []
+        for match in re.finditer(r'href="(\/[\w\-]+\/[\w\-]+\/\d+\/\d+\/\d+\/[^"]+?)">([^<]+?)<', index_html):
+            url = self.url + match.group(1)
+            headline = clean_html_text(match.group(2))
+            headlines.append((url, headline))
+        return 'benzinga', headlines
+
+    async def resolve_url_to_content(self, url):
+        art = await self.read_article(url.replace(self.url, ''), 
+            parse_headline=False, parse_date=False)
+        if art is not None:
+            return art.content
+        return None

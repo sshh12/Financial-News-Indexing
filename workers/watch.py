@@ -11,28 +11,66 @@ import pendulum
 import nest_asyncio; nest_asyncio.apply()
 
 
-def on_event(evt):
-    evt['date'] = str(pendulum.now())
-    print(evt)
+def _hash(s):
+    return hashlib.sha1(bytes(repr(s), 'utf-8')).hexdigest()
 
 
-def es_make_on_event():
+def stdio_make_on_event(evt):
+    def on_event(evt):
+        evt['date'] = str(pendulum.now())
+        print(evt)
+
+
+def es_make_on_event(cb=None):
     import elasticsearch
     es = elasticsearch.Elasticsearch()
-    def on_event(evt):
-        id_ = hashlib.sha1(bytes(repr(evt), 'utf-8')).hexdigest()
+    def on_event(og_evt):
+        evt = og_evt.copy()
+        id_ = _hash(evt)
         evt['date'] = str(pendulum.now())
         index = 'index-events'
         if 'guru-' in evt.get('name', ''):
             index = 'index-' + evt['name']
         try:
             es.create(index=index, id=id_, body=evt, doc_type='event')
+            if cb is not None:
+                cb(og_evt)
         except Exception as e:
             pass
     return on_event
 
 
+def io_make_on_event():
+    import os
+    sym_path = os.path.join('data', 'watch', 'syms')
+    type_path = os.path.join('data', 'watch', 'type')
+    date_path = os.path.join('data', 'watch', 'date')
+    def mkdir(path):
+        try:
+            os.makedirs(path)
+        except:
+            pass
+    mkdir(sym_path)
+    mkdir(type_path)
+    mkdir(date_path)
+    def on_event(evt):
+        evt = evt.copy()
+        type_ = _hash(list(evt.keys()))
+        date = pendulum.now()
+        evt['date'] = str(date)
+        with open(os.path.join(type_path, type_), 'a') as f:
+            f.write(str(evt) + '\n')
+        with open(os.path.join(date_path, date.isoformat()[:10].replace('-', '_')), 'a') as f:
+            f.write(str(evt) + '\n')
+        for symbol in evt.get('symbols', []):
+            with open(os.path.join(sym_path, symbol), 'a') as f:
+                f.write(str(evt) + '\n')
+
+
 def main():
+
+    a = io_make_on_event()
+    on_event = es_make_on_event(cb=a)
 
     print('Watching...')
     

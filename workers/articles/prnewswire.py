@@ -10,7 +10,8 @@ TRIM_AT = [
     'MEDIA CONTACTS:',
     'Forward-Looking Statements',
     'Media Contact Information:',
-    'CONTACT:'
+    'CONTACT:',
+    'END\n'
 ]
 
 

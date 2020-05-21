@@ -46,9 +46,10 @@ watch:
       VIR, VKTX, VNDA, VSTM, VXRT, WORX, ZYNE]
   news:
     delay: 10
-    sources: [accesswire, barrons, businesswire, cnn, federalreserve, fitch, globenewswire,
-      marketwatch, moodys, prnewswire, reuters, rtt, seekingalpha, stat, stocktwits,
-      thestreet, usbls]
+    sources: [accesswire, alphastocknews, barrons, benzinga, businessinsider, businesswire,
+      cnn, federalreserve, fitch, forbes, globenewswire, marketexclusive, marketwatch,
+      moodys, prnewswire, reuters, rtt, seekingalpha, stat, stocktwits, thestreet,
+      usbls]
   prs: {delay: 10}
   stats:
     delay: 10

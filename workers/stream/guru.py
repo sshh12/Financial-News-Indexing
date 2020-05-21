@@ -19,9 +19,11 @@ class StreamGuru(StreamPoll):
     async def get_polls(self):
         polls = []
         for stock in self.stocks:
-            async def scrap_stock():
-                return await self.scraper.read_financials(stock)
-            polls.append((self.scraper, scrap_stock, self.delay))
+            def make_scrap(sym=None):
+                async def scrap_stock():
+                    return await self.scraper.read_financials(sym)
+                return scrap_stock
+            polls.append((self.scraper, make_scrap(sym=stock), self.delay))
         return polls
 
     async def on_poll_data(self, source, sym, fin_data, emit_events=True, **kwargs):

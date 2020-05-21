@@ -27,12 +27,12 @@ def _flatten_guru(d, parent_key='', sep='_'):
             items.extend(_flatten_guru(v, new_key, sep=sep).items())
         elif isinstance(v, list) or ('display_name' in k 
                 or 'origin_key' in k 
+                or '_timestamp' in k 
                 or k.endswith('_display') 
                 or k.endswith('_name')):
             pass
         else:
             items.append((new_key, v))
-    del d['timestamp']
     return dict(items)
 
 
@@ -48,4 +48,6 @@ class Guru(MetaDataSource):
         raw_data.update(_exec_js('console.log(JSON.stringify(' + js_script + '.data[1].summaryView.data))'))
         data = _flatten_guru(raw_data)
         assert data['symbol'] == sym
+        if 'timestamp' in data:
+            del data['timestamp']
         return 'guru', sym, data

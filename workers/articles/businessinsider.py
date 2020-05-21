@@ -109,3 +109,20 @@ class BusinessInsider(ArticleScraper):
 
     async def read_news(self):
         return await self.read_news_list(TOPIC_URLS)
+
+    async def read_latest_headlines(self):
+        index_html = await self._get('/latest/')
+        headlines = []
+        for match in re.finditer(r'href="(https:\/\/[\w\.]+businessinsider.com\/news[^"]+?)"\s*>([^<]+?)<', index_html):
+            url = match.group(1)
+            headline = clean_html_text(match.group(2))
+            if len(headline) == 0:
+                continue
+            headlines.append((url, headline))
+        for match in re.finditer(r'href="(\/[^"]+?\d+)"\s*>([^<]+?)<', index_html):
+            url = self.url + match.group(1)
+            headline = clean_html_text(match.group(2))
+            if len(headline) == 0:
+                continue
+            headlines.append((url, headline))
+        return 'businessinsider', headlines

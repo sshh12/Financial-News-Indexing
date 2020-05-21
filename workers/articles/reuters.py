@@ -23,19 +23,22 @@ class Reuters(ArticleScraper):
     def __init__(self):
         self.url = 'https://www.reuters.com'
 
-    async def read_article(self, url):
+    async def read_article(self, url, parse_headline=True, parse_date=True):
         
         article_html = await self._get(url)
 
-        date_match = re.search(r'(\w+ \d+, \d{4}) \/\s+(\d+:\d+ \w+) ', article_html)
-        headline_match = re.search(r'ArticleHeader_headline">([^<]+)<\/h1>', article_html)
-        if not date_match or not headline_match:
-            return None
-
-        headline = clean_html_text(headline_match.group(1))
-        date = text_to_datetime(date_match.group(1) + ' ' + date_match.group(2))
-
         text = []
+        headline = ''
+        date = ''
+
+        if parse_headline or parse_date:
+            date_match = re.search(r'(\w+ \d+, \d{4}) \/\s+(\d+:\d+ \w+) ', article_html)
+            headline_match = re.search(r'ArticleHeader_headline">([^<]+)<\/h1>', article_html)
+            if not date_match or not headline_match:
+                return None
+            headline = clean_html_text(headline_match.group(1))
+            date = text_to_datetime(date_match.group(1) + ' ' + date_match.group(2))
+
         start_idx = article_html.index('StandardArticleBody_body')
         try:
             end_idx = article_html.index('Attribution_container')
@@ -78,3 +81,10 @@ class Reuters(ArticleScraper):
             headline = re.sub(r'([A-Z])-([A-Z])', '\\1 - \\2', headline)
             headlines.append((url, headline))
         return 'reuters', headlines
+
+    async def resolve_url_to_content(self, url):
+        art = await self.read_article(url.replace(self.url, ''), 
+            parse_headline=False, parse_date=False)
+        if art is not None:
+            return art.content
+        return None

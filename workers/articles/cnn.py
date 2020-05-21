@@ -92,4 +92,6 @@ class CNN(ArticleScraper):
     async def resolve_url_to_content(self, url):
         art = await self.read_article(url.replace(self.url, ''), 
             parse_headline=False, parse_date=False)
-        return art.content
+        if art is not None:
+            return art.content
+        return None
