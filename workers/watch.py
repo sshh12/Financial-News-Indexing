@@ -5,6 +5,7 @@ from stream.news import StreamNews
 from stream.stats import StreamStats
 from stream.guru import StreamGuru
 from notify.slack import slack_evt
+import json
 import hashlib
 import pendulum
 
@@ -15,10 +16,11 @@ def _hash(s):
     return hashlib.sha1(bytes(repr(s), 'utf-8')).hexdigest()
 
 
-def stdio_make_on_event(evt):
+def stdio_make_on_event():
     def on_event(evt):
         evt['date'] = str(pendulum.now())
         print(evt)
+    return on_event
 
 
 def es_make_on_event(cb=None):
@@ -55,16 +57,18 @@ def io_make_on_event():
     mkdir(date_path)
     def on_event(evt):
         evt = evt.copy()
+        evt_json = json.dumps(evt)
         type_ = _hash(list(evt.keys()))
         date = pendulum.now()
         evt['date'] = str(date)
         with open(os.path.join(type_path, type_), 'a') as f:
-            f.write(str(evt) + '\n')
+            f.write(evt_json + '\n')
         with open(os.path.join(date_path, date.isoformat()[:10].replace('-', '_')), 'a') as f:
-            f.write(str(evt) + '\n')
+            f.write(evt_json + '\n')
         for symbol in evt.get('symbols', []):
             with open(os.path.join(sym_path, symbol), 'a') as f:
-                f.write(str(evt) + '\n')
+                f.write(evt_json + '\n')
+    return on_event
 
 
 def main():

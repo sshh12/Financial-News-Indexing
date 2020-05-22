@@ -13,6 +13,7 @@ except:
     raise Exception('creds.yaml not found!')
 
 try:
-    config['keywords'] = yaml.safe_load(open(os.path.join(PROJECT_DIR, 'keywords.yaml')))
+    config['symbols'] = yaml.safe_load(open(os.path.join(PROJECT_DIR, 'symbols.yaml')))
+    config['symbols_list_all'] = list(config['symbols'].keys())
 except:
-    raise Exception('keywords.yaml not found!')
+    raise Exception('symbols.yaml not found!')

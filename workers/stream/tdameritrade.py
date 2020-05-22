@@ -15,15 +15,19 @@ class StreamTDA(Stream):
         self.tda = TDAClient(CREDS['consumer_key'])
         self.tda.load_login(os.path.join('data', 'tda-login'))
         self.stream = self.tda.create_stream(debug=False)
+        self.stocks = CFG.get('stocks', config['symbols_list_all'])
+        self.warmup = True
 
     def start(self):
         self.stream.start()
-        self.stream.subscribe('news', symbols=CFG['news'], fields=[0, 5, 9, 10])
+        self.stream.subscribe('news', symbols=self.stocks, fields=[0, 5, 9, 10])
         time_start = time.time()
         for id_, item in self.stream.live_data():
-            if time.time() - time_start < 30:
+            if self.warmup and time.time() - time_start < 30:
                 # flush old news
                 continue
+            else:
+                self.warmup = False
             for key, stream_data in item.items():
                 evt = self._news_to_evt(stream_data)
                 if evt is not None:

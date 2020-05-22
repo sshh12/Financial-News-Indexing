@@ -1,0 +1,1271 @@
+AAPL:
+  kws: [Apple, Apple Inc., Apple TV+, ipads, iphones]
+ABBV:
+  kws: [AbbVie]
+ABMD:
+  kws: [Abiomed]
+ABT:
+  kws: [Abbott]
+ACB:
+  kws: [Aurora Cannabis, Aurora Cannabis Inc.]
+ACMR:
+  kws: [ACM Research, ACM Research Inc.]
+ACST:
+  kws: [Acasti Pharma, Acasti Pharma Inc.]
+ADMP:
+  kws: [Adamis Corporation, Adamis Pharmaceuticals Corporation]
+ADNT:
+  kws: [Adient plc]
+ADT:
+  kws: [ADT, ADT Inc.]
+AEO:
+  kws: [American Eagle, American Eagle Outfitters, American Eagle Outfitters Inc.]
+AGEN:
+  kws: [Agenus]
+AGI:
+  kws: [Alamos Gold]
+AGNC:
+  kws: [AGNC Investment Corp.]
+AIM:
+  kws: [ImmunoTech]
+AINV:
+  kws: [Apollo Investment, Apollo Investment Corp]
+AIRI:
+  kws: [Air Industries Group]
+AIRTW:
+  kws: [Air T, 'Air T, Inc.']
+AJRD:
+  kws: [Aerojet, Aerojet Rocketdyne Holdings]
+AKCA:
+  kws: [Akcea, Akcea Therapeutics]
+AKRO:
+  kws: [Akero, Akero Therapeutics]
+AKRX:
+  kws: [Akorn]
+ALDX:
+  kws: [Aldeyra, Aldeyra Therapeutics]
+ALK:
+  kws: [Alaska Air Group, Alaska Air Group Inc.]
+ALL:
+  kws: [Allstate]
+ALO:
+  kws: [Alio Gold]
+ALOT:
+  kws: [AstroNova, AstroNova Inc.]
+ALT:
+  kws: [Altimmune]
+ALV:
+  kws: [Autoliv, Autoliv Inc.]
+ALYA:
+  kws: [Alithya, Alithya Group, Alithya Group Inc.]
+AMD:
+  kws: [AMD, Advanced Micro Devices, Advanced Micro Devices Inc.]
+AMGN:
+  kws: [Amgen, Amgen Inc.]
+AMOV:
+  kws: [America Movil S.A.B. de C.V. Class An Depositary Shares]
+AMPY:
+  kws: [Amplify Energy, Amplify Energy Corp.]
+AMRN:
+  kws: [Amarin]
+AMSWA:
+  kws: [American Software, American Software Inc.]
+AMZN:
+  kws: [Alexa, Amazon, Bezos, Twitch]
+ANET:
+  kws: [Arista Networks, Arista Networks Inc.]
+APDN:
+  kws: [Applied DNA Sciences]
+APLT:
+  kws: [Applied Therapeutics]
+APM:
+  kws: [Aptorum, Aptorum Group]
+APXT:
+  kws: [Apex Technology, Apex Technology Acquisition Corporation]
+ARCT:
+  kws: [Arcturus, Arcturus Therapeutics]
+ARMK:
+  kws: [Aramark]
+ARNA:
+  kws: [Arena Pharmaceuticals]
+ARWR:
+  kws: [Arrowhead Pharmaceuticals, Arrowhead Pharmaceuticals Inc]
+ASC:
+  kws: [Ardmore Shipping Corporation]
+ASM:
+  kws: [Avino Silver & Gold Mines Ltd. (Canada)]
+ASML:
+  kws: [ASML Holding N.V.]
+ASYS:
+  kws: [Amtech Systems, Amtech Systems Inc.]
+ATHE:
+  kws: [Alterity, Alterity Therapeutics]
+ATHX:
+  kws: [Athersys, Athersys Inc.]
+ATNX:
+  kws: [Athenex, Athenex Inc.]
+ATRA:
+  kws: [Atara, Atara Biotherapeutics]
+ATRS:
+  kws: [Antares Pharma, Antares Pharma Inc.]
+AVGO:
+  kws: [Broadcom Limited]
+AXU:
+  kws: [Alexco Resource, Alexco Resource Corp (Canada)]
+AYI:
+  kws: [Acuity Brands, Acuity Brands Inc (Holding Company)]
+AYTU:
+  kws: [Aytu BioScience]
+AYX:
+  kws: [Alteryx, Alteryx Class A, Alteryx Inc. Class A]
+AZN:
+  kws: [AstraZeneca]
+AZPN:
+  kws: [Aspen Technology, Aspen Technology Software]
+AZUL:
+  kws: [Azul Airlines]
+BA:
+  kws: [Boeing, Boeing Co.]
+BABA:
+  kws: [Alibaba]
+BAND:
+  kws: [Bandwidth, Bandwidth Inc.]
+BAR:
+  kws: [GraniteShares Gold Trust Shares of Beneficial Interest]
+BBBY:
+  kws: [Bed Bath & Beyond]
+BBU:
+  kws: [Brookfield Business, Brookfield Business Partners L.P. Limited Partnership
+      Units, Brookfield Business Partners Limited Partnership Units]
+BBY:
+  kws: [Best Buy]
+BC:
+  kws: [Brunswick Corporation]
+BCRX:
+  kws: [BioCryst, BioCryst Inc., BioCryst Pharmaceuticals, BioCryst Pharmaceuticals
+      Inc.]
+BE:
+  kws: [Bloom Energy, Bloom Energy Corporation]
+BGI:
+  kws: [Birks Group, Birks Group Inc.]
+BHTG:
+  kws: ['BioHiTech Global,', 'BioHiTech Global, Inc.']
+BIDU:
+  kws: [Baidu]
+BIIB:
+  kws: [Biogen, Biogen Inc.]
+BILI:
+  kws: [Bilibili]
+BIOC:
+  kws: [Biocept]
+BIP:
+  kws: [Brookfield Infrastructure Partners LP Limited Partnership Units]
+BJ:
+  kws: [BJ, BJs]
+BLNK:
+  kws: [Blink Charging Co.]
+BLUE:
+  kws: [Bluebird Bio, Bluebird bio, bluebird bio Inc]
+BMRA:
+  kws: [Biomerica, Biomerica Inc.]
+BMY:
+  kws: [Bristol-Myers Squibb Company]
+BNTX:
+  kws: [BioNTech]
+BOTZ:
+  kws: [Artificial Intelligence]
+BP:
+  kws: [BP, BP p.l.c.]
+BRC:
+  kws: [Brady Corporation]
+BRK.B:
+  kws: [Berkshire, Berkshire Hathaway Class B, Berkshire Hathaway Inc. Class B, Warren
+      Buffett]
+BTE:
+  kws: [Baytex, Baytex Energy Corp]
+BZUN:
+  kws: [Baozun, Baozun Inc.]
+C:
+  kws: [Citigroup]
+CAJ:
+  kws: [Canon American Depositary Shares, Canon Inc. American Depositary Shares]
+CAL:
+  kws: [Caleres, Caleres Inc.]
+CAMP:
+  kws: [CalAmp Corp.]
+CANF:
+  kws: [Can-Fite, Can-Fite BioPharma]
+CAPR:
+  kws: [Capricor]
+CAR:
+  kws: [Avis, Avis Budget Group]
+CARA:
+  kws: [Cara Therapeutics]
+CBB:
+  kws: [Cincinnati Bell, Cincinnati Bell Inc.]
+CCJ:
+  kws: [Cameco, Cameco Corporation]
+CCL:
+  kws: [Carnival]
+CDEV:
+  kws: [Centennial Resource Development, Centennial Resource Development Inc.]
+CDTX:
+  kws: [Cidara]
+CDXS:
+  kws: [Codexis, Codexis Inc.]
+CEI:
+  kws: [Camber Energy, Camber Energy Inc.]
+CEMI:
+  kws: [Chembio, Chembio Diagnostics Inc]
+CEN:
+  kws: [Center Coast Brookfield MLP & Energy Infrastructure Fund]
+CF:
+  kws: [CF Industries, CF Industries Holdings, CF Industries Holdings Inc.]
+CFG:
+  kws: [Citizens Financial Group, Citizens Financial Group Inc.]
+CFX:
+  kws: [Colfax, Colfax Corporation]
+CGNX:
+  kws: [Cognex, Cognex Corporation]
+CHEF:
+  kws: [The Chefs' Warehouse, The Chefs' Warehouse Inc.]
+CHRW:
+  kws: [C.H. Robinson Worldwide, C.H. Robinson Worldwide Inc.]
+CHWY:
+  kws: [Chewy, 'Chewy, Inc.']
+CIDM:
+  kws: [Cinedigm]
+CIFS:
+  kws: [China Internet Nationwide Financial Services, China Internet Nationwide Financial
+      Services Inc.]
+CLX:
+  kws: [Clorox]
+CMBM:
+  kws: [Cambium Networks Corporation]
+CMCM:
+  kws: [Cheetah Mobile American Depositary Shares each representing 10 Class, Cheetah
+      Mobile Inc. American Depositary Shares each representing 10 Class]
+CMG:
+  kws: [Chipotle]
+CNC:
+  kws: [Centene, Centene Corp]
+CNDT:
+  kws: [Conduent Incorporated]
+CNK:
+  kws: [Cinemark, Cinemark Holdings Inc, Cinemark Holdings Inc Inc.]
+CNTG:
+  kws: [Centogene]
+COCP:
+  kws: [Cocrystal, Cocrystal Pharma]
+CODX:
+  kws: [Co-Diagnostics, Co-Diagnostics Inc.]
+COP:
+  kws: [ConocoPhillips]
+COST:
+  kws: [Costco]
+COTY:
+  kws: [Coty, Coty Class A, Coty Inc. Class A]
+CPG:
+  kws: [Crescent Point Energy, Crescent Point Energy Corporation (Canada)]
+CPIX:
+  kws: [Cumberland Pharmaceuticals]
+CPRX:
+  kws: [Catalyst Pharmaceuticals]
+CPS:
+  kws: [Cooper-Standard, Cooper-Standard Holdings, Cooper-Standard Holdings Inc.]
+CRBP:
+  kws: [Corbus Pharmaceuticals]
+CRL:
+  kws: [Charles River Laboratories, Charles River Laboratories International, Charles
+      River Laboratories International Inc., Charles River Labs]
+CRM:
+  kws: [Salesforce, Salesforces]
+CRNC:
+  kws: [Cerence]
+CRSP:
+  kws: [CRISPR AG, CRISPR Therapeutics AG]
+CSCO:
+  kws: [Cisco, Cisco Systems, Cisco Systems Inc.]
+CSGP:
+  kws: [CoStar Group, CoStar Group Inc.]
+CSV:
+  kws: [Carriage Services, Inc.]
+CSX:
+  kws: [CSX Corporation]
+CTHR:
+  kws: [Charles & Colvard Ltd.]
+CTLT:
+  kws: [Catalent, Catalent Inc.]
+CTRM:
+  kws: [Castor Maritime, Castor Maritime Inc.]
+CTXR:
+  kws: [Citius Pharmaceuticals]
+CVE:
+  kws: [Cenovus Energy Inc]
+CVM:
+  kws: [CELSCI]
+CVTI:
+  kws: [Covenant, Covenant Transportation, Covenant Transportation Group, Covenant
+      Transportation Group Inc.]
+CYDY:
+  kws: [CytoDyn]
+CYRX:
+  kws: [CryoPort]
+D:
+  kws: [Dominion Energy, Dominion Energy Inc.]
+DAKT:
+  kws: [Daktronics, Daktronics Inc.]
+DAL:
+  kws: [Delta, Delta Air Lines, Delta Airlines]
+DB:
+  kws: [Deutsche Bank]
+DCAR:
+  kws: [DropCar, DropCar Inc.]
+DCP:
+  kws: [DCP Midstream LP]
+DEAC:
+  kws: [Diamond Eagle Acquisition Corp.]
+DELL:
+  kws: [Dell, Dell Technologies]
+DFFN:
+  kws: [Diffusion Pharmaceuticals]
+DIS:
+  kws: [Disney, The Walt Disney Company]
+DISCA:
+  kws: [Discovery]
+DIV:
+  kws: [Global X Super Dividend]
+DKL:
+  kws: [Delek Logistics, Delek Logistics Partners L.P. representing Limited Partner
+      Interests, Delek Logistics Partners representing Limited Partner Interests]
+DLAKY:
+  kws: [Lufthansa]
+DNK:
+  kws: [Phoenix Tree]
+DNN:
+  kws: [Denison Mines, Denison Mines Corp (Canada)]
+DOCU:
+  kws: [Docusign]
+DOW:
+  kws: [Dow, Dow Inc.]
+DPW:
+  kws: [DPW, DPW Holdings, DPW Holdings Inc.]
+DRRX:
+  kws: [DURECT Corporation]
+DRTT:
+  kws: [DIRTT Environmental Solutions Ltd.]
+DS:
+  kws: [Drive Shack, Drive Shack Inc.]
+DSS:
+  kws: [Document Security Systems, Document Security Systems Inc.]
+DVAX:
+  kws: [Dynavax]
+DXCM:
+  kws: [DexCom, DexCom Inc.]
+DZZ:
+  kws: [DB Gold Double Short ETN due February 15 2038]
+E:
+  kws: [ENI S.p.A., Eni]
+EADSY:
+  kws: [Airbus]
+EDU:
+  kws: [New Oriental Education & Technology]
+EFC:
+  kws: [Ellington Financial LLC representing Limitied Liability Company Interests
+      no par valu]
+ENB:
+  kws: [Enbridge Inc]
+ENR:
+  kws: [Energizer, Energizer Holdings, Energizer Holdings Inc.]
+ENTA:
+  kws: [Enanta]
+ENTX:
+  kws: [Entera Bio]
+ERI:
+  kws: [Eldorado Resorts]
+ERIC:
+  kws: [Ericsson]
+ERUS:
+  kws: [Russia, Russian]
+ESTE:
+  kws: [Earthstone Energy]
+ETN:
+  kws: [Eaton Corporation PLC]
+ETSY:
+  kws: [Etsy, Etsy Inc.]
+EURN:
+  kws: [Euronav NV]
+EVGN:
+  kws: [Evogene]
+EVH:
+  kws: [Evolent Health, Evolent Health Inc Class A]
+EVK:
+  kws: [Ever-Glory International Group, Ever-Glory International Group Inc.]
+EWA:
+  kws: [Australia, Australian]
+EWC:
+  kws: [Canadian, Trudeau, canada]
+EWG:
+  kws: [Angela Merkel, Germany]
+EWI:
+  kws: [Italy]
+EWJ:
+  kws: [Japan, Japanese]
+EXEL:
+  kws: [Exelixis]
+EXK:
+  kws: [Endeavour Silver, Endeavour Silver Corporation (Canada)]
+F:
+  kws: [Ford, Ford Motor Company]
+FATE:
+  kws: [Fate Therapeutics]
+FB:
+  kws: [Facebook, Zuckerberg]
+FET:
+  kws: [Forum Energy Technologies, Forum Energy Technologies Inc.]
+FLO:
+  kws: [Flowers Foods, Flowers Foods Inc.]
+FLR:
+  kws: [Fluor Corporation]
+FLWS:
+  kws: [1-800 FLOWERS.COM, 1-800 FLOWERS.COM Inc.]
+FLXN:
+  kws: [Flexion Therapeutics]
+FMC:
+  kws: [FMC Corporation]
+FOXA:
+  kws: [Twenty-First Century Fox, Twenty-First Century Fox Inc.]
+FSLY:
+  kws: [Fastly, 'Fastly, Inc.']
+FSS:
+  kws: [Federal Signal Corporation]
+FTI:
+  kws: [TechnipFMC plc]
+FTK:
+  kws: [Flotek Industries, Flotek Industries Inc.]
+FTV:
+  kws: [Fortive Corporation]
+FXB:
+  kws: [GBPUSD, brexit]
+FXE:
+  kws: [EURUSD]
+FXY:
+  kws: [China, Chinese, Yen, yen]
+GDDY:
+  kws: [GoDaddy, GoDaddy Class A, GoDaddy Inc. Class A]
+GDP:
+  kws: [Goodrich Petroleum, Goodrich Petroleum Corporation]
+GERN:
+  kws: [Geron]
+GFF:
+  kws: [Griffon Corporation]
+GIII:
+  kws: [G-III, G-III Apparel Group Ltd.]
+GILD:
+  kws: [Gilead, Gilead Sciences, remdesivir]
+GIS:
+  kws: [General Mills, General Mills Inc.]
+GLAD:
+  kws: [Gladstone Capital Corporation]
+GLD:
+  kws: [Gold, gold]
+GLMD:
+  kws: [Galmed Pharmaceutical]
+GLNG:
+  kws: [Golar LNG Limited]
+GM:
+  kws: [GM]
+GNLN:
+  kws: ['Greenlane Holdings,', 'Greenlane Holdings, Inc.']
+GNRC:
+  kws: [Generac Holdlings, Generac Holdlings Inc.]
+GNT:
+  kws: [GAMCO Natural Resources Gold & Income Trust]
+GOEX:
+  kws: [Global X Gold Explorers]
+GOL:
+  kws: [Gol Linhas Aereas Inteligentes S.A. Sponsored ADR representing 2 Pfd Shares]
+GOOGL:
+  kws: [Google, Google Cloud]
+GORO:
+  kws: [Gold Resource Corporation]
+GPC:
+  kws: [Genuine Parts Company]
+GPN:
+  kws: [Global Payments, Global Payments Inc.]
+GPOR:
+  kws: [Gulfport Energy Corporation]
+GPRE:
+  kws: [Green Plains]
+GPRO:
+  kws: [GoPro, GoPro Inc.]
+GPS:
+  kws: [Gap]
+GS:
+  kws: [Goldman Sachs Group (The), Goldman Sachs Group Inc. (The)]
+GSAT:
+  kws: [Globalstar, Globalstar Inc.]
+GSH:
+  kws: [Guangshen Railway Company Limited]
+GSK:
+  kws: [GlaxoSmithKline PLC]
+GSX:
+  kws: [GSX Techedu, GSX Techedu Inc.]
+GT:
+  kws: [Goodyear, The Goodyear Tire & Rubber Company]
+GTE:
+  kws: [Gran Tierra Energy, Gran Tierra Energy Inc.]
+GTT:
+  kws: [GTT Communications, GTT Communications Inc.]
+GTX:
+  kws: [Garrett Motion, Garrett Motion Inc.]
+GWPH:
+  kws: [GW Pharmaceuticals]
+HARP:
+  kws: [Harpoon Therapeutics]
+HAYN:
+  kws: [Haynes International, Haynes International Inc.]
+HBI:
+  kws: [Hanesbrands, Hanesbrands Inc.]
+HD:
+  kws: [Home Depot, Home Depot (The), Home Depot Inc. (The)]
+HEAR:
+  kws: [Turtle Beach Corporation]
+HES:
+  kws: [Hess Corporation]
+HHC:
+  kws: [Howard Hudges, Howard Hudges Crop.]
+HHHHU:
+  kws: [Wealthbridge Acquisition Limited]
+HLF:
+  kws: [Herbalife]
+HLT:
+  kws: [Hilton Worldwide, Hilton Worldwide Holdings, Hilton Worldwide Holdings Inc.]
+HMLP:
+  kws: [Hoegh LNG Partners LP representing Limited Partner Interests]
+HMY:
+  kws: [Harmony Gold Mining Company Limited]
+HPE:
+  kws: [HP Enterprise, Hewlett Packard, Hewlett Packard Enterprise Co.]
+HSY:
+  kws: [The Hershey Company]
+HTBX:
+  kws: [Tonix Pharmaceuticals]
+HTZ:
+  kws: [Hertz, Hertz Global Holdings Inc]
+HUSA:
+  kws: [Houston American Energy Corporation]
+HUYA:
+  kws: [HUYA]
+HWM:
+  kws: [Howmet Aerospace]
+HZNP:
+  kws: [Horizon Therapeutics]
+IAG:
+  kws: [Iamgold Corporation]
+IBM:
+  kws: [IBM]
+ICHR:
+  kws: [Ichor Holdings]
+IDCC:
+  kws: [InterDigital, InterDigital Inc.]
+IDXX:
+  kws: [IDEXX Laboratories, IDEXX Laboratories Inc.]
+IGT:
+  kws: [International Game Technology]
+IHRT:
+  kws: [iHeartMedia, 'iHeartMedia, Inc.']
+IIIN:
+  kws: [Insteel Industries, Insteel Industries Inc.]
+IIPR:
+  kws: [Innovative Industrial Properties, Innovative Industrial Properties Inc.]
+IMAB:
+  kws: [I-Mab]
+IMGN:
+  kws: [ImmunoGen]
+IMMU:
+  kws: [Immunomedics]
+IMO:
+  kws: [Imperial Oil Limited]
+INBK:
+  kws: [First Internet Bancorp]
+INO:
+  kws: [Inovio, Inovio Ltd]
+INSG:
+  kws: [Inseego Corp.]
+INSW:
+  kws: [International Seaways, International Seaways Inc.]
+INTC:
+  kws: [Intel]
+INUV:
+  kws: [Inuvo, Inuvo Inc.]
+INVVY:
+  kws: [Indivior]
+IONS:
+  kws: [Ionis, Ionis Inc., Ionis Pharmaceuticals, Ionis Pharmaceuticals Inc.]
+IRCP:
+  kws: [IRSA Propiedades Comerciales S.A.]
+IZEA:
+  kws: [IZEA, IZEA Inc.]
+IZRL:
+  kws: [ARK Israel Innovative Technology]
+JBLU:
+  kws: [JetBlue]
+JCI:
+  kws: [Johnson Controls International plc]
+JCOM:
+  kws: [j2 Global, j2 Global Inc.]
+JEF:
+  kws: [Jefferies Financial Group, Jefferies Financial Group Inc.]
+JETS:
+  kws: [Airline, Airlines]
+JKS:
+  kws: [JinkoSolar, JinkoSolar Holding Company]
+JNJ:
+  kws: [Janssen, Johnson & Johnson]
+JPM:
+  kws: [J.P. Morgan, JP Morgan Chase & Co., JPMORGAN]
+K:
+  kws: [Kellogg, Kellogg Company]
+KALU:
+  kws: [Kaiser Aluminum Corporation]
+KAMN:
+  kws: [Kaman Corporation]
+KCAPL:
+  kws: [KCAP Financial]
+KDMN:
+  kws: [Kadmon]
+KDP:
+  kws: [Keurig Dr Pepper, Keurig Dr Pepper Inc.]
+KERN:
+  kws: [Akerna, Akerna Corp]
+KGJI:
+  kws: [Kingold Jewelry, Kingold Jewelry Inc.]
+KHC:
+  kws: [Kraft, Kraft Foods, The Kraft Heinz Company]
+KMDA:
+  kws: [Kamada, Kamada Ltd.]
+KNDI:
+  kws: [Kandi Technologies, Kandi Technologies Group, Kandi Technologies Group Inc.,
+    Kandi technologies]
+KNSA:
+  kws: [Kiniksa Pharmaceuticals]
+KPTI:
+  kws: [Karyopharm Therapeutics]
+KRNT:
+  kws: [Kornit, Kornit Digital]
+KRYS:
+  kws: [Krystal Biotech, Krystal Biotech Inc]
+KT:
+  kws: [KT Corporation]
+LB:
+  kws: [L Brands, Victoria Secret]
+LBTYK:
+  kws: [Liberty Global plc]
+LDL:
+  kws: [Lydall, Lydall Inc.]
+LEN:
+  kws: [Lennar]
+LGND:
+  kws: [Ligand, Ligand Pharmaceuticals]
+LIND:
+  kws: [Lindblad Expeditions, Lindblad Expeditions Holdings, Lindblad Expeditions
+      Holdings Inc.]
+LINX:
+  kws: [Linx S.A.]
+LIVE:
+  kws: [Live Ventures Incorporated]
+LJPC:
+  kws: [La Jolla, La Jolla Pharmaceutical]
+LK:
+  kws: [Luckin Coffee, Luckin Coffee Inc.]
+LMT:
+  kws: [Lockheed, Lockheed Martin]
+LNG:
+  kws: [Cheniere Energy, Cheniere Energy Inc.]
+LOW:
+  kws: [Lowe, Lowes]
+LPSN:
+  kws: [LivePerson, LivePerson Inc.]
+LQDA:
+  kws: [Liquidia, Liquidia Technologies Inc]
+LSCC:
+  kws: [Lattice Semiconductor Corporation]
+LULU:
+  kws: [lululemon athletica inc.]
+LUV:
+  kws: [Southwest, Southwest Airlines]
+LXRX:
+  kws: [Lexicon Inc., Lexicon Pharmaceuticals, Lexicon Pharmaceuticals Inc.]
+M:
+  kws: [Macy]
+MA:
+  kws: [Mastercard]
+MAIN:
+  kws: [Main Street Capital Corporation]
+MAS:
+  kws: [Masco Corporation]
+MATX:
+  kws: [Matson, Matson Inc.]
+MBII:
+  kws: [Marrone Bio Innovations, Marrone Bio Innovations Inc.]
+MBRX:
+  kws: [Moleculin Biotech]
+MBT:
+  kws: [Mobile TeleSystems PJSC]
+MCFT:
+  kws: [MCBC, MCBC Holdings, MCBC Holdings Inc.]
+MCHI:
+  kws: [Beijing, China, Chinese]
+MDU:
+  kws: [MDU Resources Group, MDU Resources Group Inc.]
+MELI:
+  kws: [MercadoLibre, MercadoLibre Inc.]
+MESO:
+  kws: [Mesoblast]
+MIK:
+  kws: [The Michaels Companies, The Michaels Companies Inc.]
+MIST:
+  kws: [Milestone Pharmaceuticals]
+MMLP:
+  kws: [Martin Midstream Partners, Martin Midstream Partners L.P.]
+MMM:
+  kws: [3M]
+MNK:
+  kws: [Mallinckrodt]
+MO:
+  kws: [Altria]
+MPC:
+  kws: [Marathon Petroleum Corporation]
+MPLX:
+  kws: [MPLX LP Representing Limited Partner Interests]
+MPW:
+  kws: [Medical Properties Trust, Medical Properties Trust Inc.]
+MRNA:
+  kws: [Moderna, Moderna Inc]
+MS:
+  kws: [Morgan Stanley]
+MSFT:
+  kws: [Microsoft Corporation]
+MTB:
+  kws: [M&T Bank Corporation]
+MTDR:
+  kws: [Matador Resources Company]
+MTNB:
+  kws: [Matinas BioPharma]
+MTW:
+  kws: [Manitowoc Company (The), Manitowoc Company Inc. (The)]
+MUX:
+  kws: [McEwen Mining, McEwen Mining Inc.]
+MXIM:
+  kws: [Maxim Integrated Products, Maxim Integrated Products Inc.]
+NBEV:
+  kws: [New Age Beverages Corporation]
+NBL:
+  kws: [Noble Energy, Noble Energy Inc.]
+NBY:
+  kws: [NovaBay Inc., NovaBay Pharmaceuticals, NovaBay Pharmaceuticals Inc.]
+NCLH:
+  kws: [Norwegian Cruise, Norwegian Cruise Line]
+NEON:
+  kws: [Neonode, Neonode Inc.]
+NES:
+  kws: [Nuverra Environmental Solutions, Nuverra Environmental Solutions Inc.]
+NETE:
+  kws: [Net Element, Net Element Inc.]
+NFLX:
+  kws: [Netflix]
+NGD:
+  kws: [New Gold, New Gold Inc.]
+NIO:
+  kws: [NIO Limited]
+NIU:
+  kws: [Niu Technologies]
+NK:
+  kws: [NantKwest, NantKwest Inc.]
+NLOK:
+  kws: [Norton, NortonLifeLock, NortonLifeLock Inc]
+NMRD:
+  kws: [Nemaura Medical]
+NNVC:
+  kws: [NanoViricides]
+NOVN:
+  kws: [Novan, Novan Inc.]
+NRZ:
+  kws: [New Residential Investment Corp.]
+NSYS:
+  kws: [Nortech, Nortech Systems Incorporated]
+NTGR:
+  kws: [NETGEAR, NETGEAR Inc.]
+NUAN:
+  kws: [Nuance Communications, Nuance Communications Inc.]
+NUE:
+  kws: [Nucor, Nucor Corporation]
+NUGT:
+  kws: [Direxion Daily Gold Miners Index Bull 3X Shares]
+NVAX:
+  kws: [Novavax, Novavax Inc.]
+NVCR:
+  kws: [NovoCure Limited]
+NVDA:
+  kws: [Nvidia]
+NWS:
+  kws: [News Corporation]
+NXPI:
+  kws: [NXP Semiconductors, NXP Semiconductors N.V.]
+ODFL:
+  kws: [Old Dominion Freight Line, Old Dominion Freight Line Inc.]
+OHI:
+  kws: [Omega Healthcare Investors, Omega Healthcare Investors Inc.]
+OKE:
+  kws: [ONEOK, ONEOK Inc.]
+OKTA:
+  kws: [Okta]
+OLED:
+  kws: [Universal Display Corporation]
+OMI:
+  kws: [Owens & Minor, Owens & Minor Inc.]
+ONCS:
+  kws: [Oragenics]
+ONEM:
+  kws: [1Life Healthcare, Inc.]
+ONTX:
+  kws: [Onconova Therapeutics]
+OPK:
+  kws: [OPKO Health]
+ORAN:
+  kws: [Orange]
+ORBC:
+  kws: [ORBCOMM, ORBCOMM Inc.]
+ORCL:
+  kws: [Oracle]
+ORIC:
+  kws: [Oric Pharmaceuticals]
+OSIS:
+  kws: [OSI Systems, OSI Systems Inc.]
+OSK:
+  kws: [Oshkosh Corporation (Holding Company)Common Stock]
+OTLK:
+  kws: ['Outlook Therapeutics,', 'Outlook Therapeutics, Inc.', 'Outlook, Inc.']
+OTTR:
+  kws: [Otter Tail Corporation]
+OVID:
+  kws: [Ovid Inc., Ovid Therapeutics, Ovid Therapeutics Inc.]
+OVV:
+  kws: [Ovintiv]
+PARR:
+  kws: [Par Pacific, Par Pacific Holdings, Par Pacific Holdings Inc.]
+PASG:
+  kws: [Passage Bio]
+PATK:
+  kws: [Patrick Industries]
+PBFX:
+  kws: [PBF Logistics LP representing limited partner interests]
+PCAR:
+  kws: [PACCAR, PACCAR Inc.]
+PCG:
+  kws: [PG&E]
+PFE:
+  kws: [Pfizer]
+PH:
+  kws: [Parker-Hannifin Corporation]
+PHM:
+  kws: [PulteGroup]
+PII:
+  kws: [Polaris Industries, Polaris Industries Inc.]
+PKBK:
+  kws: [Parke Bancorp, Parke Bancorp Inc.]
+PLT:
+  kws: [Plantronics, Plantronics Inc.]
+PLUG:
+  kws: [Plug Power, Plug Power Inc.]
+PLXS:
+  kws: [Plexus Corp.]
+POL:
+  kws: [PolyOne Corporation]
+PRTS:
+  kws: [U.S. Auto Parts Network, U.S. Auto Parts Network Inc.]
+PRVB:
+  kws: [Provention Bio]
+PSEC:
+  kws: [Prospect Capital Corporation]
+PSTI:
+  kws: [Pluristem Therapeutics]
+PSTV:
+  kws: ['Plus Therapeutics,', 'Plus Therapeutics, Inc.', 'Plus, Inc.']
+PTC:
+  kws: [PTC, PTC Inc.]
+PTGX:
+  kws: [Protagonist Therapeutics]
+PTON:
+  kws: [Peloton, Peloton Interactive]
+PTR:
+  kws: [PetroChina]
+PUMP:
+  kws: [Oil, ProPetro Holding Corp., oil]
+PWR:
+  kws: [Quanta Services, Quanta Services Inc.]
+QCOM:
+  kws: [QUALCOMM Incorporated]
+QDEL:
+  kws: [Quidel, Quidel Corporation]
+QQQ:
+  kws: [Nasdaq]
+QRTEA:
+  kws: [Liberty Interactive Corporation Series A QVC Group Common Stock]
+QSR:
+  kws: [Burger King, Popeyes, Restaurant Brands International, Tim Hortons]
+RACE:
+  kws: [Ferrari]
+RAD:
+  kws: [Rite Aid]
+RCI:
+  kws: [Rogers Communication, Rogers Communication Inc.]
+RCL:
+  kws: [Royal Caribbean, Royal Caribbean Cruises Ltd.]
+REGN:
+  kws: [Regeneron]
+REPH:
+  kws: [Recro Pharma, Recro Pharma Inc.]
+RFIL:
+  kws: [RF Industries Ltd.]
+RGR:
+  kws: [Sturm Ruger & Company, Sturm Ruger & Company Inc.]
+RGS:
+  kws: [Regis, Regis Corporation]
+RMBS:
+  kws: [Rambus, Rambus Inc.]
+RMD:
+  kws: [ResMed, ResMed Inc.]
+ROKU:
+  kws: [Roku]
+RVLV:
+  kws: [Revolve Group, 'Revolve Group, Inc.']
+RYAAY:
+  kws: [Ryanair, Ryanair Holdings]
+RYI:
+  kws: [Ryerson, Ryerson Holding Corporation]
+S:
+  kws: [Sprint, Sprint Corporation]
+SA:
+  kws: [Seabridge Gold, Seabridge Gold (Canada), Seabridge Gold Inc. (Canada)]
+SABR:
+  kws: [Sabre, Sabre Corporation]
+SAVE:
+  kws: [Spirit Airlines Incorporated, Sprint Airlines]
+SB:
+  kws: [Safe Bulkers, Safe Bulkers Inc]
+SBLK:
+  kws: [Star Bulk Carriers Corp.]
+SBUX:
+  kws: [Starbucks, Starbucks Corporation]
+SCCO:
+  kws: [Southern Copper Corporation]
+SCON:
+  kws: [Superconductor Technologies, Superconductor Technologies Inc.]
+SCPH:
+  kws: [Scpharmaceuticals Inc, scPharmaceuticals]
+SDC:
+  kws: [SmileDirectClub, 'SmileDirectClub, Inc.']
+SDPI:
+  kws: [Superior Drilling Products, Superior Drilling Products Inc.]
+SE:
+  kws: [Sea Limited American, Sea Limited American Depositary Shares each representing
+      one Class A]
+SELB:
+  kws: [Selecta Biosciences]
+SFL:
+  kws: [Ship Finance International Limited]
+SFM:
+  kws: [Sprouts Farmers Market, Sprouts Farmers Market Inc.]
+SGMS:
+  kws: [Scientific Games]
+SGRY:
+  kws: [Surgery Partners, Surgery Partners Inc.]
+SHEN:
+  kws: [Shenandoah Telecommunications Co]
+SHOP:
+  kws: [Shopify]
+SIEN:
+  kws: [Sientra, Sientra Inc.]
+SINA:
+  kws: [Sina Corporation]
+SINO:
+  kws: [Sino-Global Shipping America Ltd.]
+SIRI:
+  kws: [Sirius XM, Sirius XM Holdings, Sirius XM Holdings Inc.]
+SJR:
+  kws: [Shaw Communications, Shaw Communications Inc.]
+SKX:
+  kws: [Skechers]
+SLB:
+  kws: [Schlumberger]
+SLV:
+  kws: [iShares Silver Trust]
+SMG:
+  kws: [Scotts Miracle-Gro Company (The)]
+SMMF:
+  kws: [Summit Financial Group]
+SMRT:
+  kws: [Stein Mart, Stein Mart Inc.]
+SNA:
+  kws: [Snap-On Incorporated]
+SNCA:
+  kws: [Seneca Biopharma]
+SNE:
+  kws: [Sony Corporation]
+SNGX:
+  kws: [Soligenix]
+SNP:
+  kws: [China Petroleum & Chemical Corporation]
+SNSR:
+  kws: [Global X Internet of Things ETF]
+SNY:
+  kws: [Sanofi]
+SONO:
+  kws: [Sonos]
+SPLK:
+  kws: [Splunk, Splunk Inc.]
+SPOT:
+  kws: [Spotify]
+SPR:
+  kws: [Spirit Aerosystems, Spirit Aerosystems Holdings, Spirit Aerosystems Holdings
+      Inc.]
+SPY:
+  kws: [S&P]
+SRLP:
+  kws: [Sprague Resources LP representing Limited Partner Interests]
+SRNE:
+  kws: [Sorrento Therapeutics]
+SSRM:
+  kws: [SSR Mining, SSR Mining Inc.]
+STM:
+  kws: [STMicroelectronics N.V.]
+STMP:
+  kws: [Stamps.com, Stamps.com Inc.]
+SUP:
+  kws: [Superior Industries, Superior Industries International (DE), Superior Industries
+      International Inc. (DE)]
+SWIR:
+  kws: [Sierra Wireless, Sierra Wireless Inc.]
+SYY:
+  kws: [Sysco, Sysco Corporation]
+T:
+  kws: [AT&T, AT&T Inc.]
+TAK:
+  kws: [Takeda, Takeda Pharmaceutical]
+TBIO:
+  kws: [Translate Bio]
+TDJ:
+  kws: [Telephone and Data Systems]
+TEF:
+  kws: [Telefonica, Telefonica SA]
+TELL:
+  kws: [Tellurian, Tellurian Inc.]
+TEVA:
+  kws: [Teva, Teva Pharmaceutical, Teva Pharmaceutical Industries Ltd]
+TFX:
+  kws: [Teleflex, Teleflex Incorporated]
+TGT:
+  kws: [Target]
+THMO:
+  kws: [ThermoGenesis, 'ThermoGenesis Holdings,', 'ThermoGenesis Holdings, Inc.']
+TIF:
+  kws: [Tiffany & Co.]
+TIP:
+  kws: [Inflation, Monetary Inflation, inflation]
+TJX:
+  kws: [TJ Max, TJX, TJX Companies (The), TJX Companies Inc. (The)]
+TK:
+  kws: [Teekay Corporation]
+TKR:
+  kws: [Timken Company, Timken Company (The)]
+TLGT:
+  kws: [Teligent, Teligent Inc.]
+TLRY:
+  kws: ['Tilray', 'Tilray, Inc.']
+TMO:
+  kws: [Thermo Fisher, Thermo Fisher Scientific Inc.]
+TNDM:
+  kws: [Tandem Diabetes Care, Tandem Diabetes Care Inc.]
+TNP:
+  kws: [Tsakos Energy, Tsakos Energy Navigation Ltd]
+TOUR:
+  kws: [Tuniu Corporation]
+TPR:
+  kws: [Tapestry, Tapestry Inc.]
+TPTX:
+  kws: [Inc., Turning Point Therapeutics]
+TPVG:
+  kws: [TriplePoint Venture Growth BDC Corp.]
+TPX:
+  kws: [Tempur Sealy International, Tempur Sealy International Inc.]
+TRGP:
+  kws: [Targa Resources, Targa Resources Inc.]
+TRIP:
+  kws: [TripAdvisor, TripAdvisor Inc.]
+TROX:
+  kws: [Tronox Limited Class A $0.01 par]
+TRPX:
+  kws: [Therapix Biosciences Ltd.]
+TRQ:
+  kws: [Turquoise Hill Resources Ltd.]
+'TRUE':
+  kws: [TrueCar, TrueCar Inc.]
+TRV:
+  kws: [The Travelers Companies, The Travelers Companies Inc.]
+TRXC:
+  kws: [TransEnterix, TransEnterix Inc.]
+TSLA:
+  kws: [Elon Musk, Model Y, Tesla]
+TSN:
+  kws: [Tyson Foods, Tyson Fresh Meats]
+TTI:
+  kws: [Tetra Technologies, Tetra Technologies Inc.]
+TTM:
+  kws: [Tata Motors, Tata Motors Ltd Limited]
+TTNP:
+  kws: [Titan Pharmaceuticals]
+TU:
+  kws: [Telus]
+TX:
+  kws: [Ternium]
+TZOO:
+  kws: [Travelzoo]
+UA:
+  kws: [Under Armour]
+UAA:
+  kws: [Under Armour, Under Armour Class A, Under Armour Inc. Class A]
+UAL:
+  kws: [United Airlines]
+UAMY:
+  kws: [United States Antimony Corporation]
+UAVS:
+  kws: ['AgEagle Aerial Systems,', 'AgEagle Aerial Systems, Inc.']
+UBER:
+  kws: [Uber, 'Uber Technologies,', 'Uber Technologies, Inc.']
+UG:
+  kws: [United Guardian, United-Guardian]
+UNH:
+  kws: [UnitedHealth Group Incorporated (DE)]
+UNT:
+  kws: [Unit Corporation]
+URA:
+  kws: [Global X Uranium]
+URBN:
+  kws: [Urban Outfitters]
+URGN:
+  kws: [Urogen Pharma Ltd]
+USDP:
+  kws: [USD Partners LP representing limited partner interest]
+USM:
+  kws: [United States Cellular Corporation]
+USO:
+  kws: [Oil, U.S. Oil Fund, US Oil Fund, oil]
+UVV:
+  kws: [Universal Corporation]
+UZC:
+  kws: [United States Cellular, United States Cellular Corporation 7.25% Senior Notes
+      due 2064]
+V:
+  kws: [Visa]
+VBIV:
+  kws: [VBI Vaccines]
+VEC:
+  kws: [Vectrus, Vectrus Inc.]
+VEEV:
+  kws: [Veeva Systems, Veeva Systems Class A, Veeva Systems Inc. Class A]
+VIR:
+  kws: [Vir Biotechnology]
+VKTX:
+  kws: [Viking Inc., Viking Therapeutics, Viking Therapeutics Inc.]
+VLRS:
+  kws: [Volaris]
+VLY:
+  kws: [Valley National Bancorp]
+VMBS:
+  kws: [Mortgages]
+VNDA:
+  kws: [Vanda Pharmaceuticals]
+VNET:
+  kws: [21Vianet Group, 21Vianet Group Inc.]
+VNOM:
+  kws: [Viper Energy Partners LP]
+VNQ:
+  kws: [Home builders, Real Estate, real estate]
+VRA:
+  kws: [Vera Bradley, Vera Bradley Inc.]
+VSAT:
+  kws: [ViaSat, ViaSat Inc.]
+VSTM:
+  kws: [Verastem]
+VSTO:
+  kws: [Vista Outdoor, Vista Outdoor Inc.]
+VTR:
+  kws: [Ventas, Ventas Inc.]
+VTSI:
+  kws: [VirTra, 'VirTra, Inc.']
+VXRT:
+  kws: [Vaxart]
+VZ:
+  kws: [Verizon Communications, Verizon Communications Inc.]
+W:
+  kws: [Wayfair, Wayfair Class A, Wayfair Inc. Class A]
+WB:
+  kws: [Weibo Corporation]
+WDAY:
+  kws: [Workday, Workday Inc.]
+WFC:
+  kws: [Wells Fargo, Wells Fargo & Company]
+WGO:
+  kws: [Winnebago Industries, Winnebago Industries Inc.]
+WIFI:
+  kws: [Boingo Wireless, Boingo Wireless Inc.]
+WKHS:
+  kws: [Workhorse Group, Workhorse Group Inc.]
+WMS:
+  kws: [Advanced Drainage Systems, Advanced Drainage Systems Inc.]
+WMT:
+  kws: [Walmart, Walmart Grocery]
+WORK:
+  kws: [Slack]
+WORX:
+  kws: [SC WORX]
+WOW:
+  kws: [WideOpenWest, WideOpenWest Inc.]
+WPRT:
+  kws: [Westport Fuel Systems Inc]
+WTBDY:
+  kws: [Whitbread]
+WTRH:
+  kws: [Waitr, Waitr Holdings, Waitr Holdings Inc.]
+WWE:
+  kws: [World Wrestling, World Wrestling Entertainment Class A, World Wrestling Entertainment
+      Inc. Class A]
+WYNN:
+  kws: [Wynn Resorts Limited]
+XELA:
+  kws: [Exela, Exela Technologies, Exela Technologies Inc.]
+XNET:
+  kws: [Xunlei Limited]
+XPEL:
+  kws: [XPEL, 'XPEL, Inc.']
+XRX:
+  kws: [Xerox]
+XTN:
+  kws: [SPDR S&P Transportation]
+YELP:
+  kws: [Yelp, Yelp Inc.]
+YJ:
+  kws: [Yunji, Yunji Inc.]
+YY:
+  kws: [YY, YY Inc.]
+Z:
+  kws: [Zillow, Zillow Group]
+ZM:
+  kws: [Zoom, Zoom Video, 'Zoom Video Communications,', 'Zoom Video Communications,
+      Inc.']
+ZTS:
+  kws: [Zoetis, Zoetis Class A, Zoetis Inc. Class A]
+ZYNE:
+  kws: [Zynerba, Zynerba Pharmaceuticals]

@@ -62,7 +62,10 @@ class MarketWatch(ArticleScraper):
                 return None
             date = text_to_datetime(date_match.group(1))
 
-        start_idx = article_html.index('articleBody')
+        try:
+            start_idx = article_html.index('articleBody')
+        except:
+            return None
         try:
             end_idx = article_html.index('author-commentPromo')
         except ValueError:

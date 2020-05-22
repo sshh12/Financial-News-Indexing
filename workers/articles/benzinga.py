@@ -18,7 +18,9 @@ IGNORE_TEXT = [
     ' will be released at',
     '(Image: ',
     'Already have an account?'
-    'Source: '
+    'Source: ',
+    'For daily updates, ',
+    'View More Analyst Ratings for'
 ]
 
 

@@ -20,6 +20,8 @@ from articles.cnn import CNN
 from articles.barrons import Barrons
 from articles.forbes import Forbes
 from articles.benzinga import Benzinga
+from articles.pharmiweb import PharmiWeb
+from articles.financialtimes import FinancialTimes
 from articles import extract_symbols, hash_sha1
 from config import config
 from . import StreamPoll
@@ -50,7 +52,9 @@ SOURCES = {
     'forbes': Forbes,
     'marketexclusive': MarketExclusive,
     'alphastocknews': AlphaStockNews,
-    'benzinga': Benzinga
+    'benzinga': Benzinga,
+    'pharmiweb': PharmiWeb,
+    'financialtimes': FinancialTimes
 }
 
 

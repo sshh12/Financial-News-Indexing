@@ -24,4 +24,4 @@ def clean(fn):
 
 if __name__ == '__main__':
     clean(os.path.join(PROJECT_DIR, 'config.yaml'))
-    clean(os.path.join(PROJECT_DIR, 'keywords.yaml'))
+    clean(os.path.join(PROJECT_DIR, 'symbols.yaml'))

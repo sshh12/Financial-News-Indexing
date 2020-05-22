@@ -281,8 +281,8 @@ def extract_symbols(text, strict=False, _token_to_sym={}):
 
     plain_text = re.sub(r'[!,#\.\?\n\r]', '', text).replace('\'s ', ' ')
     if len(_token_to_sym) == 0:
-        for sym, kwords in config['keywords']['symbols'].items():
-            for kw in kwords:
+        for sym, sym_data in config['symbols'].items():
+            for kw in sym_data.get('kws', []):
                 _token_to_sym[kw] = sym
     for token, sym in _token_to_sym.items():
         try:
