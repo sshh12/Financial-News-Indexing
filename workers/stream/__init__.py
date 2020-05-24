@@ -4,6 +4,19 @@ import asyncio
 import aiohttp
 
 
+def run_streams(streams, on_event):
+    strms = []
+    for Stream in streams:
+        strm = Stream()
+        strm.on_event = on_event
+        strms.append(strm)
+    for i, stream in enumerate(strms):
+        if i == len(strms) - 1:
+            stream.start()
+        else:
+            stream.start_async()
+
+
 class Stream:
 
     def __init__(self):

@@ -1,3 +1,5 @@
+A:
+  kws: [Agilent]
 AAPL:
   kws: [Apple, Apple Inc., Apple TV+, ipads, iphones]
 ABBV:
@@ -26,6 +28,8 @@ AGI:
   kws: [Alamos Gold]
 AGNC:
   kws: [AGNC Investment Corp.]
+AGYS:
+  kws: [Agilysys]
 AIM:
   kws: [ImmunoTech]
 AINV:
@@ -68,6 +72,8 @@ AMPY:
   kws: [Amplify Energy, Amplify Energy Corp.]
 AMRN:
   kws: [Amarin]
+AMRX:
+  kws: [Amenal Pharmaceuticals]
 AMSWA:
   kws: [American Software, American Software Inc.]
 AMZN:
@@ -150,6 +156,8 @@ BGI:
   kws: [Birks Group, Birks Group Inc.]
 BHTG:
   kws: ['BioHiTech Global,', 'BioHiTech Global, Inc.']
+BHVN:
+  kws: [Biohaven, Biohaven Pharmaceuticals]
 BIDU:
   kws: [Baidu]
 BIIB:
@@ -323,6 +331,8 @@ DCAR:
   kws: [DropCar, DropCar Inc.]
 DCP:
   kws: [DCP Midstream LP]
+DE:
+  kws: [Deere]
 DEAC:
   kws: [Diamond Eagle Acquisition Corp.]
 DELL:
@@ -373,6 +383,8 @@ EDU:
 EFC:
   kws: [Ellington Financial LLC representing Limitied Liability Company Interests
       no par valu]
+ELF:
+  kws: [E.l.f. Beauty, e.l.f. Beauty]
 ENB:
   kws: [Enbridge Inc]
 ENR:
@@ -423,6 +435,8 @@ FB:
   kws: [Facebook, Zuckerberg]
 FET:
   kws: [Forum Energy Technologies, Forum Energy Technologies Inc.]
+FL:
+  kws: [Foot Locker]
 FLO:
   kws: [Flowers Foods, Flowers Foods Inc.]
 FLR:
@@ -477,6 +491,8 @@ GM:
   kws: [GM]
 GNLN:
   kws: ['Greenlane Holdings,', 'Greenlane Holdings, Inc.']
+GNPX:
+  kws: [Genprex]
 GNRC:
   kws: [Generac Holdlings, Generac Holdlings Inc.]
 GNT:
@@ -567,6 +583,8 @@ IBM:
   kws: [IBM]
 ICHR:
   kws: [Ichor Holdings]
+ICPT:
+  kws: [Intercept Pharmaceuticals]
 IDCC:
   kws: [InterDigital, InterDigital Inc.]
 IDXX:
@@ -813,6 +831,8 @@ NWS:
   kws: [News Corporation]
 NXPI:
   kws: [NXP Semiconductors, NXP Semiconductors N.V.]
+OCUL:
+  kws: [Ocular Therapeutix]
 ODFL:
   kws: [Old Dominion Freight Line, Old Dominion Freight Line Inc.]
 OHI:
@@ -879,6 +899,8 @@ PLT:
   kws: [Plantronics, Plantronics Inc.]
 PLUG:
   kws: [Plug Power, Plug Power Inc.]
+PLX:
+  kws: [Point Loma, Point Loma Resources Ltd.]
 PLXS:
   kws: [Plexus Corp.]
 POL:
@@ -1012,6 +1034,8 @@ SNA:
   kws: [Snap-On Incorporated]
 SNCA:
   kws: [Seneca Biopharma]
+SNDX:
+  kws: [Syndax Pharma, Syndax Pharmaceuticals, Syndax Pharmas]
 SNE:
   kws: [Sony Corporation]
 SNGX:
@@ -1075,7 +1099,7 @@ TIF:
 TIP:
   kws: [Inflation, Monetary Inflation, inflation]
 TJX:
-  kws: [TJ Max, TJX, TJX Companies (The), TJX Companies Inc. (The)]
+  kws: [TJ Max, TJ Maxx, TJX, TJX Companies (The), TJX Companies Inc. (The)]
 TK:
   kws: [Teekay Corporation]
 TKR:
@@ -1083,7 +1107,7 @@ TKR:
 TLGT:
   kws: [Teligent, Teligent Inc.]
 TLRY:
-  kws: ['Tilray', 'Tilray, Inc.']
+  kws: [Tilray, 'Tilray, Inc.']
 TMO:
   kws: [Thermo Fisher, Thermo Fisher Scientific Inc.]
 TNDM:
@@ -1246,12 +1270,16 @@ WYNN:
   kws: [Wynn Resorts Limited]
 XELA:
   kws: [Exela, Exela Technologies, Exela Technologies Inc.]
+XENE:
+  kws: [Xenon Pharma, Xenon Pharmaceuticals]
 XNET:
   kws: [Xunlei Limited]
 XPEL:
   kws: [XPEL, 'XPEL, Inc.']
 XRX:
   kws: [Xerox]
+XSPA:
+  kws: [XpresSpa]
 XTN:
   kws: [SPDR S&P Transportation]
 YELP:

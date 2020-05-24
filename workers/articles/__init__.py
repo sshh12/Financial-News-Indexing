@@ -79,7 +79,7 @@ def clean_html_text(html):
         ('&ldquo;', '"'), ('&rdquo;', '"'), ('&quot;', '"'),
         ('&amp;', '&'),
         ('&copy;', ''),
-        ('&nbsp;', ' '),
+        ('&nbsp;', ' '), ('&otilde;', 'o'), ('&ccedil;', 'c'),
         ('&lt;', '<'), ('&gt;', '>'),
         ('&ndash;', '-'), ('&mdash;', '-'), ('&uuml;', 'u'),
         ('&oacute;', 'o'), ('&mu;', 'μ'), ('&eacute;', 'e'), ('&ouml;', 'o'),

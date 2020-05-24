@@ -51,6 +51,7 @@ class Benzinga(ArticleScraper):
             paragraph = clean_html_text(p_match.group(1))
             if paragraph.count(' ') <= 1 or string_contains(paragraph, IGNORE_TEXT):
                 continue
+            text = text.replace('Already have an account? Login', '')
             text.append(paragraph)
 
         if len(text) == 0:

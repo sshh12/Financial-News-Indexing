@@ -1,6 +1,5 @@
 watch:
-  guru:
-    delay: 10800
+  guru: {delay: 10800}
   news:
     delay: 10
     sources: [accesswire, alphastocknews, barrons, benzinga, businessinsider, businesswire,
@@ -11,9 +10,10 @@ watch:
   stats:
     delay: 10
     sources: [earningscast, finviz, zacks]
-  tda: {}
+  tda: {delay_prices: 10800}
   twitter:
     GILD: [GileadSciences]
     TSLA: [elonmusk]
-    _: [ForexLive, LiveSquawk, MarketCurrents, MoodysInvSvc, RANsquawk, fintel_io,
-      newsfilterio, quant_data, realDonaldTrump, stock_titan]
+    _: [ForexLive, LiveSquawk, MarketCurrents, MoodysInvSvc, RANsquawk, Tickeron,
+      WatchlistN, fintel_io, newsfilterio, quant_data, realDonaldTrump, stock_titan,
+      sunshineavenue8]

@@ -20,11 +20,17 @@ class StreamGuru(StreamPoll):
         for stock in self.stocks:
             def make_scrap(sym=None):
                 async def scrap_stock():
-                    return await self.scraper.read_financials(sym)
+                    try:
+                        return await self.scraper.read_financials(sym)
+                    except Exception as e:
+                        self.on_event(dict(symbols=[sym], type='error', name='guru-data', desc=str(e) + ' ' + stock, source=str(self)))
+                        return None, None, None
                 return scrap_stock
             polls.append((self.scraper, make_scrap(sym=stock), self.delay))
         return polls
 
     async def on_poll_data(self, source, sym, fin_data, emit_events=True, **kwargs):
+        if sym is None or fin_data is None:
+            return
         fin_data.update(dict(source=source, type='financials', name='guru-spot', symbols=[sym]))
         self.on_event(fin_data)
