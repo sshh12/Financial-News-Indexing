@@ -23,7 +23,6 @@ class StreamTDA(Stream):
         self.warmup_period = CFG.get('warmup', 30)
         
         self.warmup = True
-        self.opt_error_rate = defaultdict(lambda: 0)
 
     def start(self):
         self.quote_thread = Thread(target=self._start_quotes)
@@ -45,27 +44,18 @@ class StreamTDA(Stream):
     def _start_quotes(self):
         while True:
             for stock in self.stocks:
-                ts = int(pendulum.now().timestamp() * 100)
+                ts = int(pendulum.now().timestamp() * 1000)
                 price_fn = os.path.join('data', 'watch', 'ticks', 'P_{}_{}.csv'.format(stock, ts))
                 options_fn = os.path.join('data', 'watch', 'ticks', 'O_{}_{}.csv'.format(stock, ts))
                 try:
                     self.tda.history(span='day', freq='minute', latest=True)[stock].to_csv(price_fn)
+                    self.tda.options(quotes=True)[stock].to_csv(options_fn)
                 except Exception as e:
                     err = str(e)
-                    if 'transactions per seconds restriction' in err:
-                        time.sleep(2)
-                    else:
-                        self.on_event(dict(symbols=[stock], type='error', name='tda-price', desc=err, source=str(self)))
-                try:
-                    if self.opt_error_rate[stock] < 0.5:
-                        self.tda.options(quotes=True)[stock].to_csv(options_fn)
-                except Exception as e:
-                    err = str(e)
-                    self.opt_error_rate[stock] = self.opt_error_rate[stock] * 0.75 + 0.25
-                    if 'transactions per seconds restriction' in err:
-                        time.sleep(2)
-                    else:
-                        self.on_event(dict(symbols=[stock], type='error', name='tda-options', desc=err, source=str(self)))
+                    if 'The access token being passed has expired' in err:
+                        self._reauth()
+                    time.sleep(1)
+                    self.on_event(dict(symbols=[stock], type='error', name='tda-quotes', desc=err, source=str(self)))
             time.sleep(self.delay_prices)
 
     def _news_to_evt(self, news):
@@ -73,3 +63,6 @@ class StreamTDA(Stream):
         if evt['title'] == 'N/A':
             return None
         return evt
+
+    def _reauth(self):
+        self.tda.load_login(os.path.join('data', 'tda-login'))

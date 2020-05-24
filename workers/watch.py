@@ -6,6 +6,7 @@ from stream.news import StreamNews
 from stream.stats import StreamStats
 from stream.guru import StreamGuru
 from notify.slack import slack_evt
+from config import config
 import json
 import hashlib
 import pendulum
@@ -15,6 +16,22 @@ import nest_asyncio; nest_asyncio.apply()
 
 def _hash(s):
     return hashlib.sha1(bytes(repr(s), 'utf-8')).hexdigest()
+
+
+def _get_channels(evt):
+    if 'guru-' not in evt.get('name', ''):
+        type_ = '_'.join([str(k) for k in sorted(evt)][:10])
+    else:
+        type_ = 'guru_all'
+    if evt.get('type') == 'error':
+        type_ = 'error'
+    channels = ['*', type_]
+    symbols = evt.get('symbols', [])
+    if len(symbols) == 0:
+        channels.append('_NONE')
+    else:
+        channels.extend(symbols)
+    return channels
 
 
 def stdio_make_on_event(cb=None):
@@ -46,7 +63,21 @@ def es_make_on_event(cb=None):
     return on_event
 
 
-def io_make_on_event():
+def redis_make_event(cb=None):
+    import redis
+    redis_cfg = config['creds']['redis']
+    rs = redis.Redis(host=redis_cfg['host'], password=redis_cfg['password'], port=redis_cfg['port'])
+    def on_event(og_evt):
+        evt = og_evt.copy()
+        evt['ts'] = pendulum.now().timestamp()
+        evt_json = json.dumps(evt)
+        rs.publish('*', evt_json)
+        if cb is not None:
+            cb(og_evt)
+    return on_event
+
+
+def io_make_on_event(cb=None):
     import os
     sym_path = os.path.join('data', 'watch', 'syms')
     type_path = os.path.join('data', 'watch', 'type')
@@ -61,8 +92,9 @@ def io_make_on_event():
     mkdir(type_path)
     mkdir(date_path)
     mkdir(tick_path)
-    def on_event(evt):
-        evt = evt.copy()
+    def on_event(og_evt):
+        evt = og_evt.copy()
+        evt['date'] = str(pendulum.now())
         evt_json = json.dumps(evt)
         symbols = evt.get('symbols', [])
         if 'guru-' not in evt.get('name', ''):
@@ -70,7 +102,7 @@ def io_make_on_event():
         else:
             type_ = 'guru_all'
         if evt.get('type') == 'error':
-            type_ = 'error'
+            type_ = '_error'
         date = pendulum.now()
         evt['date'] = str(date)
         def write_evt(fn):
@@ -79,17 +111,20 @@ def io_make_on_event():
         write_evt(os.path.join(type_path, type_))
         write_evt(os.path.join(date_path, date.isoformat()[:10].replace('-', '_')))
         if len(symbols) == 0:
-            write_evt(os.path.join(sym_path, '_NO_SYM'))
+            write_evt(os.path.join(sym_path, '_NONE'))
         else:
             for symbol in symbols:
                 write_evt(os.path.join(sym_path, symbol))
+        if cb is not None:
+            cb(og_evt)
     return on_event
 
 
 def main():
 
-    io_logger = io_make_on_event()
-    on_event = stdio_make_on_event(cb=io_logger)
+    cb_redis = redis_make_event()
+    cb_io = io_make_on_event(cb=cb_redis)
+    on_event = stdio_make_on_event(cb=cb_io)
 
     print('Streaming...')
 

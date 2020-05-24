@@ -28,6 +28,6 @@ class StreamPRs(StreamPoll):
             key = (symbol, pr.headline)
             if key not in self.cache and emit_events:
                 data = dict(source=name, type='pr', title=pr.headline, 
-                    url=pr.url, published=pr.date, symbols=[symbol])
+                    url=pr.url, published=str(pr.date), symbols=[symbol])
                 self.on_event(data)
             self.cache.add(key)
