@@ -11,6 +11,7 @@ watch:
     delay: 10
     sources: [earningscast, finviz, zacks]
   tda: {delay_prices: 10800}
+  sec: {delay: 10}
   twitter:
     GILD: [GileadSciences]
     TSLA: [elonmusk]

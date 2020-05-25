@@ -1,25 +1,18 @@
 from config import config
 from articles import hash_sha1
-from stats.finviz import FinViz
-from stats.zacks import Zacks
-from stats.earningscast import EarningsCast
+from stats.index import STAT_SOURCES
 from . import StreamPoll
 import asyncio
 import aiohttp
 
 
 CFG = config['watch']['stats']
-SOURCES = {
-    'finviz': FinViz,
-    'zacks': Zacks,
-    'earningscast': EarningsCast
-}
 
 
 class StreamStats(StreamPoll):
 
     def __init__(self):
-        self.scrapers = [SOURCES[name]() for name in CFG['sources']]
+        self.scrapers = [STAT_SOURCES[name]() for name in CFG['sources']]
         self.cache = set()
         self.delay = CFG['delay']
 

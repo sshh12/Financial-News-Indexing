@@ -77,8 +77,8 @@ def clean_html_text(html):
     html_codes = [
         ('&rsquo;', '\''), ('&lsquo;', '\''),
         ('&ldquo;', '"'), ('&rdquo;', '"'), ('&quot;', '"'),
-        ('&amp;', '&'),
-        ('&copy;', ''),
+        ('&amp;', '&'), ('&ntilde;', 'n'),
+        ('&copy;', ''), ('&#8217;', '\''), ('&#160;', ' '),
         ('&nbsp;', ' '), ('&otilde;', 'o'), ('&ccedil;', 'c'),
         ('&lt;', '<'), ('&gt;', '>'),
         ('&ndash;', '-'), ('&mdash;', '-'), ('&uuml;', 'u'),

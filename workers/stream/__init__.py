@@ -69,7 +69,7 @@ class StreamPoll(Stream):
                     self.on_event(dict(type='error', name='polling', 
                         desc=str(func), traceback=repr(traceback.format_stack()) + ' -> ' + repr(e), source=str(self)))
                     polls_err += 1
-                polls = 0
+                polls += 1
                 if polls > 20 and polls_err / polls > 0.25:
                     self.on_event(dict(type='error', name='stop-polling', desc=str(func), source=str(self)))
                     break
