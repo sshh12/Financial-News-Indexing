@@ -84,6 +84,11 @@ class Benzinga(ArticleScraper):
             url = self.url + match.group(1)
             headline = clean_html_text(match.group(2))
             headlines.append((url, headline))
+        pr_html = await self._get('/pressreleases/')
+        for match in re.finditer(r'href="(\/pressreleases\/\d+[^"]+?)">([^<]+?)<', pr_html):
+            url = self.url + match.group(1)
+            headline = clean_html_text(match.group(2))
+            headlines.append((url, headline))
         return 'benzinga', headlines
 
     async def resolve_url_to_content(self, url):

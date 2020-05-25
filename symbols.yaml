@@ -447,6 +447,8 @@ FLXN:
   kws: [Flexion Therapeutics]
 FMC:
   kws: [FMC Corporation]
+FOIL:
+  kws: [Aluminum, aluminum]
 FOXA:
   kws: [Twenty-First Century Fox, Twenty-First Century Fox Inc.]
 FSLY:
@@ -1092,6 +1094,8 @@ TFX:
   kws: [Teleflex, Teleflex Incorporated]
 TGT:
   kws: [Target]
+THCX:
+  kws: [Cannabis, Marijuana, cannabis, marijuana]
 THMO:
   kws: [ThermoGenesis, 'ThermoGenesis Holdings,', 'ThermoGenesis Holdings, Inc.']
 TIF:
@@ -1119,7 +1123,7 @@ TOUR:
 TPR:
   kws: [Tapestry, Tapestry Inc.]
 TPTX:
-  kws: [Inc., Turning Point Therapeutics]
+  kws: [Turning Point Therapeutics]
 TPVG:
   kws: [TriplePoint Venture Growth BDC Corp.]
 TPX:

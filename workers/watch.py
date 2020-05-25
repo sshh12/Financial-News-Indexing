@@ -19,12 +19,10 @@ def _hash(s):
 
 
 def _get_channels(evt):
-    if 'guru-' not in evt.get('name', ''):
-        type_ = '_'.join([str(k) for k in sorted(evt)][:10])
-    else:
-        type_ = 'guru_all'
     if evt.get('type') == 'error':
-        type_ = 'error'
+        type_ = '_error'
+    else:
+        type_ = '_'.join([str(k) for k in sorted(evt)][:10])
     channels = ['*', type_]
     symbols = evt.get('symbols', [])
     if len(symbols) == 0:
@@ -86,26 +84,23 @@ def io_make_on_event(cb=None):
     type_path = os.path.join('data', 'watch', 'type')
     date_path = os.path.join('data', 'watch', 'date')
     tick_path = os.path.join('data', 'watch', 'ticks')
+    fin_path = os.path.join('data', 'watch', 'fin')
     def mkdir(path):
         try:
             os.makedirs(path)
         except:
             pass
-    mkdir(sym_path)
-    mkdir(type_path)
-    mkdir(date_path)
-    mkdir(tick_path)
+    for path in [sym_path, type_path, date_path, tick_path, fin_path]:
+        mkdir(path)
     def on_event(og_evt):
         evt = og_evt.copy()
         evt['date'] = str(pendulum.now())
         evt_json = json.dumps(evt)
         symbols = evt.get('symbols', [])
-        if 'guru-' not in evt.get('name', ''):
-            type_ = '_'.join([str(k) for k in sorted(evt)][:10])
-        else:
-            type_ = 'guru_all'
         if evt.get('type') == 'error':
             type_ = '_error'
+        else:
+            type_ = '_'.join([str(k) for k in sorted(evt)][:10])
         date = pendulum.now()
         evt['date'] = str(date)
         def write_evt(fn):

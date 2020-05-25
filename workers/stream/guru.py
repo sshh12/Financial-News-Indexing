@@ -1,8 +1,11 @@
 from config import config
 from stats.guru import Guru
 from . import StreamPoll
+import pendulum
 import asyncio
 import aiohttp
+import json
+import os
 
 
 CFG = config['watch']['guru']
@@ -23,7 +26,7 @@ class StreamGuru(StreamPoll):
                     try:
                         return await self.scraper.read_financials(sym)
                     except Exception as e:
-                        self.on_event(dict(symbols=[sym], type='error', name='guru-data', desc=str(e) + ' ' + stock, source=str(self)))
+                        self.on_event(dict(symbols=[sym], type='error', name='guru-data', desc=str(e), source=str(self)))
                         return None, None, None
                 return scrap_stock
             polls.append((self.scraper, make_scrap(sym=stock), self.delay))
@@ -32,5 +35,8 @@ class StreamGuru(StreamPoll):
     async def on_poll_data(self, source, sym, fin_data, emit_events=True, **kwargs):
         if sym is None or fin_data is None:
             return
-        fin_data.update(dict(source=source, type='financials', name='guru-spot', symbols=[sym]))
-        self.on_event(fin_data)
+        fin_data.update(dict(source=source, type='financials', 
+            name='guru-spot', ts=pendulum.now().timestamp(), symbols=[sym]))
+        save_fn = os.path.join('data', 'watch', 'fin', 'G_' + sym)
+        with open(save_fn, 'a') as sf:
+            sf.write(json.dumps(fin_data) + '\n')

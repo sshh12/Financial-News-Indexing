@@ -89,7 +89,7 @@ def clean_html_text(html):
         ('&ugrave;', 'u'), ('&aacute;', 'a'), ('&ocirc;', 'o'), ('&trade;', '')
     ]
     weird_tokens = [
-        ('•', '*'), ('●', '* '),
+        ('•', '*'), ('●', '* '), ('\u2019', '\''),
         ('\r', ''), ('…', '...'),
         ('—', '-'), ('ー', '-'),
         ('‘', '\''), ('’', '\''), 
@@ -114,9 +114,9 @@ def clean_html_text(html):
     return html.strip()
 
 
-def url_to_n3karticle(url):
+def url_to_n3karticle(url, input_html=None):
     art = newspaper.Article(url)
-    art.download()
+    art.download(input_html=input_html)
     art.parse()
     return art
 

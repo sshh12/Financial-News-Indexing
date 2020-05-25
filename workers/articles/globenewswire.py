@@ -4,7 +4,9 @@ import asyncio
 import re
 
 
-TRIM_AT = []
+TRIM_AT = [
+    'Forward-looking statements'
+]
 
 
 class GlobeNewsWire(ArticleScraper):

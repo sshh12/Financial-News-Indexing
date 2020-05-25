@@ -20,6 +20,8 @@ class BusinessWire(ArticleScraper):
         headlines = []
         for match in re.finditer(r'bwTitleLink"\s*href="([^"]+?)"><span itemprop="headline">([^<]+?)<', index_html):
             url = self.url + match.group(1)
+            if url.split('/')[-1] in ['zh-CN', 'ja', 'zh-HK']:
+                continue
             headline = clean_html_text(match.group(2))
             headlines.append((url, headline))
         return 'businesswire', headlines

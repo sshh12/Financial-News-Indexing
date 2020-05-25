@@ -4,6 +4,7 @@ from threading import Thread
 from config import config
 from . import Stream
 import pendulum
+import random
 import time
 import os
 
@@ -44,8 +45,11 @@ class StreamTDA(Stream):
                     self.on_event(evt)
 
     def _start_quotes(self):
+        stocks = list(self.stocks)
         while True:
-            for stock in self.stocks:
+            # shuffle to avoid consistent rate limits on symbols
+            random.shuffle(stocks)
+            for stock in stocks:
                 if self.quotes_cnt > 10 and self.quote_err[stock] / self.quotes_cnt > 0.5:
                     continue
                 ts = int(pendulum.now().timestamp() * 1000)
@@ -58,11 +62,9 @@ class StreamTDA(Stream):
                     err = str(e)
                     if 'The access token being passed has expired' in err:
                         self._reauth()
-                    if 'transactions per seconds restriction reached' in err:
-                        time.sleep(2)
                     self.quote_err[stock] += 1
                     self.on_event(dict(symbols=[stock], type='error', name='tda-quotes', desc=err, source=str(self)))
-                time.sleep(0.5)
+                time.sleep(2)
             self.quotes_cnt += 1
             time.sleep(self.delay_prices)
 

@@ -22,6 +22,7 @@ from articles.forbes import Forbes
 from articles.benzinga import Benzinga
 from articles.pharmiweb import PharmiWeb
 from articles.financialtimes import FinancialTimes
+from articles.streetinsider import StreetInsider
 
 
 STREAM_SOURCES = {
@@ -48,5 +49,6 @@ STREAM_SOURCES = {
     'alphastocknews': AlphaStockNews,
     'benzinga': Benzinga,
     'pharmiweb': PharmiWeb,
-    'financialtimes': FinancialTimes
+    'financialtimes': FinancialTimes,
+    'streetinsider': StreetInsider
 }
