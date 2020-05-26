@@ -296,6 +296,9 @@ def extract_symbols(text, strict=False, _token_to_sym={}):
     for match in re.finditer(r'NASDAQ:\s?([A-Z\.]+)\b', text):
         symbs.add(match.group(1))
 
+    for match in re.finditer(r'Nasdaq:\s?([A-Z\.]+)\b', text):
+        symbs.add(match.group(1))
+
     for match in re.finditer(r'ticker:\s*([A-Z\.]+?)\b', text):
         symbs.add(match.group(1))
 
