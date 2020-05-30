@@ -94,7 +94,7 @@ def clean_html_text(html):
         ('—', '-'), ('ー', '-'),
         ('‘', '\''), ('’', '\''), 
         ('“', ''), ('”', ''), ('»', '"'), ('«', '"'),
-        ('™', ''), ('\u200d', ''),
+        ('™', ''), ('\u200d', ''), ('\u2013', '-'),
         ('Â\xa0', ' '), ('Â½', ''), ('®', ''), ('\xa0', ' '),
         ('✅', ''), ('→', '->'), ('💯', ''), ('🚨', '')
     ]
@@ -293,17 +293,17 @@ def extract_symbols(text, strict=False, _token_to_sym={}):
         if (idx == 0 or plain_text[idx - 1] == ' ') and (end_idx == len(plain_text) or plain_text[end_idx] == ' '):
             symbs.add(sym)
 
-    for match in re.finditer(r'NASDAQ:\s?([A-Z\.]+)\b', text):
-        symbs.add(match.group(1))
+    ticker_regexs = [
+        r'NASDAQ:\s?([A-Z\.]+)\b',
+        r'NASD:\s?([A-Z\.]+)\b',
+        r'Nasdaq:\s?([A-Z\.]+)\b',
+        r'ticker:\s*([A-Z\.]+?)\b',
+        r'NYSE\/?[A-Z]*?:\s?([A-Z\.]+)\b'
+    ]
 
-    for match in re.finditer(r'Nasdaq:\s?([A-Z\.]+)\b', text):
-        symbs.add(match.group(1))
-
-    for match in re.finditer(r'ticker:\s*([A-Z\.]+?)\b', text):
-        symbs.add(match.group(1))
-
-    for match in re.finditer(r'NYSE\/?[A-Z]*?:\s?([A-Z\.]+)\b', text):
-        symbs.add(match.group(1))
+    for ticker_rgx in ticker_regexs:
+        for match in re.finditer(ticker_rgx, text):
+            symbs.add(match.group(1))
 
     if not strict:
         for match in re.finditer(r'\$([A-Z\.]+)\b', text):

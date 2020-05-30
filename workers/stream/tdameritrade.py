@@ -58,9 +58,13 @@ class StreamTDA(Stream):
                 tda_sym = symbol.replace('FUTURE', '/')
                 try:
                     self.tda.history(span='day', freq='minute', latest=True)[tda_sym].to_csv(price_fn)
-                    if 'FUTURE' not in symbol:
-                        time.sleep(1)
-                        self.tda.options(quotes=True)[tda_sym].to_csv(options_fn)
+                    try:
+                        # tbh options data is just extra
+                        if 'FUTURE' not in symbol:
+                            time.sleep(1)
+                            self.tda.options(quotes=True)[tda_sym].to_csv(options_fn)
+                    except:
+                        pass
                 except Exception as e:
                     err = str(e)
                     if 'The access token being passed has expired' in err:

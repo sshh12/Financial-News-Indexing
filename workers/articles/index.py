@@ -23,6 +23,7 @@ from articles.benzinga import Benzinga
 from articles.pharmiweb import PharmiWeb
 from articles.financialtimes import FinancialTimes
 from articles.streetinsider import StreetInsider
+from articles.miningnewsfeed import MiningNewsFeed
 
 
 STREAM_SOURCES = {
@@ -50,5 +51,6 @@ STREAM_SOURCES = {
     'benzinga': Benzinga,
     'pharmiweb': PharmiWeb,
     'financialtimes': FinancialTimes,
-    'streetinsider': StreetInsider
+    'streetinsider': StreetInsider,
+    'miningnewsfeed': MiningNewsFeed
 }

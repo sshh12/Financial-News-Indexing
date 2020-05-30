@@ -4,8 +4,8 @@ watch:
     delay: 10
     sources: [accesswire, alphastocknews, barrons, benzinga, businessinsider, businesswire,
       cnn, federalreserve, financialtimes, fitch, forbes, globenewswire, marketexclusive,
-      marketwatch, moodys, pharmiweb, prnewswire, reuters, rtt, seekingalpha, stat,
-      stocktwits, streetinsider, thestreet, usbls]
+      marketwatch, miningnewsfeed, moodys, pharmiweb, prnewswire, reuters, rtt, seekingalpha,
+      stat, stocktwits, streetinsider, thestreet, usbls]
   prs: {delay: 10}
   sec: {delay: 10}
   stats:

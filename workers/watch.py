@@ -36,11 +36,10 @@ def stdio_make_on_event(cb=None):
     def on_event(og_evt):
         evt = og_evt.copy()
         evt['date'] = str(pendulum.now())
-        print('{}_{}_{}_{}'.format(
-            evt.get('type'), 
-            evt.get('name'), 
-            evt.get('symbols', []),
-            evt.get('desc', '')))
+        if evt.get('type') == 'error':
+            print(evt)
+        else:
+            print(evt.get('symbols', []))
         if cb is not None:
             cb(og_evt)
     return on_event

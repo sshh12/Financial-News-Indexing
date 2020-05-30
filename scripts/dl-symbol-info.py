@@ -43,7 +43,7 @@ def main():
 
     for sym in tqdm.tqdm(symbols):
         for field, func in FIELDS.items():
-            if field not in symbols[sym] or field == 'mw_tags':
+            if field not in symbols[sym]:
                 val = func(sym)
                 if val is not None:
                     symbols[sym][field] = val

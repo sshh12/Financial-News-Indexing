@@ -4,6 +4,7 @@ from . import StreamPoll
 import pendulum
 import asyncio
 import aiohttp
+import random
 import json
 import os
 
@@ -23,6 +24,7 @@ class StreamGuru(StreamPoll):
         for stock in self.stocks:
             def make_scrap(sym=None):
                 async def scrap_stock():
+                    await asyncio.sleep(random.randint(0, 300))
                     try:
                         return await self.scraper.read_financials(sym)
                     except Exception as e:

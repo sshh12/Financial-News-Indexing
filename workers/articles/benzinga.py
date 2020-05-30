@@ -48,10 +48,9 @@ class Benzinga(ArticleScraper):
             date = text_to_datetime(date_match.group(1))
 
         for p_match in re.finditer(r'<p>([\s\S]+?)<\/p>', article_html):
-            paragraph = clean_html_text(p_match.group(1))
+            paragraph = clean_html_text(p_match.group(1)).replace('Already have an account? Login', '')
             if paragraph.count(' ') <= 1 or string_contains(paragraph, IGNORE_TEXT):
                 continue
-            text = text.replace('Already have an account? Login', '')
             text.append(paragraph)
 
         if len(text) == 0:
