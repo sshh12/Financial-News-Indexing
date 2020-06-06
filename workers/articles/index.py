@@ -24,6 +24,7 @@ from articles.pharmiweb import PharmiWeb
 from articles.financialtimes import FinancialTimes
 from articles.streetinsider import StreetInsider
 from articles.miningnewsfeed import MiningNewsFeed
+from articles.yahoo import Yahoo
 
 
 STREAM_SOURCES = {
@@ -52,5 +53,6 @@ STREAM_SOURCES = {
     'pharmiweb': PharmiWeb,
     'financialtimes': FinancialTimes,
     'streetinsider': StreetInsider,
-    'miningnewsfeed': MiningNewsFeed
+    'miningnewsfeed': MiningNewsFeed,
+    'yahoo': Yahoo
 }

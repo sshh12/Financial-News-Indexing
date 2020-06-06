@@ -128,7 +128,6 @@ def main():
     run_streams([
         StreamTDA,
         StreamTwitter,
-        StreamTDA,
         StreamPRs,
         StreamStats,
         StreamNews,

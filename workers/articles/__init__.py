@@ -48,9 +48,11 @@ class Article:
 
 class ArticleScraper:
 
-    async def _get(self, url_part, headers=HEADERS):
+    async def _get(self, url_part, site=None, headers=HEADERS):
+        if site is None:
+            site = self.url
         try:
-            async with self._session.get(self.url + url_part, headers=headers) as response:
+            async with self._session.get(site + url_part, headers=headers) as response:
                 return await response.text()
         except (ConnectionRefusedError, UnicodeDecodeError):
             return ''

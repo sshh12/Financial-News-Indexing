@@ -5,13 +5,13 @@ watch:
     sources: [accesswire, alphastocknews, barrons, benzinga, businessinsider, businesswire,
       cnn, federalreserve, financialtimes, fitch, forbes, globenewswire, marketexclusive,
       marketwatch, miningnewsfeed, moodys, pharmiweb, prnewswire, reuters, rtt, seekingalpha,
-      stat, stocktwits, streetinsider, thestreet, usbls]
+      stat, stocktwits, streetinsider, thestreet, usbls, yahoo]
   prs: {delay: 10}
   sec: {delay: 10}
   stats:
     delay: 10
     sources: [biopharmcatalyst, earningscast, finviz, zacks]
-  tda: {delay_prices: 10800}
+  tda: {delay_prices: 1000}
   twitter:
     GILD: [GileadSciences]
     TSLA: [elonmusk]

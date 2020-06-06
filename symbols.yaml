@@ -3,10 +3,19 @@ A:
   mw_tags: {industry: Precision Products, name: 'Agilent Technologies, Inc.', sector: Industrial
       Goods}
   sec_cik: 0001090872
+AAL:
+  kws: [American Airlines]
+  mw_tags: {industry: Passenger Airlines, name: 'American Airlines Group, Inc.', sector: Transportation/Logistics}
+  sec_cik: '0000006201'
 AAPL:
   kws: [Apple, Apple Inc., Apple TV+, ipads, iphones]
   mw_tags: {industry: Computers/Consumer Electronics, name: 'Apple, Inc.', sector: Technology}
   sec_cik: 0000320193
+AAXN:
+  kws: [Axon]
+  mw_tags: {industry: Defense Equipment/Products, name: 'Axon Enterprise, Inc.', sector: Industrial
+      Goods}
+  sec_cik: 0001069183
 ABBV:
   kws: [AbbVie]
   mw_tags: {industry: Biotechnology, name: 'AbbVie, Inc.', sector: Health Care/Life
@@ -39,6 +48,11 @@ ADAP:
   mw_tags: {industry: Biotechnology, name: Adaptimmune Therapeutics Plc, sector: Health
       Care/Life Sciences}
   sec_cik: '0001621227'
+ADMA:
+  kws: [ADMA Biologics]
+  mw_tags: {industry: Biotechnology, name: 'ADMA Biologics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001368514
 ADMP:
   kws: [Adamis Corporation, Adamis Pharmaceuticals Corporation]
   mw_tags: {industry: Pharmaceuticals, name: Adamis Pharmaceuticals Corp., sector: Health
@@ -57,6 +71,9 @@ AEO:
   kws: [American Eagle, American Eagle Outfitters, American Eagle Outfitters Inc.]
   mw_tags: {industry: Clothing Retail, name: 'American Eagle Outfitters, Inc.', sector: Retail/Wholesale}
   sec_cik: 0000919012
+AESE:
+  kws: [Allied Esports Entertainment]
+  sec_cik: 0001708341
 AGEN:
   kws: [Agenus]
   sec_cik: 0001098972
@@ -77,6 +94,11 @@ AIM:
   mw_tags: {industry: Biotechnology, name: 'AIM ImmunoTech, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0000946644
+AINC:
+  kws: [Ashford]
+  mw_tags: {industry: Investment Advisors, name: 'Ashford, Inc.', sector: Financial
+      Services}
+  sec_cik: 0001604738
 AINV:
   kws: [Apollo Investment, Apollo Investment Corp]
   sec_cik: 0001278752
@@ -84,9 +106,11 @@ AIRI:
   kws: [Air Industries Group]
   mw_tags: {industry: Aerospace Products/Parts, name: Air Industries Group, sector: Industrial
       Goods}
+  sec_cik: 0001009891
 AIRTW:
   kws: [Air T, 'Air T, Inc.']
   mw_tags: {industry: Air Freight, name: 'Air T, Inc.', sector: Transportation/Logistics}
+  sec_cik: '0001760001'
 AJRD:
   kws: [Aerojet, Aerojet Rocketdyne Holdings]
   mw_tags: {industry: Defense Equipment/Products, name: 'Aerojet Rocketdyne Holdings,
@@ -101,6 +125,7 @@ AKRO:
   kws: [Akero, Akero Therapeutics]
   mw_tags: {industry: Biotechnology, name: 'Akero Therapeutics, Inc.', sector: Health
       Care/Life Sciences}
+  sec_cik: 0001744659
 AKRX:
   kws: [Akorn]
   mw_tags: {industry: Pharmaceuticals, name: 'Akorn, Inc.', sector: Health Care/Life
@@ -128,6 +153,11 @@ ALOT:
   kws: [AstroNova, AstroNova Inc.]
   mw_tags: {industry: Computers/Consumer Electronics, name: 'AstroNova, Inc.', sector: Technology}
   sec_cik: 0000008146
+ALRN:
+  kws: [Aileron Therapeutics]
+  mw_tags: {industry: Biotechnology, name: 'Aileron Therapeutics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001420565'
 ALT:
   kws: [Altimmune]
   mw_tags: {industry: Biotechnology, name: 'Altimmune, Inc.', sector: Health Care/Life
@@ -142,6 +172,10 @@ ALYA:
   mw_tags: {industry: Computer Services, name: 'Alithya Group, Inc.', sector: Business/Consumer
       Services}
   sec_cik: '0001734520'
+AMBA:
+  kws: [Ambarella]
+  mw_tags: {industry: Semiconductors, name: 'Ambarella, Inc.', sector: Technology}
+  sec_cik: 0001280263
 AMD:
   kws: [AMD, Advanced Micro Devices, Advanced Micro Devices Inc.]
   mw_tags: {industry: Semiconductors, name: 'Advanced Micro Devices, Inc.', sector: Technology}
@@ -161,11 +195,20 @@ AMPY:
   mw_tags: {industry: Oil Extraction, name: Amplify Energy Corp., sector: Companies
       on the Energy Service}
   sec_cik: 0001533924
+AMRH:
+  kws: [AMERI, Ameri Holdings]
+  mw_tags: {industry: Internet/Online, name: 'Ameri Holdings, Inc.', sector: Technology}
+  sec_cik: 0000890821
 AMRN:
   kws: [Amarin]
   mw_tags: {industry: Biotechnology, name: Amarin Corp. Plc, sector: Health Care/Life
       Sciences}
   sec_cik: '0001120246'
+AMRS:
+  kws: [Amyris]
+  mw_tags: {industry: Biotechnology, name: 'Amyris, Inc.', sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001365916
 AMRX:
   kws: [Amenal Pharmaceuticals]
   mw_tags: {industry: Pharmaceuticals, name: 'Amneal Pharmaceuticals, Inc.', sector: Health
@@ -198,6 +241,15 @@ APM:
   mw_tags: {industry: Pharmaceuticals, name: Aptorum Group Ltd., sector: Health Care/Life
       Sciences}
   sec_cik: '0001734005'
+APOP:
+  kws: [Cellect Biotechnology]
+  mw_tags: {industry: Biotechnology, name: Cellect Biotechnology Ltd., sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001671502'
+APPS:
+  kws: [Digital Turbine]
+  mw_tags: {industry: Software, name: 'Digital Turbine, Inc.', sector: Technology}
+  sec_cik: 0000317788
 APRE:
   kws: [Aprea Therapeutics]
   sec_cik: 0001781983
@@ -237,6 +289,11 @@ ARWR:
   mw_tags: {industry: Biotechnology, name: 'Arrowhead Pharmaceuticals, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0000879407
+ARYA:
+  kws: [ARYA Sciences]
+  mw_tags: {industry: Shell companies, name: ARYA Sciences Acquisition Corp., sector: Business/Consumer
+      Services}
+  sec_cik: '0001746037'
 ASC:
   kws: [Ardmore Shipping Corporation]
   mw_tags: {industry: Water Transport/Shipping, name: Ardmore Shipping Corp., sector: Transportation/Logistics}
@@ -264,6 +321,11 @@ ATHX:
   mw_tags: {industry: Biotechnology, name: 'Athersys, Inc.', sector: Health Care/Life
       Sciences}
   sec_cik: 0001368148
+ATNM:
+  kws: [Actinium Pharmaceuticals]
+  mw_tags: {industry: Biotechnology, name: 'Actinium Pharmaceuticals, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001388320
 ATNX:
   kws: [Athenex, Athenex Inc.]
   mw_tags: {industry: Pharmaceuticals, name: 'Athenex, Inc.', sector: Health Care/Life
@@ -279,6 +341,19 @@ ATRS:
   mw_tags: {industry: Medical Equipment/Supplies, name: 'Antares Pharma, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001016169
+AUMN:
+  kws: [Golden Minerals]
+  mw_tags: {industry: Precious Metals, name: Golden Minerals Co., sector: Basic Materials/Resources}
+  sec_cik: 0001011509
+AUTL:
+  kws: [Autolus Therapeutics]
+  mw_tags: {industry: Biotechnology, name: Autolus Therapeutics Plc, sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001730463'
+AUY:
+  kws: [Yamana Gold]
+  mw_tags: {industry: Gold, name: 'Yamana Gold, Inc.', sector: Basic Materials/Resources}
+  sec_cik: 0001264089
 AVGO:
   kws: [Broadcom Limited]
   mw_tags: {industry: Semiconductors, name: 'Broadcom, Inc.', sector: Technology}
@@ -339,6 +414,7 @@ BAND:
   sec_cik: '0001514416'
 BAR:
   kws: [GraniteShares Gold Trust Shares of Beneficial Interest]
+  sec_cik: 0001690437
 BBBY:
   kws: [Bed Bath & Beyond]
   mw_tags: {industry: Home Goods Retail, name: 'Bed Bath & Beyond, Inc.', sector: Retail/Wholesale}
@@ -368,6 +444,11 @@ BCRX:
   mw_tags: {industry: Biotechnology, name: 'BioCryst Pharmaceuticals, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0000882796
+BCS:
+  kws: [Barclays]
+  mw_tags: {industry: Major International Banks, name: Barclays Plc, sector: Financial
+      Services}
+  sec_cik: 0000312069
 BE:
   kws: [Bloom Energy, Bloom Energy Corporation]
   mw_tags: {industry: Industrial Electronics, name: Bloom Energy Corp., sector: Industrial
@@ -378,9 +459,10 @@ BGI:
   mw_tags: {industry: Clothing Retail, name: 'Birks Group, Inc.', sector: Retail/Wholesale}
   sec_cik: 0001179821
 BHTG:
-  kws: ['BioHiTech Global,', 'BioHiTech Global, Inc.']
+  kws: [BioHiTech, BioHiTech Global, 'BioHiTech Global, Inc.']
   mw_tags: {industry: Industrial Machinery, name: 'BioHiTech Global, Inc.', sector: Industrial
       Goods}
+  sec_cik: 0001590383
 BHVN:
   kws: [Biohaven, Biohaven Pharmaceuticals]
   mw_tags: {industry: Pharmaceuticals, name: Biohaven Pharmaceutical Holding Co. Ltd.,
@@ -414,11 +496,20 @@ BJ:
   mw_tags: {industry: Mixed Retailing, name: 'BJs Wholesale Club Holdings, Inc.',
     sector: Retail/Wholesale}
   sec_cik: '0001531152'
+BK:
+  kws: [BNY Mellon]
+  mw_tags: {industry: Investment Advisors, name: The Bank of New York Mellon Corp.,
+    sector: Financial Services}
+  sec_cik: 0001390777
 BLNK:
   kws: [Blink Charging Co.]
   mw_tags: {industry: Industrial Electronics, name: Blink Charging Co., sector: Industrial
       Goods}
   sec_cik: 0001429764
+BLRX:
+  kws: [BioLineRx]
+  mw_tags: {industry: Pharmaceuticals, name: BioLineRx Ltd., sector: Health Care/Life
+      Sciences}
 BLUE:
   kws: [Bluebird Bio, Bluebird bio, bluebird bio Inc]
   mw_tags: {industry: Biotechnology, name: 'bluebird bio, Inc.', sector: Health Care/Life
@@ -429,6 +520,11 @@ BMRA:
   mw_tags: {industry: Medical Equipment/Supplies, name: 'Biomerica, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0000073290
+BMRN:
+  kws: [BioMarin]
+  mw_tags: {industry: Biotechnology, name: 'BioMarin Pharmaceutical, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001048477
 BMY:
   kws: [Bristol-Myers Squibb Company]
   mw_tags: {industry: Pharmaceuticals, name: Bristol-Myers Squibb Co., sector: Health
@@ -454,6 +550,11 @@ BRK.B:
       Buffett]
   mw_tags: {industry: Diversified Holding Companies, name: 'Berkshire Hathaway, Inc.',
     sector: Business/Consumer Services}
+BTAI:
+  kws: [BioXcel Therapeutics]
+  mw_tags: {industry: Pharmaceuticals, name: 'BioXcel Therapeutics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001720893
 BTE:
   kws: [Baytex, Baytex Energy Corp]
   mw_tags: {industry: Oil Extraction, name: Baytex Energy Corp., sector: Companies
@@ -549,6 +650,16 @@ CEMI:
 CEN:
   kws: [Center Coast Brookfield MLP & Energy Infrastructure Fund]
   sec_cik: '0001576340'
+CERC:
+  kws: [Cerecor]
+  mw_tags: {industry: Pharmaceuticals, name: 'Cerecor, Inc.', sector: Health Care/Life
+      Sciences}
+  sec_cik: '0001534120'
+CETX:
+  kws: [Cemtrex, Vicon]
+  mw_tags: {industry: Precision Products, name: 'Cemtrex, Inc.', sector: Industrial
+      Goods}
+  sec_cik: '0001435064'
 CF:
   kws: [CF Industries, CF Industries Holdings, CF Industries Holdings Inc.]
   mw_tags: {industry: Chemicals, name: 'CF Industries Holdings, Inc.', sector: Basic
@@ -568,6 +679,11 @@ CGC:
   kws: [Canopy Growth]
   mw_tags: {industry: Farming, name: Canopy Growth Corp., sector: Agriculture}
   sec_cik: 0001737927
+CGEN:
+  kws: [Compugen]
+  mw_tags: {industry: Pharmaceuticals, name: Compugen Ltd., sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001119774
 CGNX:
   kws: [Cognex, Cognex Corporation]
   mw_tags: {industry: Precision Products, name: Cognex Corp., sector: Industrial Goods}
@@ -590,6 +706,10 @@ CHWY:
   kws: [Chewy, 'Chewy, Inc.']
   mw_tags: {industry: Specialty Retail, name: 'Chewy, Inc.', sector: Retail/Wholesale}
   sec_cik: '0001766502'
+CI:
+  kws: [CIGNA Corporation]
+  mw_tags: {industry: Life Insurance, name: Cigna Corp., sector: Financial Services}
+  sec_cik: 0001739940
 CIDM:
   kws: [Cinedigm]
   mw_tags: {industry: Motion Picture/Sound Recording, name: Cinedigm Corp., sector: Media/Entertainment}
@@ -644,6 +764,7 @@ COCP:
   kws: [Cocrystal, Cocrystal Pharma]
   mw_tags: {industry: Pharmaceuticals, name: 'Cocrystal Pharma, Inc.', sector: Health
       Care/Life Sciences}
+  sec_cik: 0001412486
 CODX:
   kws: [Co-Diagnostics, Co-Diagnostics Inc.]
   mw_tags: {industry: Medical Equipment/Supplies, name: 'Co-Diagnostics, Inc.', sector: Health
@@ -663,6 +784,11 @@ COTY:
   mw_tags: {industry: Personal Care Products/Appliances, name: 'Coty, Inc.', sector: Consumer
       Goods}
   sec_cik: '0001024305'
+CPE:
+  kws: [Callon Petroleum]
+  mw_tags: {industry: Oil Extraction, name: Callon Petroleum Co., sector: Companies
+      on the Energy Service}
+  sec_cik: 0000928022
 CPG:
   kws: [Crescent Point Energy, Crescent Point Energy Corporation (Canada)]
   mw_tags: {industry: Oil Extraction, name: Crescent Point Energy Corp., sector: Companies
@@ -740,6 +866,11 @@ CTLT:
   mw_tags: {industry: Pharmaceuticals, name: 'Catalent, Inc.', sector: Health Care/Life
       Sciences}
   sec_cik: 0001596783
+CTMX:
+  kws: [CytomX]
+  mw_tags: {industry: Biotechnology, name: 'CytomX Therapeutics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001501989
 CTRM:
   kws: [Castor Maritime, Castor Maritime Inc.]
   mw_tags: {industry: Water Transport/Shipping, name: 'Castor Maritime, Inc.', sector: Transportation/Logistics}
@@ -748,6 +879,11 @@ CTXR:
   kws: [Citius Pharmaceuticals]
   mw_tags: {industry: Pharmaceuticals, name: 'Citius Pharmaceuticals, Inc.', sector: Health
       Care/Life Sciences}
+  sec_cik: '0001506251'
+CUE:
+  kws: [Cue Biopharma]
+  mw_tags: {industry: Biotechnology, name: 'Cue Biopharma, Inc.', sector: Health Care/Life
+      Sciences}
 CVE:
   kws: [Cenovus Energy Inc]
   mw_tags: {industry: Oil Extraction, name: 'Cenovus Energy, Inc.', sector: Companies
@@ -758,6 +894,10 @@ CVM:
   mw_tags: {industry: Pharmaceuticals, name: CEL-SCI Corp., sector: Health Care/Life
       Sciences}
   sec_cik: '0000725363'
+CVNA:
+  kws: [Carvana]
+  mw_tags: {industry: Specialty Retail, name: Carvana Co., sector: Retail/Wholesale}
+  sec_cik: 0001690820
 CVTI:
   kws: [Covenant, Covenant Transportation, Covenant Transportation Group, Covenant
       Transportation Group Inc.]
@@ -767,10 +907,12 @@ CYDY:
   kws: [CytoDyn]
   mw_tags: {industry: Biotechnology, name: 'CytoDyn, Inc.', sector: Health Care/Life
       Sciences}
+  sec_cik: 0001175680
 CYRX:
   kws: [CryoPort]
   mw_tags: {industry: Containers/Packaging, name: 'CryoPort, Inc.', sector: Industrial
       Goods}
+  sec_cik: '0001124524'
 D:
   kws: [Dominion Energy, Dominion Energy Inc.]
   mw_tags: {industry: Electric Utilities, name: 'Dominion Energy, Inc.', sector: Companies
@@ -788,6 +930,7 @@ DB:
   kws: [Deutsche Bank]
   mw_tags: {industry: Major International Banks, name: Deutsche Bank AG, sector: Financial
       Services}
+  sec_cik: 0001159508
 DCAR:
   kws: [DropCar, DropCar Inc.]
   mw_tags: {industry: Networking, name: 'DropCar, Inc.', sector: Technology}
@@ -811,11 +954,20 @@ DELL:
 DFFN:
   kws: [Diffusion Pharmaceuticals]
   sec_cik: 0001053691
+DGLY:
+  kws: [Digital Ally]
+  mw_tags: {industry: Precision Products, name: 'Digital Ally, Inc.', sector: Industrial
+      Goods}
+  sec_cik: 0001342958
 DHC:
   kws: [Diversified Healthcare, Diversified Healthcare Trust]
   mw_tags: {industry: Healthcare REITs, name: Diversified Healthcare Trust, sector: Real
       Estate/Construction}
   sec_cik: '0001075415'
+DIN:
+  kws: [Applebees, Dine Brands, IHOP]
+  mw_tags: {industry: Restaurants, name: 'Dine Brands Global, Inc.', sector: Leisure/Arts/Hospitality}
+  sec_cik: 0000049754
 DIS:
   kws: [Disney, The Walt Disney Company]
   mw_tags: {industry: Broadcasting, name: The Walt Disney Co., sector: Media/Entertainment}
@@ -832,6 +984,10 @@ DKL:
   mw_tags: {industry: Pipeline Transportation, name: Delek Logistics Partners LP,
     sector: Companies on the Energy Service}
   sec_cik: 0001552797
+DKNG:
+  kws: [Draftkings]
+  mw_tags: {industry: '-', name: 'DraftKings, Inc.', sector: '-'}
+  sec_cik: '0001772757'
 DLAKY:
   kws: [Lufthansa]
   mw_tags: {industry: Passenger Airlines, name: Deutsche Lufthansa AG, sector: Transportation/Logistics}
@@ -854,6 +1010,14 @@ DOCU:
   kws: [Docusign]
   mw_tags: {industry: Internet/Online, name: 'DocuSign, Inc.', sector: Technology}
   sec_cik: '0001261333'
+DOGZ:
+  kws: [Dogness]
+  mw_tags: {industry: Nondurable Household Products, name: Dogness (International)
+      Corp., sector: Consumer Goods}
+  sec_cik: '0001707303'
+DOMO:
+  kws: [Domo]
+  mw_tags: {industry: Software, name: 'Domo, Inc.', sector: Technology}
 DOW:
   kws: [Dow, Dow Inc.]
   mw_tags: {industry: Chemicals, name: 'Dow, Inc.', sector: Basic Materials/Resources}
@@ -895,6 +1059,7 @@ DXCM:
   sec_cik: 0001093557
 DZZ:
   kws: [DB Gold Double Short ETN, DB Gold Double Short ETN due February 15 2038]
+  sec_cik: 0001159508
 E:
   kws: [ENI S.p.A., Eni]
   mw_tags: {industry: Major Oil & Gas, name: Eni SpA, sector: Companies on the Energy
@@ -904,6 +1069,14 @@ EADSY:
   kws: [Airbus]
   mw_tags: {industry: Aerospace Products/Parts, name: Airbus SE, sector: Industrial
       Goods}
+EB:
+  kws: [Eventbrite]
+  mw_tags: {industry: Specialty Retail, name: 'Eventbrite, Inc.', sector: Retail/Wholesale}
+  sec_cik: '0001475115'
+EBAY:
+  kws: [EBay, eBay]
+  mw_tags: {industry: Mixed Retailing, name: 'eBay, Inc.', sector: Retail/Wholesale}
+  sec_cik: 0001065088
 EDU:
   kws: [New Oriental Education & Technology]
   mw_tags: {industry: Consumer Services, name: 'New Oriental Education & Technology
@@ -915,6 +1088,11 @@ EFC:
   mw_tags: {industry: Mortgages, name: 'Ellington Financial, Inc.', sector: Financial
       Services}
   sec_cik: '0001411342'
+EGHT:
+  kws: [8X8, 8x8]
+  mw_tags: {industry: Wired Telecommunications Services, name: '8x8, Inc.', sector: Telecommunication
+      Services}
+  sec_cik: '0001023731'
 ELF:
   kws: [E.l.f. Beauty, e.l.f. Beauty]
   mw_tags: {industry: Personal Care Products/Appliances, name: 'e.l.f. Beauty, Inc.',
@@ -930,6 +1108,11 @@ ENR:
   mw_tags: {industry: Industrial Electronics, name: 'Energizer Holdings, Inc.', sector: Industrial
       Goods}
   sec_cik: 0001632790
+ENT:
+  kws: [Global Eagle, Global Eagle Entertainment]
+  mw_tags: {industry: Motion Picture/Sound Recording, name: 'Global Eagle Entertainment,
+      Inc.', sector: Media/Entertainment}
+  sec_cik: '0001512077'
 ENTA:
   kws: [Enanta]
   mw_tags: {industry: Biotechnology, name: 'Enanta Pharmaceuticals, Inc.', sector: Health
@@ -1029,6 +1212,11 @@ FB:
   kws: [Facebook, Zuckerberg]
   mw_tags: {industry: Internet/Online, name: 'Facebook, Inc.', sector: Technology}
   sec_cik: 0001326801
+FCPT:
+  kws: [Four Corners Property Trust]
+  mw_tags: {industry: Retail REITs, name: 'Four Corners Property Trust, Inc.', sector: Real
+      Estate/Construction}
+  sec_cik: '0001650132'
 FET:
   kws: [Forum Energy Technologies, Forum Energy Technologies Inc.]
   mw_tags: {industry: Oil & Gas Products/Services, name: 'Forum Energy Technologies,
@@ -1106,14 +1294,22 @@ FTV:
   sec_cik: 0001659166
 FXB:
   kws: [GBPUSD, brexit]
+  sec_cik: '0001353611'
 FXE:
   kws: [EURUSD]
+  sec_cik: 0001328598
 FXY:
   kws: [China, Chinese, Yen, yen]
+  sec_cik: '0001353613'
 GAN:
   kws: [Gan]
   mw_tags: {industry: Gas Utilities, name: Naturgy Energy Group SA, sector: Companies
       on the Energy Service}
+  sec_cik: 0001799332
+GCI:
+  kws: [Gannett]
+  mw_tags: {industry: Publishing, name: 'Gannett Co., Inc.', sector: Media/Entertainment}
+  sec_cik: 0001579684
 GDDY:
   kws: [GoDaddy, GoDaddy Class A, GoDaddy Inc. Class A]
   mw_tags: {industry: Internet/Online, name: 'GoDaddy, Inc.', sector: Technology}
@@ -1123,6 +1319,11 @@ GDP:
   mw_tags: {industry: Oil Extraction, name: Goodrich Petroleum Corp., sector: Companies
       on the Energy Service}
   sec_cik: 0000943861
+GE:
+  kws: [GE, General Electric]
+  mw_tags: {industry: Diversified Holding Companies, name: General Electric Co., sector: Business/Consumer
+      Services}
+  sec_cik: '0000040545'
 GENE:
   kws: [Genetic Technologies]
   mw_tags: {industry: Biotechnology, name: Genetic Technologies Ltd., sector: Health
@@ -1158,6 +1359,7 @@ GLAD:
   sec_cik: '0001143513'
 GLD:
   kws: [Gold, gold]
+  sec_cik: '0001222333'
 GLMD:
   kws: [Galmed Pharmaceutical]
   mw_tags: {industry: Pharmaceuticals, name: Galmed Pharmaceuticals Ltd., sector: Health
@@ -1171,6 +1373,11 @@ GM:
   kws: [GM]
   mw_tags: {industry: Automobiles, name: General Motors Co., sector: Automotive}
   sec_cik: 0001467858
+GMBL:
+  kws: [Esports Entertainment]
+  mw_tags: {industry: Gambling Industries, name: 'Esports Entertainment Group, Inc.',
+    sector: Leisure/Arts/Hospitality}
+  sec_cik: 0001451448
 GNLN:
   kws: ['Greenlane Holdings,', 'Greenlane Holdings, Inc.']
   mw_tags: {industry: Tobacco, name: 'Greenlane Holdings, Inc.', sector: Consumer
@@ -1188,6 +1395,11 @@ GNRC:
   sec_cik: '0001474735'
 GNT:
   kws: [GAMCO Natural Resources Gold & Income Trust]
+GNUS:
+  kws: [Genius Brands]
+  mw_tags: {industry: Motion Picture/Sound Recording, name: 'Genius Brands International,
+      Inc.', sector: Media/Entertainment}
+  sec_cik: 0001355848
 GOEX:
   kws: [Global X Gold Explorers]
 GOL:
@@ -1230,6 +1442,11 @@ GPS:
   kws: [Gap]
   mw_tags: {industry: Clothing Retail, name: 'Gap, Inc.', sector: Retail/Wholesale}
   sec_cik: 0000039911
+GRPN:
+  kws: [Groupon]
+  mw_tags: {industry: Advertising/Marketing/Public Relations, name: 'Groupon, Inc.',
+    sector: Business/Consumer Services}
+  sec_cik: 0001490281
 GRVY:
   kws: [Gravity]
   mw_tags: {industry: Toys & Games, name: 'Gravity Co., Ltd.', sector: Consumer Goods}
@@ -1308,6 +1525,11 @@ HEAR:
   mw_tags: {industry: Audio/Video Equipment, name: Turtle Beach Corp., sector: Consumer
       Goods}
   sec_cik: 0001493761
+HEBT:
+  kws: [Hebron Technology]
+  mw_tags: {industry: Industrial Products, name: 'Hebron Technology Co., Ltd.', sector: Industrial
+      Goods}
+  sec_cik: 0001603993
 HES:
   kws: [Hess Corporation]
   mw_tags: {industry: Major Oil & Gas, name: Hess Corp., sector: Companies on the
@@ -1321,6 +1543,7 @@ HHC:
 HHHHU:
   kws: [Wealthbridge Acquisition Limited]
   mw_tags: {industry: Broadcasting, name: Scienjoy Holding Corp., sector: Media/Entertainment}
+  sec_cik: '0001753673'
 HLF:
   kws: [Herbalife]
   mw_tags: {industry: Pharmaceuticals, name: Herbalife Nutrition Ltd., sector: Health
@@ -1334,10 +1557,19 @@ HMLP:
   kws: [Hoegh LNG Partners, Hoegh LNG Partners LP representing Limited Partner Interests]
   mw_tags: {industry: Water Transport/Shipping, name: Hoegh Lng Partners LP, sector: Transportation/Logistics}
   sec_cik: '0001603016'
+HMN:
+  kws: [Horace Mann]
+  mw_tags: {industry: Full-Line Insurance, name: Horace Mann Educators Corp., sector: Financial
+      Services}
+  sec_cik: 0000850141
 HMY:
   kws: [Harmony Gold Mining Company Limited]
   mw_tags: {industry: Gold, name: Harmony Gold Mining Co. Ltd., sector: Basic Materials/Resources}
   sec_cik: '0001023514'
+HOME:
+  kws: [At Home]
+  mw_tags: {industry: Home Goods Retail, name: 'At Home Group, Inc.', sector: Retail/Wholesale}
+  sec_cik: 0001646228
 HPE:
   kws: [HP Enterprise, Hewlett Packard Enterprise Co.]
   mw_tags: {industry: Computers/Consumer Electronics, name: Hewlett-Packard Enterprise
@@ -1448,6 +1680,11 @@ IMO:
   mw_tags: {industry: Major Oil & Gas, name: Imperial Oil Ltd., sector: Companies
       on the Energy Service}
   sec_cik: 0000049938
+IMRA:
+  kws: [Imara]
+  mw_tags: {industry: Biotechnology, name: 'Imara, Inc.', sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001672619
 INBK:
   kws: [First Internet Bancorp]
   mw_tags: {industry: Banking, name: First Internet Bancorp, sector: Financial Services}
@@ -1496,6 +1733,10 @@ IRWD:
   mw_tags: {industry: Pharmaceuticals, name: 'Ironwood Pharmaceuticals, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001446847
+ITCB:
+  kws: [CorpBanca]
+  mw_tags: {industry: Banking, name: "Ita\xFA Corpbanca", sector: Financial Services}
+  sec_cik: '0001276671'
 IZEA:
   kws: [IZEA, IZEA Inc.]
   mw_tags: {industry: Advertising/Marketing/Public Relations, name: 'IZEA Worldwide,
@@ -1516,6 +1757,10 @@ JCOM:
   kws: [j2 Global, j2 Global Inc.]
   mw_tags: {industry: Internet/Online, name: 'J2 Global, Inc.', sector: Technology}
   sec_cik: 0001084048
+JD:
+  kws: [JD, JD.com]
+  mw_tags: {industry: Mixed Retailing, name: 'JD.com, Inc.', sector: Retail/Wholesale}
+  sec_cik: 0001549802
 JEF:
   kws: [Jefferies Financial Group, Jefferies Financial Group Inc.]
   mw_tags: {industry: Investment Advisors, name: 'Jefferies Financial Group, Inc.',
@@ -1622,6 +1867,11 @@ KT:
   mw_tags: {industry: Wired Telecommunications Services, name: KT Corp., sector: Telecommunication
       Services}
   sec_cik: 0000892450
+KZR:
+  kws: [Kezar, Kezar Life Sciences]
+  mw_tags: {industry: Biotechnology, name: 'Kezar Life Sciences, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001645666'
 LB:
   kws: [L Brands, Victoria Secret]
   mw_tags: {industry: Clothing Retail, name: 'L Brands, Inc.', sector: Retail/Wholesale}
@@ -1635,6 +1885,14 @@ LDL:
   mw_tags: {industry: Building Materials/Products, name: 'Lydall, Inc.', sector: Real
       Estate/Construction}
   sec_cik: 0000060977
+LE:
+  kws: [Lands' End]
+  mw_tags: {industry: Clothing Retail, name: 'Lands End, Inc.', sector: Retail/Wholesale}
+  sec_cik: 0000799288
+LEA:
+  kws: [Lear]
+  mw_tags: {industry: Motor Vehicle Parts, name: Lear Corp., sector: Automotive}
+  sec_cik: 0000842162
 LEN:
   kws: [Lennar]
   mw_tags: {industry: Residential Building Construction, name: Lennar Corp., sector: Real
@@ -1673,6 +1931,11 @@ LL:
   mw_tags: {industry: Home Goods Retail, name: 'Lumber Liquidators Holdings, Inc.',
     sector: Retail/Wholesale}
   sec_cik: 0001396033
+LMNL:
+  kws: [Liminal BioSciences]
+  mw_tags: {industry: Biotechnology, name: 'Liminal BioSciences, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001351172'
 LMT:
   kws: [Lockheed, Lockheed Martin]
   mw_tags: {industry: Defense Equipment/Products, name: Lockheed Martin Corp., sector: Industrial
@@ -1687,6 +1950,11 @@ LOW:
   kws: [Lowe, Lowes]
   mw_tags: {industry: Home Goods Retail, name: 'Lowes Cos., Inc.', sector: Retail/Wholesale}
   sec_cik: '0000060667'
+LPI:
+  kws: [Lardeo Petroleum]
+  mw_tags: {industry: Oil Extraction, name: 'Laredo Petroleum, Inc.', sector: Companies
+      on the Energy Service}
+  sec_cik: 0001528129
 LPSN:
   kws: [LivePerson, LivePerson Inc.]
   mw_tags: {industry: Software, name: 'LivePerson, Inc.', sector: Technology}
@@ -1696,10 +1964,17 @@ LQDA:
   mw_tags: {industry: Pharmaceuticals, name: 'Liquidia Technologies, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: '0001330436'
+LRMR:
+  kws: [Larimar Therapeutics]
+  sec_cik: 0001374690
 LSCC:
   kws: [Lattice Semiconductor Corporation]
   mw_tags: {industry: Semiconductors, name: Lattice Semiconductor Corp., sector: Technology}
   sec_cik: 0000855658
+LTM:
+  kws: [LATAM Airlines]
+  mw_tags: {industry: Passenger Airlines, name: LATAM Airlines Group SA, sector: Transportation/Logistics}
+  sec_cik: '0001047716'
 LULU:
   kws: [lululemon athletica inc.]
   mw_tags: {industry: Clothing, name: 'lululemon athletica, Inc.', sector: Consumer
@@ -1709,6 +1984,10 @@ LUV:
   kws: [Southwest, Southwest Airlines]
   mw_tags: {industry: Passenger Airlines, name: Southwest Airlines Co., sector: Transportation/Logistics}
   sec_cik: 0000092380
+LVS:
+  kws: [Las Vegas Sands]
+  mw_tags: {industry: Gambling Industries, name: Las Vegas Sands Corp., sector: Leisure/Arts/Hospitality}
+  sec_cik: '0001300514'
 LXRX:
   kws: [Lexicon Inc., Lexicon Pharmaceuticals, Lexicon Pharmaceuticals Inc.]
   mw_tags: {industry: Biotechnology, name: 'Lexicon Pharmaceuticals, Inc.', sector: Health
@@ -1764,6 +2043,10 @@ MCFT:
   sec_cik: 0001638290
 MCHI:
   kws: [Beijing, China, Chinese]
+MDB:
+  kws: [MongoDB]
+  mw_tags: {industry: Software, name: 'MongoDB, Inc.', sector: Technology}
+  sec_cik: 0001441816
 MDU:
   kws: [MDU Resources Group, MDU Resources Group Inc.]
   mw_tags: {industry: Construction, name: 'MDU Resources Group, Inc.', sector: Real
@@ -1777,6 +2060,11 @@ MESO:
   kws: [Mesoblast]
   mw_tags: {industry: Biotechnology, name: Mesoblast Ltd., sector: Health Care/Life
       Sciences}
+  sec_cik: 0001345099
+MFAC:
+  kws: [Megalith Financial]
+  mw_tags: {industry: Shell companies, name: Megalith Financial Acquisition Corp.,
+    sector: Business/Consumer Services}
 MGNX:
   kws: [MacroGenics]
   mw_tags: {industry: Biotechnology, name: 'MacroGenics, Inc.', sector: Health Care/Life
@@ -1791,6 +2079,9 @@ MIST:
   mw_tags: {industry: Pharmaceuticals, name: 'Milestone Pharmaceuticals, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001408443
+MLND:
+  kws: [Millendo Therapeutics]
+  sec_cik: '0001544227'
 MMLP:
   kws: [Martin Midstream Partners, Martin Midstream Partners L.P.]
   mw_tags: {industry: Pipeline Transportation, name: Martin Midstream Partners LP,
@@ -1825,6 +2116,11 @@ MPW:
   mw_tags: {industry: Healthcare REITs, name: 'Medical Properties Trust, Inc.', sector: Real
       Estate/Construction}
   sec_cik: 0001287865
+MREO:
+  kws: [Mereo BioPharma, Mereo BioPharma Group plc]
+  mw_tags: {industry: Biotechnology, name: Mereo BioPharma Group Plc, sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001719714
 MRK:
   kws: [Merck]
   mw_tags: {industry: Pharmaceuticals, name: 'Merck & Co., Inc.', sector: Health Care/Life
@@ -1834,6 +2130,11 @@ MRNA:
   kws: [Moderna, Moderna Inc]
   mw_tags: {industry: '-', name: 'Moderna, Inc.', sector: '-'}
   sec_cik: 0001682852
+MRO:
+  kws: [Marathon Oil]
+  mw_tags: {industry: Major Oil & Gas, name: Marathon Oil Corp., sector: Companies
+      on the Energy Service}
+  sec_cik: 0000101778
 MRSN:
   kws: [Mersana Therapeutics, Mersana Therapeutics Incmersana]
   mw_tags: {industry: Biotechnology, name: 'Mersana Therapeutics, Inc.', sector: Health
@@ -1868,6 +2169,10 @@ MTNB:
   kws: [Matinas BioPharma]
   mw_tags: {industry: Biotechnology, name: 'Matinas BioPharma Holdings, Inc.', sector: Health
       Care/Life Sciences}
+MTOR:
+  kws: [Meritor]
+  mw_tags: {industry: Motor Vehicle Parts, name: 'Meritor, Inc.', sector: Automotive}
+  sec_cik: '0001113256'
 MTW:
   kws: [Manitowoc Company (The), Manitowoc Company Inc. (The)]
   mw_tags: {industry: Mobile Machinery, name: 'The Manitowoc Co., Inc.', sector: Industrial
@@ -1881,6 +2186,11 @@ MXIM:
   kws: [Maxim Integrated Products, Maxim Integrated Products Inc.]
   mw_tags: {industry: Semiconductors, name: 'Maxim Integrated Products, Inc.', sector: Technology}
   sec_cik: '0000743316'
+MYOV:
+  kws: [Myovant Sciences]
+  mw_tags: {industry: Biotechnology, name: Myovant Sciences Ltd., sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001679082
 NAK:
   kws: [Northern Dynasty, Northern Dynasty Minerals]
   mw_tags: {industry: General Mining, name: Northern Dynasty Minerals Ltd., sector: Basic
@@ -1923,6 +2233,11 @@ NETE:
   kws: [Net Element, Net Element Inc.]
   mw_tags: {industry: Internet/Online, name: 'Net Element, Inc.', sector: Technology}
   sec_cik: 0001293330
+NEW:
+  kws: [Puxin]
+  mw_tags: {industry: Consumer Services, name: Puxin Ltd., sector: Business/Consumer
+      Services}
+  sec_cik: 0001726189
 NFLX:
   kws: [Netflix]
   mw_tags: {industry: Broadcasting, name: 'Netflix, Inc.', sector: Media/Entertainment}
@@ -1932,12 +2247,13 @@ NGD:
   mw_tags: {industry: Gold, name: 'New Gold, Inc.', sector: Basic Materials/Resources}
   sec_cik: 0000800166
 NIO:
-  kws: [NIO Limited]
+  kws: [NIO, NIO Limited]
   mw_tags: {industry: Automobiles, name: 'NIO, Inc. (China)', sector: Automotive}
   sec_cik: '0001736541'
 NIU:
   kws: [Niu Technologies]
   mw_tags: {industry: Automobiles, name: Niu Technologies, sector: Automotive}
+  sec_cik: 0001744781
 NK:
   kws: [NantKwest]
   mw_tags: {industry: Biotechnology, name: 'NantKwest, Inc.', sector: Health Care/Life
@@ -1951,6 +2267,12 @@ NMRD:
   kws: [Nemaura Medical]
   mw_tags: {industry: Medical Equipment/Supplies, name: 'Nemaura Medical, Inc.', sector: Health
       Care/Life Sciences}
+  sec_cik: 0001602078
+NMRK:
+  kws: [Newmark Group]
+  mw_tags: {industry: Real Estate Developers, name: 'Newmark Group, Inc.', sector: Real
+      Estate/Construction}
+  sec_cik: 0001690680
 NNVC:
   kws: [NanoViricides]
   mw_tags: {industry: Pharmaceuticals, name: 'NanoViricides, Inc.', sector: Health
@@ -1971,10 +2293,20 @@ NSYS:
   mw_tags: {industry: Industrial Electronics, name: 'Nortech Systems, Inc.', sector: Industrial
       Goods}
   sec_cik: '0000722313'
+NTEC:
+  kws: [Intec Pharma]
+  mw_tags: {industry: Pharmaceuticals, name: Intec Pharma Ltd., sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001638381
 NTGR:
   kws: [NETGEAR, NETGEAR Inc.]
   mw_tags: {industry: Networking, name: 'NETGEAR, Inc.', sector: Technology}
   sec_cik: 0001122904
+NTLA:
+  kws: [Intellia Therapeutics]
+  mw_tags: {industry: Biotechnology, name: 'Intellia Therapeutics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001652130'
 NUAN:
   kws: [Nuance Communications, Nuance Communications Inc.]
   mw_tags: {industry: Software, name: 'Nuance Communications, Inc.', sector: Technology}
@@ -2003,6 +2335,10 @@ NVGS:
   kws: [Navigator Holdings]
   mw_tags: {industry: Water Transport/Shipping, name: Navigator Holdings Ltd., sector: Transportation/Logistics}
   sec_cik: 0001581804
+NVH:
+  kws: [Evolent Health]
+  mw_tags: {industry: Biotechnology, name: 'Novoheart Holdings, Inc.', sector: Health
+      Care/Life Sciences}
 NWS:
   kws: [News Corporation]
   mw_tags: {industry: Publishing, name: News Corp., sector: Media/Entertainment}
@@ -2020,6 +2356,11 @@ ODFL:
   kws: [Old Dominion Freight Line, Old Dominion Freight Line Inc.]
   mw_tags: {industry: Trucking, name: 'Old Dominion Freight Line, Inc.', sector: Transportation/Logistics}
   sec_cik: 0000878927
+OGEN:
+  kws: [Oragenics]
+  mw_tags: {industry: Biotechnology, name: 'Oragenics, Inc.', sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001174940
 OGI:
   kws: [OrganiGram]
   mw_tags: {industry: Pharmaceuticals, name: 'OrganiGram Holdings, Inc.', sector: Health
@@ -2030,6 +2371,11 @@ OHI:
   mw_tags: {industry: Healthcare REITs, name: 'Omega Healthcare Investors, Inc.',
     sector: Real Estate/Construction}
   sec_cik: 0000888491
+OIS:
+  kws: [Oil States International]
+  mw_tags: {industry: Oil & Gas Products/Services, name: 'Oil States International,
+      Inc.', sector: Companies on the Energy Service}
+  sec_cik: 0001121484
 OKE:
   kws: [ONEOK, ONEOK Inc.]
   mw_tags: {industry: Gas Utilities, name: 'ONEOK, Inc.', sector: Companies on the
@@ -2085,6 +2431,11 @@ ORIC:
   kws: [Oric Pharmaceuticals]
   mw_tags: {industry: Biotechnology, name: 'Oric Pharmaceuticals, Inc.', sector: Health
       Care/Life Sciences}
+  sec_cik: 0001796280
+OSA:
+  kws: [Oasis Petroleum]
+  mw_tags: {industry: Gas Utilities, name: 'Osaka Gas Co., Ltd.', sector: Companies
+      on the Energy Service}
 OSIS:
   kws: [OSI Systems, OSI Systems Inc.]
   mw_tags: {industry: Precision Products, name: 'OSI Systems, Inc.', sector: Industrial
@@ -2094,8 +2445,18 @@ OSK:
   kws: [Oshkosh Corporation (Holding Company)Common Stock]
   mw_tags: {industry: Commercial Vehicles, name: Oshkosh Corp., sector: Automotive}
   sec_cik: 0000775158
+OSUR:
+  kws: [OraSure Technologies]
+  mw_tags: {industry: Medical Equipment/Supplies, name: 'OraSure Technologies, Inc.',
+    sector: Health Care/Life Sciences}
+  sec_cik: '0001116463'
 OTLK:
   kws: ['Outlook Therapeutics,', 'Outlook Therapeutics, Inc.', 'Outlook, Inc.']
+  mw_tags: {industry: Biotechnology, name: 'Outlook Therapeutics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001649989
+OTLKW:
+  kws: [Outlook Therapeutics]
   mw_tags: {industry: Biotechnology, name: 'Outlook Therapeutics, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001649989
@@ -2123,6 +2484,7 @@ PASG:
   kws: [Passage Bio]
   mw_tags: {industry: Biotechnology, name: 'Passage Bio, Inc.', sector: Health Care/Life
       Sciences}
+  sec_cik: 0001787297
 PATK:
   kws: [Patrick Industries]
   mw_tags: {industry: Building Materials/Products, name: 'Patrick Industries, Inc.',
@@ -2142,16 +2504,35 @@ PCG:
   mw_tags: {industry: Electric Utilities, name: PG&E Corp., sector: Companies on the
       Energy Service}
   sec_cik: 0001004980
+PENN:
+  kws: [Penn National Gaming]
+  mw_tags: {industry: Gambling Industries, name: 'Penn National Gaming, Inc.', sector: Leisure/Arts/Hospitality}
+  sec_cik: 0000921738
+PETQ:
+  kws: [PetIQ]
+  mw_tags: {industry: Pharmaceuticals, name: 'PetIQ, Inc.', sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001668673
 PFE:
   kws: [Pfizer]
   mw_tags: {industry: Pharmaceuticals, name: Pfizer Inc., sector: Health Care/Life
       Sciences}
   sec_cik: 0000078003
+PGEN:
+  kws: [Precigen]
+  mw_tags: {industry: Biotechnology, name: 'Precigen, Inc.', sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001356090
 PH:
   kws: [Parker-Hannifin Corporation]
   mw_tags: {industry: Industrial Machinery, name: Parker-Hannifin Corp., sector: Industrial
       Goods}
   sec_cik: '0000076334'
+PHIO:
+  kws: [Phio Pharmaceuticals]
+  mw_tags: {industry: Biotechnology, name: Phio Pharmaceuticals Corp., sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001533040'
 PHM:
   kws: [PulteGroup]
   mw_tags: {industry: Residential Building Construction, name: 'PulteGroup, Inc.',
@@ -2161,6 +2542,11 @@ PII:
   kws: [Polaris Industries, Polaris Industries Inc.]
   mw_tags: {industry: Automobiles, name: Polaris Inc., sector: Automotive}
   sec_cik: 0000931015
+PIRS:
+  kws: [Pieris Pharmaceuticals]
+  mw_tags: {industry: Biotechnology, name: 'Pieris Pharmaceuticals, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001583648
 PKBK:
   kws: [Parke Bancorp, Parke Bancorp Inc.]
   mw_tags: {industry: Banking, name: 'Parke Bancorp, Inc.', sector: Financial Services}
@@ -2169,11 +2555,19 @@ PLAN:
   kws: [Anaplan]
   mw_tags: {industry: Internet/Online, name: 'Anaplan, Inc.', sector: Technology}
   sec_cik: '0001540755'
+PLAY:
+  kws: [Dave & Busters]
+  mw_tags: {industry: Restaurants, name: 'Dave & Busters Entertainment, Inc.', sector: Leisure/Arts/Hospitality}
+  sec_cik: 0001525769
 PLMR:
   kws: [Palomar, Palomar Holdings]
   mw_tags: {industry: Reinsurance, name: 'Palomar Holdings, Inc.', sector: Financial
       Services}
   sec_cik: '0001761312'
+PLNT:
+  kws: [Planet Fitness]
+  mw_tags: {industry: Recreational Services, name: 'Planet Fitness, Inc.', sector: Leisure/Arts/Hospitality}
+  sec_cik: '0001637207'
 PLT:
   kws: [Plantronics, Plantronics Inc.]
   mw_tags: {industry: Networking, name: 'Plantronics, Inc.', sector: Technology}
@@ -2197,6 +2591,11 @@ POL:
   kws: [PolyOne Corporation]
   mw_tags: {industry: Chemicals, name: PolyOne Corp., sector: Basic Materials/Resources}
   sec_cik: 0001122976
+PRA:
+  kws: [ProAssurance]
+  mw_tags: {industry: Non-Life Insurance, name: ProAssurance Corp., sector: Financial
+      Services}
+  sec_cik: '0001127703'
 PRTS:
   kws: [U.S. Auto Parts Network, U.S. Auto Parts Network Inc.]
   mw_tags: {industry: Specialty Retail, name: 'U.S. Auto Parts Network, Inc.', sector: Retail/Wholesale}
@@ -2211,13 +2610,17 @@ PSEC:
   mw_tags: {industry: Closed-End Funds, name: Prospect Capital Corp., sector: Financial
       Services}
   sec_cik: 0001287032
+PSNL:
+  kws: [Personalis]
+  mw_tags: {industry: Biotechnology, name: 'Personalis, Inc.', sector: Health Care/Life
+      Sciences}
 PSTI:
   kws: [Pluristem Therapeutics]
   mw_tags: {industry: Biotechnology, name: 'Pluristem Therapeutics, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001158780
 PSTV:
-  kws: ['Plus Therapeutics,', 'Plus Therapeutics, Inc.', 'Plus, Inc.']
+  kws: [Plus Therapeutics, 'Plus Therapeutics, Inc.', 'Plus, Inc.']
   mw_tags: {industry: Biotechnology, name: 'Plus Therapeutics, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001095981
@@ -2262,10 +2665,16 @@ QDEL:
   mw_tags: {industry: Medical Equipment/Supplies, name: Quidel Corp., sector: Health
       Care/Life Sciences}
   sec_cik: 0000353569
+QEP:
+  kws: [QEP, QEP Resources]
+  mw_tags: {industry: Oil Extraction, name: 'QEP Resources, Inc.', sector: Companies
+      on the Energy Service}
+  sec_cik: 0001108827
 QLGN:
   kws: [Qualigen Therapeutics]
   mw_tags: {industry: Pharmaceuticals, name: 'Ritter Pharmaceuticals, Inc.', sector: Health
       Care/Life Sciences}
+  sec_cik: '0001460702'
 QQQ:
   kws: [Nasdaq]
   sec_cik: 0001067839
@@ -2323,6 +2732,15 @@ RGS:
   mw_tags: {industry: Consumer Services, name: Regis Corp., sector: Business/Consumer
       Services}
   sec_cik: '0000716643'
+RH:
+  kws: [RH]
+  mw_tags: {industry: Home Goods Retail, name: RH, sector: Retail/Wholesale}
+  sec_cik: 0001528849
+RIG:
+  kws: [Transocean]
+  mw_tags: {industry: Oil & Gas Products/Services, name: Transocean Ltd., sector: Companies
+      on the Energy Service}
+  sec_cik: '0001451505'
 RLGY:
   kws: [Realogy]
   mw_tags: {industry: Real Estate Developers, name: Realogy Holdings Corp., sector: Real
@@ -2372,6 +2790,11 @@ SABR:
   kws: [Sabre, Sabre Corporation]
   mw_tags: {industry: Software, name: Sabre Corp., sector: Technology}
   sec_cik: 0001597033
+SAVA:
+  kws: [Cassava Sciences]
+  mw_tags: {industry: Biotechnology, name: 'Cassava Sciences, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001069530
 SAVE:
   kws: [Spirit Airlines Incorporated, Sprint Airlines]
   mw_tags: {industry: Passenger Airlines, name: 'Spirit Airlines, Inc.', sector: Transportation/Logistics}
@@ -2380,6 +2803,10 @@ SB:
   kws: [Safe Bulkers, Safe Bulkers Inc]
   mw_tags: {industry: Water Transport/Shipping, name: 'Safe Bulkers, Inc.', sector: Transportation/Logistics}
   sec_cik: '0001434754'
+SBH:
+  kws: [Sally Beauty]
+  mw_tags: {industry: Specialty Retail, name: 'Sally Beauty Holdings, Inc.', sector: Retail/Wholesale}
+  sec_cik: 0001368458
 SBLK:
   kws: [Star Bulk Carriers Corp.]
   mw_tags: {industry: Water Transport/Shipping, name: Star Bulk Carriers Corp., sector: Transportation/Logistics}
@@ -2417,11 +2844,16 @@ SDPI:
   kws: [Superior Drilling Products, Superior Drilling Products Inc.]
   mw_tags: {industry: Oil & Gas Products/Services, name: 'Superior Drilling Products,
       Inc.', sector: Companies on the Energy Service}
+  sec_cik: '0001600422'
 SE:
   kws: [Sea Limited American, Sea Limited American Depositary Shares each representing
       one Class A]
   mw_tags: {industry: Toys & Games, name: Sea Ltd. (Singapore), sector: Consumer Goods}
   sec_cik: 0001703399
+SECO:
+  kws: [Secoo, Secoo Holding]
+  mw_tags: {industry: Clothing Retail, name: Secoo Holding Ltd., sector: Retail/Wholesale}
+  sec_cik: '0001633441'
 SELB:
   kws: [Selecta Biosciences]
   mw_tags: {industry: Biotechnology, name: 'Selecta Biosciences, Inc.', sector: Health
@@ -2458,6 +2890,10 @@ SIEN:
   mw_tags: {industry: Medical Equipment/Supplies, name: 'Sientra, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001551693
+SIG:
+  kws: [Signet Jewelers]
+  mw_tags: {industry: Clothing Retail, name: Signet Jewelers Ltd., sector: Retail/Wholesale}
+  sec_cik: 0000832988
 SINA:
   kws: [Sina Corporation]
   mw_tags: {industry: Internet/Online, name: SINA Corp., sector: Technology}
@@ -2484,6 +2920,8 @@ SKX:
   kws: [Skechers]
   mw_tags: {industry: Footwear, name: 'SKECHERS USA, Inc.', sector: Consumer Goods}
   sec_cik: 0001065837
+SKYY:
+  kws: []
 SLB:
   kws: [Schlumberger]
   mw_tags: {industry: Oil & Gas Products/Services, name: Schlumberger NV, sector: Companies
@@ -2495,8 +2933,9 @@ SLP:
   sec_cik: 0001023459
 SLV:
   kws: [iShares Silver Trust]
+  sec_cik: 0001330568
 SMG:
-  kws: [Scotts Miracle-Gro Company (The)]
+  kws: [Scotts Miracle-Gro, Scotts Miracle-Gro Company (The)]
   mw_tags: {industry: Chemicals, name: Scotts Miracle-Gro Co., sector: Basic Materials/Resources}
   sec_cik: 0000825542
 SMMF:
@@ -2509,9 +2948,13 @@ SMRT:
   mw_tags: {industry: Clothing Retail, name: 'Stein Mart, Inc.', sector: Retail/Wholesale}
   sec_cik: 0000884940
 SNA:
-  kws: [Snap-On Incorporated]
+  kws: [Snap-On, Snap-On Incorporated]
   mw_tags: {industry: Housewares, name: 'Snap-On, Inc.', sector: Consumer Goods}
   sec_cik: 0000091440
+SNAP:
+  kws: [Snap, Snapchat]
+  mw_tags: {industry: Software, name: 'Snap, Inc.', sector: Technology}
+  sec_cik: 0001564408
 SNCA:
   kws: [Seneca Biopharma]
   mw_tags: {industry: Biotechnology, name: 'Seneca Biopharma, Inc.', sector: Health
@@ -2531,6 +2974,11 @@ SNGX:
   mw_tags: {industry: Biotechnology, name: 'Soligenix, Inc.', sector: Health Care/Life
       Sciences}
   sec_cik: 0000812796
+SNOA:
+  kws: [Sonoma Pharmaceuticals]
+  mw_tags: {industry: Pharmaceuticals, name: 'Sonoma Pharmaceuticals, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001367083
 SNP:
   kws: [China Petroleum & Chemical Corporation]
   mw_tags: {industry: Major Oil & Gas, name: China Petroleum & Chemical Corp., sector: Companies
@@ -2572,6 +3020,11 @@ SPY:
   sec_cik: 0000884394
 SQQQ:
   kws: []
+SRG:
+  kws: [Seritage Growth, Seritage Growth Properties]
+  mw_tags: {industry: Retail REITs, name: Seritage Growth Properties, sector: Real
+      Estate/Construction}
+  sec_cik: 0001628063
 SRLP:
   kws: [Sprague Resources LP representing Limited Partner Interests]
   mw_tags: {industry: Oil & Gas Products/Services, name: Sprague Resources LP, sector: Companies
@@ -2582,9 +3035,19 @@ SRNE:
   mw_tags: {industry: Biotechnology, name: 'Sorrento Therapeutics, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: 0000850261
+SSL:
+  kws: [Sasol]
+  mw_tags: {industry: Major Oil & Gas, name: Sasol Ltd., sector: Companies on the
+      Energy Service}
+  sec_cik: 0000314590
 SSRM:
   kws: [SSR Mining, SSR Mining Inc.]
   mw_tags: {industry: Precious Metals, name: 'SSR Mining, Inc.', sector: Basic Materials/Resources}
+  sec_cik: 0000921638
+SSTI:
+  kws: [ShotSpotter]
+  mw_tags: {industry: Software, name: 'ShotSpotter, Inc.', sector: Technology}
+  sec_cik: '0001351636'
 STKL:
   kws: [SunOpta]
   mw_tags: {industry: Food Products, name: 'SunOpta, Inc.', sector: Consumer Goods}
@@ -2601,6 +3064,16 @@ STNE:
   kws: [StoneCo]
   mw_tags: {industry: Consumer Finance, name: StoneCo Ltd., sector: Financial Services}
   sec_cik: '0001745431'
+STOK:
+  kws: [Stoke Therapeutics]
+  mw_tags: {industry: Biotechnology, name: 'Stoke Therapeutics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001623526'
+STT:
+  kws: [State Street]
+  mw_tags: {industry: Investment Advisors, name: State Street Corp., sector: Financial
+      Services}
+  sec_cik: 0000093751
 SUP:
   kws: [Superior Industries, Superior Industries International (DE), Superior Industries
       International Inc. (DE)]
@@ -2625,6 +3098,11 @@ TAK:
   mw_tags: {industry: Pharmaceuticals, name: 'Takeda Pharmaceutical Co., Ltd.', sector: Health
       Care/Life Sciences}
   sec_cik: 0001395064
+TARA:
+  kws: [Protara Therapeutics]
+  mw_tags: {industry: Biotechnology, name: 'Protara Therapeutics, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001359931
 TBIO:
   kws: [Translate Bio]
   mw_tags: {industry: Biotechnology, name: 'Translate Bio, Inc.', sector: Health Care/Life
@@ -2676,6 +3154,11 @@ THMO:
   mw_tags: {industry: Medical Equipment/Supplies, name: 'ThermoGenesis Holdings, Inc.',
     sector: Health Care/Life Sciences}
   sec_cik: 0000811212
+THR:
+  kws: [Thermon]
+  mw_tags: {industry: Building Materials/Products, name: 'Thermon Group Holdings,
+      Inc.', sector: Real Estate/Construction}
+  sec_cik: 0001489096
 TIF:
   kws: [Tiffany & Co.]
   mw_tags: {industry: Clothing Retail, name: Tiffany & Co., sector: Retail/Wholesale}
@@ -2719,6 +3202,11 @@ TNP:
   mw_tags: {industry: Water Transport/Shipping, name: Tsakos Energy Navigation Ltd.,
     sector: Transportation/Logistics}
   sec_cik: '0001166663'
+TNXP:
+  kws: [Tonix Pharmaceuticals]
+  mw_tags: {industry: Pharmaceuticals, name: Tonix Pharmaceuticals Holding Corp.,
+    sector: Health Care/Life Sciences}
+  sec_cik: '0001430306'
 TOUR:
   kws: [Tuniu Corporation]
   sec_cik: 0001597095
@@ -2812,6 +3300,15 @@ TX:
   kws: [Ternium]
   mw_tags: {industry: Iron/Steel, name: Ternium SA, sector: Basic Materials/Resources}
   sec_cik: 0001342874
+TXMD:
+  kws: [TherapeuticsMD]
+  mw_tags: {industry: Pharmaceuticals, name: 'TherapeuticsMD, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: '0000025743'
+TXRH:
+  kws: [Texas Roadhouse]
+  mw_tags: {industry: Restaurants, name: 'Texas Roadhouse, Inc.', sector: Leisure/Arts/Hospitality}
+  sec_cik: 0001289460
 TZOO:
   kws: [Travelzoo]
   mw_tags: {industry: Tourism, name: Travelzoo Inc., sector: Leisure/Arts/Hospitality}
@@ -2889,10 +3386,16 @@ UZC:
       due 2064]
   mw_tags: {industry: Wireless Telecommunications Services, name: United States Cellular
       Corp., sector: Telecommunication Services}
+  sec_cik: 0000821130
 V:
   kws: [Visa]
   mw_tags: {industry: Consumer Finance, name: 'Visa, Inc.', sector: Financial Services}
   sec_cik: '0001403161'
+VAL:
+  kws: [Valaris]
+  mw_tags: {industry: Oil & Gas Products/Services, name: Valaris Plc, sector: Companies
+      on the Energy Service}
+  sec_cik: 0000314808
 VAPO:
   kws: [Vapotherm]
   mw_tags: {industry: Medical Equipment/Supplies, name: 'Vapotherm, Inc.', sector: Health
@@ -2911,6 +3414,10 @@ VEEV:
   kws: [Veeva Systems, Veeva Systems Class A, Veeva Systems Inc. Class A]
   mw_tags: {industry: Software, name: 'Veeva Systems, Inc.', sector: Technology}
   sec_cik: 0001393052
+VERI:
+  kws: [Veritone]
+  mw_tags: {industry: Emerging Technologies, name: 'Veritone, Inc.', sector: Technology}
+  sec_cik: '0001615165'
 VIE:
   kws: [Viela Bio]
   mw_tags: {industry: Biotechnology, name: 'Viela Bio, Inc.', sector: Health Care/Life
@@ -2921,6 +3428,10 @@ VIR:
   mw_tags: {industry: Biotechnology, name: 'Vir Biotechnology, Inc.', sector: Health
       Care/Life Sciences}
   sec_cik: '0001706431'
+VISL:
+  kws: [Vislink Technologies]
+  mw_tags: {industry: Networking, name: 'Vislink Technologies, Inc.', sector: Technology}
+  sec_cik: 0001565228
 VKTX:
   kws: [Viking Inc., Viking Therapeutics, Viking Therapeutics Inc.]
   mw_tags: {industry: Biotechnology, name: 'Viking Therapeutics, Inc.', sector: Health
@@ -2957,6 +3468,11 @@ VRA:
   kws: [Vera Bradley, Vera Bradley Inc.]
   mw_tags: {industry: Clothing, name: 'Vera Bradley, Inc.', sector: Consumer Goods}
   sec_cik: 0001495320
+VREX:
+  kws: [Varex]
+  mw_tags: {industry: Medical Equipment/Supplies, name: Varex Imaging Corp., sector: Health
+      Care/Life Sciences}
+  sec_cik: 0001681622
 VRML:
   kws: [Vermillion]
   mw_tags: {industry: Biotechnology, name: 'Vermillion, Inc.', sector: Health Care/Life
@@ -2977,6 +3493,9 @@ VSTO:
   mw_tags: {industry: Sports Goods, name: 'Vista Outdoor, Inc.', sector: Consumer
       Goods}
   sec_cik: 0001616318
+VTIQ:
+  kws: [VectoIQ]
+  sec_cik: 0001731289
 VTR:
   kws: [Ventas, Ventas Inc.]
   mw_tags: {industry: Healthcare REITs, name: 'Ventas, Inc.', sector: Real Estate/Construction}
@@ -2995,6 +3514,9 @@ VXRT:
   mw_tags: {industry: Biotechnology, name: 'Vaxart, Inc.', sector: Health Care/Life
       Sciences}
   sec_cik: '0000072444'
+VXX:
+  kws: []
+  sec_cik: '0000312070'
 VZ:
   kws: [Verizon Communications, Verizon Communications Inc.]
   mw_tags: {industry: Wireless Telecommunications Services, name: 'Verizon Communications,
@@ -3029,6 +3551,7 @@ WIFI:
 WKHS:
   kws: [Workhorse Group, Workhorse Group Inc.]
   mw_tags: {industry: Automobiles, name: 'Workhorse Group, Inc.', sector: Automotive}
+  sec_cik: 0001425287
 WMS:
   kws: [Advanced Drainage Systems, Advanced Drainage Systems Inc.]
   mw_tags: {industry: Building Materials/Products, name: 'Advanced Drainage Systems,
@@ -3121,11 +3644,25 @@ Z:
   mw_tags: {industry: Real Estate Developers, name: 'Zillow Group, Inc.', sector: Real
       Estate/Construction}
   sec_cik: '0001617640'
+ZLAB:
+  kws: [Zai Lab]
+  mw_tags: {industry: Biotechnology, name: Zai Lab Ltd., sector: Health Care/Life
+      Sciences}
+  sec_cik: 0001704292
 ZM:
   kws: [Zoom, Zoom Video, 'Zoom Video Communications,', 'Zoom Video Communications,
       Inc.']
   mw_tags: {industry: Internet/Online, name: 'Zoom Video Communications, Inc.', sector: Technology}
   sec_cik: 0001585521
+ZNGA:
+  kws: [Zynga]
+  mw_tags: {industry: Toys & Games, name: 'Zynga, Inc.', sector: Consumer Goods}
+  sec_cik: 0001439404
+ZNTL:
+  kws: [Zentalis Pharmaceuticals]
+  mw_tags: {industry: Biotechnology, name: 'Zentalis Pharmaceuticals, Inc.', sector: Health
+      Care/Life Sciences}
+  sec_cik: '0001725160'
 ZS:
   kws: [Zscalar]
   mw_tags: {industry: Internet/Online, name: 'Zscaler, Inc.', sector: Technology}

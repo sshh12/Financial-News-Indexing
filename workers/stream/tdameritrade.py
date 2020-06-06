@@ -17,7 +17,11 @@ class StreamTDA(Stream):
 
     def __init__(self):
         self.tda = TDAClient(CREDS['consumer_key'])
-        self.tda.load_login(os.path.join('data', 'tda-login'))
+        try:
+            self.tda.load_login(os.path.join('data', 'tda-login'))
+        except FileNotFoundError:
+            self.tda.login()
+            self.tda.save_login(os.path.join('data', 'tda-login'))
         self.stream = self.tda.create_stream(debug=False)
         self.symbols = CFG.get('stocks', config['symbols_list_all'])
         self.delay_prices = CFG.get('delay_prices', 60 * 60)
@@ -45,7 +49,9 @@ class StreamTDA(Stream):
                     self.on_event(evt)
 
     def _start_quotes(self):
-        symbols = list(self.symbols) + ['FUTUREES', 'FUTUREGC']
+        symbols = list(self.symbols)\
+             + ['FUTUREES', 'FUTUREGC', 'FUTUREBTC', 'FUTURECL']\
+             + ['EURCURRVSUSD', 'USDCURRVSJPY']
         while True:
             # shuffle to avoid consistent rate limits on symbols
             random.shuffle(symbols)
@@ -55,14 +61,13 @@ class StreamTDA(Stream):
                 ts = int(pendulum.now().timestamp() * 1000)
                 price_fn = os.path.join('data', 'watch', 'ticks', 'P_{}_{}.csv'.format(symbol, ts))
                 options_fn = os.path.join('data', 'watch', 'ticks', 'O_{}_{}.csv'.format(symbol, ts))
-                tda_sym = symbol.replace('FUTURE', '/')
+                tda_sym = symbol.replace('FUTURE', '/').replace('CURRVS', '/')
                 try:
                     self.tda.history(span='day', freq='minute', latest=True)[tda_sym].to_csv(price_fn)
                     try:
                         # tbh options data is just extra
-                        if 'FUTURE' not in symbol:
-                            time.sleep(1)
-                            self.tda.options(quotes=True)[tda_sym].to_csv(options_fn)
+                        time.sleep(1)
+                        self.tda.options(quotes=True)[tda_sym].to_csv(options_fn)
                     except:
                         pass
                 except Exception as e:

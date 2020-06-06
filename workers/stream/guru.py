@@ -24,7 +24,7 @@ class StreamGuru(StreamPoll):
         for stock in self.stocks:
             def make_scrap(sym=None):
                 async def scrap_stock():
-                    await asyncio.sleep(random.randint(0, 300))
+                    await asyncio.sleep(random.randint(0, 60 * 60))
                     try:
                         return await self.scraper.read_financials(sym)
                     except Exception as e:
