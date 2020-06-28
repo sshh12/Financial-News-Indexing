@@ -4,12 +4,12 @@ from peewee import *
 from config import config
 
 
-POSTGRES_CREDS = config['creds']['postgres']
+POSTGRES_CREDS = config["creds"]["postgres"]
 db = PostgresqlExtDatabase(
-    POSTGRES_CREDS['name'], 
-    user=POSTGRES_CREDS['user'], 
-    password=POSTGRES_CREDS['password'], 
-    host=POSTGRES_CREDS['host']
+    POSTGRES_CREDS["name"],
+    user=POSTGRES_CREDS["user"],
+    password=POSTGRES_CREDS["password"],
+    host=POSTGRES_CREDS["host"],
 )
 
 
@@ -28,7 +28,7 @@ class Symbol(Model):
 
 class Article(Model):
 
-    symbols = ManyToManyField(Symbol, backref='articles')
+    symbols = ManyToManyField(Symbol, backref="articles")
     title = TextField()
     content = TextField(null=True)
     url = TextField(unique=True)
@@ -44,8 +44,8 @@ SymbolArticle = Article.symbols.get_through_model()
 
 
 class OHLCV(Model):
-    
-    symbol = ForeignKeyField(Symbol, backref='ohlcvs', null=True)
+
+    symbol = ForeignKeyField(Symbol, backref="ohlcvs", null=True)
     open = DoubleField(null=True)
     high = DoubleField(null=True)
     low = DoubleField(null=True)
@@ -58,14 +58,12 @@ class OHLCV(Model):
 
     class Meta:
         database = db
-        indexes = (
-            (('symbol', 'source', 'start', 'period'), True),
-        )
+        indexes = ((("symbol", "source", "start", "period"), True),)
 
 
 class Stat(Model):
-    
-    symbol = ForeignKeyField(Symbol, backref='stats', null=True)
+
+    symbol = ForeignKeyField(Symbol, backref="stats", null=True)
     category = CharField()
     name = CharField()
     source = CharField()
@@ -78,9 +76,7 @@ class Stat(Model):
 
     class Meta:
         database = db
-        indexes = (
-            (('symbol', 'source', 'name', 'effected', 'period'), True),
-        )
+        indexes = ((("symbol", "source", "name", "effected", "period"), True),)
 
 
 MODELS = [SymbolArticle, Symbol, Article, OHLCV, Stat]

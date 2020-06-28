@@ -6,15 +6,14 @@ import asyncio
 import aiohttp
 
 
-CFG = config['watch']['stats']
+CFG = config["watch"]["stats"]
 
 
 class StreamStats(StreamPoll):
-
     def __init__(self):
-        self.scrapers = [STAT_SOURCES[name]() for name in CFG['sources']]
+        self.scrapers = [STAT_SOURCES[name]() for name in CFG["sources"]]
         self.cache = set()
-        self.delay = CFG['delay']
+        self.delay = CFG["delay"]
 
     async def get_polls(self):
         polls = []
@@ -24,7 +23,7 @@ class StreamStats(StreamPoll):
 
     async def on_poll_data(self, name, stats, emit_empty=False, emit_events=True, **kwargs):
         if len(stats) == 0 and emit_empty:
-            self.on_event(dict(type='error', name='empty', desc=name, source=str(self)))
+            self.on_event(dict(type="error", name="empty", desc=name, source=str(self)))
         for stat in stats:
             key = hash_sha1(repr(stat))
             if key not in self.cache and emit_events:

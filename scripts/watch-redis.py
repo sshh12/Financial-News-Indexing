@@ -4,18 +4,18 @@ import redis
 
 
 def main():
-    redis_cfg = config['creds']['redis']
-    rs = redis.Redis(host=redis_cfg['host'], password=redis_cfg['password'], port=redis_cfg['port'])
+    redis_cfg = config["creds"]["redis"]
+    rs = redis.Redis(host=redis_cfg["host"], password=redis_cfg["password"], port=redis_cfg["port"])
     pubsub = rs.pubsub()
     with pubsub:
-        pubsub.subscribe('*')
+        pubsub.subscribe("*")
         for item in pubsub.listen():
             try:
-                evt = json.loads(item['data'])
+                evt = json.loads(item["data"])
             except:
                 continue
             print(evt)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

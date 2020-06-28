@@ -5,14 +5,15 @@ import re
 
 
 class EarningsCast(MetaDataSource):
-
     def __init__(self):
-        self.url = 'https://earningscast.com'
+        self.url = "https://earningscast.com"
 
     async def read_earnings(self):
-        resp = await self._get('/')
+        resp = await self._get("/")
         earnings = []
-        for match in re.finditer(r'Act ([\-\.\d]+) <br \/>\s*?Est ([\-\.\d]+)\s*?<\/div>\s*?<[\w= "]+?><a href="\/([\w\.]+?)\/', resp):
+        for match in re.finditer(
+            r'Act ([\-\.\d]+) <br \/>\s*?Est ([\-\.\d]+)\s*?<\/div>\s*?<[\w= "]+?><a href="\/([\w\.]+?)\/', resp
+        ):
             sym = match.group(3)
             est = match.group(1)
             act = match.group(2)
@@ -23,7 +24,6 @@ class EarningsCast(MetaDataSource):
         stats = []
         earnings = await self.read_earnings()
         for sym, est, act in earnings:
-            stats.append(dict(source='earningscast', type='earnings',
-                symbols=[sym], expected=est, actual=act
-            ))
-        return 'earningscast', stats
+            stats.append(dict(source="earningscast", type="earnings", symbols=[sym], expected=est, actual=act))
+        return "earningscast", stats
+

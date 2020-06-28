@@ -2,14 +2,13 @@ import pendulum
 import hashlib
 
 
-USE_TZ = 'UTC'
+USE_TZ = "UTC"
 HEADERS = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"
 }
 
 
 class PriceTick:
-
     def __init__(self, symbol, type_, source, date, open_, high, low, close, volume):
         self.symbol = symbol
         self.type = type_
@@ -24,33 +23,32 @@ class PriceTick:
         self._id = hash_sha1(self.symbol + str(self.date))
 
     def __repr__(self):
-        return '<Tick [{}] ({} @ {})>'.format(self.symbol, self.close, self.date)
-        
+        return "<Tick [{}] ({} @ {})>".format(self.symbol, self.close, self.date)
+
     def as_dict(self):
         return {
-            'symbol': self.symbol,
-            'type': self.type,
-            'source': self.source,
-            'date': self.date,
-            'open': self.open,
-            'high': self.high,
-            'low': self.low,
-            'close': self.close,
-            'volume': self.volume,
-            'found': self.found
+            "symbol": self.symbol,
+            "type": self.type,
+            "source": self.source,
+            "date": self.date,
+            "open": self.open,
+            "high": self.high,
+            "low": self.low,
+            "close": self.close,
+            "volume": self.volume,
+            "found": self.found,
         }
 
 
 class TickDataSource:
-
     async def _get(self, url_part):
         try:
             async with self._session.get(self.url + url_part, headers=HEADERS) as response:
                 return await response.text()
         except (ConnectionRefusedError, UnicodeDecodeError):
-            return ''
-
+            return ""
 
 
 def hash_sha1(text):
-    return hashlib.sha1(bytes(text, 'utf-8')).hexdigest()
+    return hashlib.sha1(bytes(text, "utf-8")).hexdigest()
+

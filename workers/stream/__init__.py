@@ -18,7 +18,6 @@ def run_streams(streams, on_event):
 
 
 class Stream:
-
     def __init__(self):
         pass
 
@@ -34,7 +33,6 @@ class Stream:
 
 
 class StreamPoll(Stream):
-
     def start(self):
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.do_polling())
@@ -66,12 +64,19 @@ class StreamPoll(Stream):
                     await self.on_poll_data(*args, obj=obj, emit_empty=(polls == 0), emit_events=(polls_no_err > 0))
                     polls_no_err += 1
                 except Exception as e:
-                    self.on_event(dict(type='error', name='polling', 
-                        desc=str(func), traceback=repr(traceback.format_stack()) + ' -> ' + repr(e), source=str(self)))
+                    self.on_event(
+                        dict(
+                            type="error",
+                            name="polling",
+                            desc=str(func),
+                            traceback=repr(traceback.format_stack()) + " -> " + repr(e),
+                            source=str(self),
+                        )
+                    )
                     polls_err += 1
                 polls += 1
                 if polls > 20 and polls_err / polls > 0.25:
-                    self.on_event(dict(type='error', name='stop-polling', desc=str(func), source=str(self)))
+                    self.on_event(dict(type="error", name="stop-polling", desc=str(func), source=str(self)))
                     break
                 await asyncio.sleep(self.delay)
 
