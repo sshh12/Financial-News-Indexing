@@ -17,13 +17,29 @@ def merge_prices():
         if len(fns) <= 1:
             continue
         fns = sorted(fns)
-        df_base = pd.read_csv(fns[0], index_col=0, parse_dates=True)
-        for mfn in fns[1:]:
-            df_other = pd.read_csv(mfn, index_col=0, parse_dates=True)
-            df_base = pd.concat([df_base, df_other], axis=0)
-            df_base = df_base.loc[~df_base.index.duplicated(keep='first')]
-        df_base = df_base.sort_index()
-        df_base.to_csv(fns[0])
+        header = None
+        content_by_date = {}
+        for fn in fns:
+            with open(fn, 'r') as f:
+                for i, line in enumerate(f.readlines()):
+                    line = line.strip()
+                    if len(line) == 0:
+                        continue
+                    if i == 0:
+                        if header is not None:
+                            assert header == line
+                        else:
+                            header = line
+                    else:
+                        splt = line.split(',')
+                        date = splt[0]
+                        data = ','.join(splt[1:])
+                        content_by_date[date] = data
+        with open(fns[0], 'w') as f:
+            f.write(header + '\n')
+            for dt in sorted(content_by_date):
+                val = content_by_date[dt]
+                f.write(dt + ',' + val + '\n')
         for mfn in fns[1:]:
             os.remove(mfn)
 
@@ -57,7 +73,7 @@ def merge_options():
 
 def main():
     merge_prices()
-    merge_options()
+    # merge_options()
 
 
 if __name__ == '__main__':

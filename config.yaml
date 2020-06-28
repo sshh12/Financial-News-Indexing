@@ -11,7 +11,7 @@ watch:
   stats:
     delay: 10
     sources: [biopharmcatalyst, earningscast, finviz, zacks]
-  tda: {delay_prices: 1000}
+  tda: {delay_prices: 0}
   twitter:
     GILD: [GileadSciences]
     TSLA: [elonmusk]

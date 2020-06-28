@@ -1,32 +1,39 @@
 from collections import defaultdict
 from pymeritrade import TDAClient
+from pymeritrade.auth import SeleniumHeadlessHandler
 from threading import Thread
 from config import config
 from . import Stream
 import pendulum
+import requests
 import random
 import time
 import os
 
 
-CREDS = config['creds']['tda']
-CFG = config['watch']['tda']
+CREDS = config["creds"]["tda"]
+CFG = config["watch"]["tda"]
+
+
+class CustomHandler(SeleniumHeadlessHandler):
+    def get_login_creds(self):
+        return CREDS["username"], CREDS["password"]
+
+    def get_sms_code(self):
+        time.sleep(5)
+        # hidden auth method
+        return eval(CREDS["sms_script"])
 
 
 class StreamTDA(Stream):
-
     def __init__(self):
-        self.tda = TDAClient(CREDS['consumer_key'])
-        try:
-            self.tda.load_login(os.path.join('data', 'tda-login'))
-        except FileNotFoundError:
-            self.tda.login()
-            self.tda.save_login(os.path.join('data', 'tda-login'))
+        self.tda = TDAClient(CREDS["consumer_key"], auth_handler=CustomHandler)
+        self._reauth()
         self.stream = self.tda.create_stream(debug=False)
-        self.symbols = CFG.get('stocks', config['symbols_list_all'])
-        self.delay_prices = CFG.get('delay_prices', 60 * 60)
-        self.warmup_period = CFG.get('warmup', 30)
-        
+        self.symbols = CFG.get("stocks", config["symbols_list_all"])
+        self.delay_prices = CFG.get("delay_prices", 60 * 60)
+        self.warmup_period = CFG.get("warmup", 30)
+
         self.warmup = True
         self.quotes_cnt = 0
         self.quote_err = defaultdict(lambda: 0)
@@ -35,23 +42,21 @@ class StreamTDA(Stream):
         self.quote_thread = Thread(target=self._start_quotes)
         self.quote_thread.start()
         self.stream.start()
-        self.stream.subscribe('news', symbols=self.symbols, fields=[0, 5, 9, 10])
+        self.stream.subscribe("news", symbols=self.symbols, fields=[0, 5, 9, 10])
         time_start = time.time()
-        for id_, item in self.stream.live_data():
+        for stream_data in self.stream.live_data():
             if self.warmup and time.time() - time_start < self.warmup_period:
                 # flush old news
                 continue
             else:
                 self.warmup = False
-            for data_type, stream_data in item.items():
-                evt = self._news_to_evt(stream_data)
+            for symbol, article in stream_data.data.items():
+                evt = self._news_to_evt(symbol, article)
                 if evt is not None:
                     self.on_event(evt)
 
     def _start_quotes(self):
-        symbols = list(self.symbols)\
-             + ['FUTUREES', 'FUTUREGC', 'FUTUREBTC', 'FUTURECL']\
-             + ['EURCURRVSUSD', 'USDCURRVSJPY']
+        symbols = list(self.symbols) + ["FUTUREES", "FUTUREGC", "FUTUREBTC", "FUTURECL"]
         while True:
             # shuffle to avoid consistent rate limits on symbols
             random.shuffle(symbols)
@@ -59,11 +64,13 @@ class StreamTDA(Stream):
                 if self.quotes_cnt > 10 and self.quote_err[symbol] / self.quotes_cnt > 0.5:
                     continue
                 ts = int(pendulum.now().timestamp() * 1000)
-                price_fn = os.path.join('data', 'watch', 'ticks', 'P_{}_{}.csv'.format(symbol, ts))
-                options_fn = os.path.join('data', 'watch', 'ticks', 'O_{}_{}.csv'.format(symbol, ts))
-                tda_sym = symbol.replace('FUTURE', '/').replace('CURRVS', '/')
+                price_fn = os.path.join("data", "watch", "ticks", "P_{}_{}.csv".format(symbol, ts))
+                options_fn = os.path.join("data", "watch", "ticks", "O_{}_{}.csv".format(symbol, ts))
+                tda_sym = symbol.replace("FUTURE", "/")
                 try:
-                    self.tda.history(span='day', freq='minute', latest=True)[tda_sym].to_csv(price_fn)
+                    self.tda.history(parse_dates=False, span="day", freq="minute", latest=True)[tda_sym].to_csv(
+                        price_fn
+                    )
                     try:
                         # tbh options data is just extra
                         time.sleep(1)
@@ -72,19 +79,24 @@ class StreamTDA(Stream):
                         pass
                 except Exception as e:
                     err = str(e)
-                    if 'The access token being passed has expired' in err:
+                    if "The access token being passed has expired" in err:
                         self._reauth()
                     self.quote_err[symbol] += 1
-                    self.on_event(dict(symbols=[symbol], type='error', name='tda-quotes', desc=err, source=str(self)))
+                    self.on_event(dict(symbols=[symbol], type="error", name="tda-quotes", desc=err, source=str(self)))
                 time.sleep(1)
             self.quotes_cnt += 1
             time.sleep(self.delay_prices)
 
-    def _news_to_evt(self, news):
-        evt = dict(title=news['5'], type='article', source=news['10'], hot=news['9'], symbols=[news['key']])
-        if evt['title'] == 'N/A':
+    def _news_to_evt(self, symbol, article):
+        evt = dict(
+            title=article["headline"], type="article", source=article["source"], hot=article["is_hot"], symbols=[symbol]
+        )
+        if evt["title"] == "N/A":
             return None
         return evt
 
     def _reauth(self):
-        self.tda.load_login(os.path.join('data', 'tda-login'))
+        login_fn = os.path.join("data", "tda-login")
+        self.tda.load_login(login_fn)
+        self.tda.save_login(login_fn)
+
