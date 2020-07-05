@@ -79,6 +79,8 @@ class StreamTDA(Stream):
                         self.tda.options(quotes=True)[tda_sym].to_csv(options_fn)
                     except:
                         pass
+                except KeyError:
+                    pass
                 except Exception as e:
                     err = str(e)
                     if "The access token being passed has expired" in err:

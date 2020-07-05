@@ -17,7 +17,19 @@ class StreamPRs(StreamPoll):
     async def get_polls(self):
         polls = []
         for scrap in self.scrapers:
-            polls.append((scrap, scrap.read_prs, self.delay))
+
+            def make_scrap(pr_cls):
+                async def scrap_prs():
+                    try:
+                        return await pr_cls.read_prs()
+                    except asyncio.TimeoutError:
+                        return "", "", []
+                    except aiohttp.ClientError:
+                        return "", "", []
+
+                return scrap_prs
+
+            polls.append((scrap, make_scrap(scrap), self.delay))
         return polls
 
     async def on_poll_data(self, symbol, name, prs, emit_empty=False, emit_events=True, **kwargs):

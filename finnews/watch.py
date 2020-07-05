@@ -72,14 +72,8 @@ def io_make_on_event(cb=None):
     tick_path = os.path.join("data", "watch", "ticks")
     fin_path = os.path.join("data", "watch", "fin")
 
-    def mkdir(path):
-        try:
-            os.makedirs(path)
-        except:
-            pass
-
     for path in [sym_path, type_path, date_path, tick_path, fin_path]:
-        mkdir(path)
+        os.makedirs(path, exist_ok=True)
 
     def on_event(og_evt):
         evt = og_evt.copy()

@@ -18,7 +18,19 @@ class StreamNews(StreamPoll):
     async def get_polls(self):
         polls = []
         for scrap in self.scrapers:
-            polls.append((scrap, scrap.read_latest_headlines, self.delay))
+
+            def make_scrap(news_cls):
+                async def scrap_news():
+                    try:
+                        return await news_cls.read_latest_headlines()
+                    except asyncio.TimeoutError:
+                        return "", []
+                    except aiohttp.ClientError:
+                        return "", []
+
+                return scrap_news
+
+            polls.append((scrap, make_scrap(scrap), self.delay))
         return polls
 
     async def _resolve_and_add_evt(self, scraper, evt):

@@ -14,8 +14,7 @@ def _exec_js(code):
             f.write(code)
         result = subprocess.run(["node", js_path], stdout=subprocess.PIPE)
         out = str(result.stdout, "utf-8")
-        data = json.loads(out)
-        return data
+        return json.loads(out)
 
 
 def _flatten_guru(d, parent_key="", sep="_"):
@@ -45,11 +44,15 @@ class Guru(MetaDataSource):
     async def read_financials(self, sym):
         resp = await self._get("/stock/{}/summary".format(sym))
         js_script = re.search(r"window.__NUXT__=([\s\S]+?);<\/script>", resp).group(1)
-        raw_data = _exec_js("console.log(JSON.stringify(" + js_script + ".data[0].stock))")
-        raw_data.update(_exec_js("console.log(JSON.stringify(" + js_script + ".data[1].summaryView.data))"))
-        data = _flatten_guru(raw_data)
-        assert data["symbol"] == sym
-        if "timestamp" in data:
-            del data["timestamp"]
-        return "guru", sym, data
+        try:
+            raw_data = _exec_js("console.log(JSON.stringify(" + js_script + ".data[0].stock))")
+            raw_data.update(_exec_js("console.log(JSON.stringify(" + js_script + ".data[1].summaryView.data))"))
+        except json.decoder.JSONDecodeError:
+            return "guru", None, None
+        else:
+            data = _flatten_guru(raw_data)
+            assert data["symbol"] == sym
+            if "timestamp" in data:
+                del data["timestamp"]
+            return "guru", sym, data
 
