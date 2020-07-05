@@ -1,9 +1,9 @@
 from collections import defaultdict
 from pymeritrade import TDAClient
-from pymeritrade.auth import SeleniumHeadlessHandler
+import pymeritrade.auth as auth
 from threading import Thread
-from config import config
-from . import Stream
+from finnews.config import config
+from finnews.stream.abs import Stream
 import pendulum
 import requests
 import random
@@ -15,14 +15,16 @@ CREDS = config["creds"]["tda"]
 CFG = config["watch"]["tda"]
 
 
-class CustomHandler(SeleniumHeadlessHandler):
+class CustomHandler(auth.SeleniumHeadlessHandler):
     def get_login_creds(self):
         return CREDS["username"], CREDS["password"]
 
     def get_sms_code(self):
-        time.sleep(5)
+        time.sleep(10)
         # hidden auth method
-        return eval(CREDS["sms_script"])
+        code = eval(CREDS["sms_script"])
+        print("TDA code", code)
+        return code
 
 
 class StreamTDA(Stream):

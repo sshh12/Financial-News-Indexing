@@ -1,6 +1,6 @@
-from articles import clean_html_text, extract_symbols
-from config import config
-from . import Stream
+from finnews.articles import clean_html_text, extract_symbols
+from finnews.config import config
+from finnews.stream.abs import Stream
 import tweepy
 
 

@@ -13,8 +13,6 @@ watch:
     sources: [biopharmcatalyst, earningscast, finviz, zacks]
   tda: {delay_prices: 0}
   twitter:
-    GILD: [GileadSciences]
-    TSLA: [elonmusk]
     _: [ForexLive, LiveSquawk, MarketCurrents, MoodysInvSvc, RANsquawk, Tickeron,
       WatchlistN, fintel_io, newsfilterio, quant_data, realDonaldTrump, stock_titan,
       sunshineavenue8]

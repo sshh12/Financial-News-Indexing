@@ -1,6 +1,6 @@
-from articles.releases import SCRAPERS
-from config import config
-from . import StreamPoll
+from finnews.articles.releases import SCRAPERS
+from finnews.config import config
+from finnews.stream.abs import StreamPoll
 import asyncio
 import aiohttp
 

@@ -1,7 +1,7 @@
-from config import config
-from articles import hash_sha1
-from stats.index import STAT_SOURCES
-from . import StreamPoll
+from finnews.config import config
+from finnews.articles import hash_sha1
+from finnews.stats.index import STAT_SOURCES
+from finnews.stream.abs import StreamPoll
 import asyncio
 import aiohttp
 

@@ -1,6 +1,6 @@
-from config import config
-from stats.guru import Guru
-from . import StreamPoll
+from finnews.config import config
+from finnews.stats.guru import Guru
+from finnews.stream.abs import StreamPoll
 import pendulum
 import asyncio
 import aiohttp

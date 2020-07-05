@@ -1,6 +1,6 @@
-from config import config
-from . import StreamPoll
-from stats.sec import SEC
+from finnews.config import config
+from finnews.stream.abs import StreamPoll
+from finnews.stats.sec import SEC
 import asyncio
 import aiohttp
 

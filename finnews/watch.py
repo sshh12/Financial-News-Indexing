@@ -1,15 +1,9 @@
-from stream import run_streams
-from stream.twitter import StreamTwitter
-from stream.tdameritrade import StreamTDA
-from stream.prs import StreamPRs
-from stream.news import StreamNews
-from stream.stats import StreamStats
-from stream.guru import StreamGuru
-from notify.slack import slack_evt
-from config import config
-import json
-import hashlib
+from finnews.stream import STREAMS, run_streams
+from finnews.config import config
 import pendulum
+import hashlib
+import json
+
 
 import nest_asyncio
 
@@ -69,23 +63,6 @@ def es_make_on_event(cb=None):
     return on_event
 
 
-def redis_make_event(cb=None):
-    import redis
-
-    redis_cfg = config["creds"]["redis"]
-    rs = redis.Redis(host=redis_cfg["host"], password=redis_cfg["password"], port=redis_cfg["port"])
-
-    def on_event(og_evt):
-        evt = og_evt.copy()
-        evt["ts"] = pendulum.now().timestamp()
-        evt_json = json.dumps(evt)
-        rs.publish("*", evt_json)
-        if cb is not None:
-            cb(og_evt)
-
-    return on_event
-
-
 def io_make_on_event(cb=None):
     import os
 
@@ -139,8 +116,7 @@ def main():
     on_event = stdio_make_on_event(cb=cb_io)
 
     print("Streaming...")
-
-    run_streams([StreamTDA, StreamTwitter, StreamPRs, StreamStats, StreamNews, StreamGuru], on_event)
+    run_streams(STREAMS, on_event)
 
 
 if __name__ == "__main__":
