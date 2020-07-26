@@ -4,3 +4,4 @@ migrate*.py
 data/
 creds.yaml
 *temp*.py
+config.yaml

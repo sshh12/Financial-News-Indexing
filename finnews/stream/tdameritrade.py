@@ -20,7 +20,7 @@ class CustomHandler(auth.SeleniumHeadlessHandler):
         return CREDS["username"], CREDS["password"]
 
     def get_sms_code(self):
-        time.sleep(10)
+        time.sleep(30)
         # hidden auth method
         code = eval(CREDS["sms_script"])
         print("TDA code", code)

@@ -8,7 +8,6 @@ twython==3.7.0
 python_twitter==3.5
 peewee==3.13.2
 psycopg2==2.7.5
-slackclient==2.5.0
 tweepy==3.8.0
 nest-asyncio==1.3.2
 git+https://github.com/sshh12/pymeritrade

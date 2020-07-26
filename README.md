@@ -9,7 +9,7 @@
 
 ### Config
 
-See `config.yaml` for most things.
+Use `config.yaml` for most things.
 
 and create a `creds.yaml` that is formatted like:
 

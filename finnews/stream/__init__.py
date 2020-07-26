@@ -5,7 +5,7 @@ from finnews.stream.news import StreamNews
 from finnews.stream.stats import StreamStats
 from finnews.stream.guru import StreamGuru
 
-STREAMS = [StreamTDA, StreamTwitter, StreamPRs, StreamStats, StreamNews, StreamGuru]
+STREAMS = {"tda": StreamTDA, "twitter": StreamTwitter, "prs": StreamPRs, "stats": StreamStats, "news": StreamNews, "guru": StreamGuru}
 
 
 def run_streams(streams, on_event):
