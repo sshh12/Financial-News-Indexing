@@ -71,4 +71,4 @@ def watch_all_forever(on_event):
 if __name__ == "__main__":
     cb_io = io_make_on_event()
     on_event = stdio_make_on_event(cb=cb_io)
-    run_forever(on_event)
+    watch_all_forever(on_event)
