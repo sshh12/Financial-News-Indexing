@@ -1,8 +1,6 @@
+from finnews.config import config
 import yaml
 import os
-
-
-PROJECT_DIR = os.path.join(os.path.dirname(__file__), "..")
 
 
 def _clean_recur(data):
@@ -16,13 +14,13 @@ def _clean_recur(data):
 
 def clean(fn):
     with open(fn, "r") as f:
-        config = yaml.safe_load(f)
-    _clean_recur(config)
+        cfg = yaml.safe_load(f)
+    _clean_recur(cfg)
     with open(fn, "w") as f:
-        yaml.safe_dump(config, f)
+        yaml.safe_dump(cfg, f)
 
 
 if __name__ == "__main__":
-    clean(os.path.join(PROJECT_DIR, "config.yaml"))
-    clean(os.path.join(PROJECT_DIR, "symbols.yaml"))
+    clean(config["config_fn"])
+    clean(config["symbols_fn"])
 

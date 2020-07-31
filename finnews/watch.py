@@ -1,8 +1,8 @@
 from finnews.stream import STREAMS, run_streams
-from finnews.config import config
+from finnews.utils import config, ensure_dirs
 import pendulum
-import hashlib
 import json
+import os
 
 
 import nest_asyncio
@@ -25,15 +25,13 @@ def stdio_make_on_event(cb=None):
 
 
 def io_make_on_event(cb=None):
-    import os
 
     sym_path = os.path.join(config["data_dir"], "watch", "syms")
     date_path = os.path.join(config["data_dir"], "watch", "date")
     tick_path = os.path.join(config["data_dir"], "watch", "ticks")
     fin_path = os.path.join(config["data_dir"], "watch", "fin")
 
-    for path in [sym_path, type_path, date_path, tick_path, fin_path]:
-        os.makedirs(path, exist_ok=True)
+    ensure_dirs([sym_path, date_path, tick_path, fin_path])
 
     def on_event(og_evt):
         evt = og_evt.copy()
@@ -59,11 +57,7 @@ def io_make_on_event(cb=None):
     return on_event
 
 
-def main():
-
-    cb_io = io_make_on_event()
-    on_event = stdio_make_on_event(cb=cb_io)
-
+def watch_all_forever(on_event):
     print("Streaming...")
     streams = []
     for stream_name in config["watch"]:
@@ -73,4 +67,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    cb_io = io_make_on_event()
+    on_event = stdio_make_on_event(cb=cb_io)
+    run_forever(on_event)

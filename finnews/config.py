@@ -4,12 +4,14 @@ import os
 
 PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CONFIG_FN = os.environ.get("FINNEWS_CONFIG", os.path.join(PROJECT_DIR, "config.yaml"))
+CONFIG_DIR = os.path.dirname(CONFIG_FN)
 
 with open(CONFIG_FN, "r") as cf:
     config = yaml.safe_load(cf)
-config.setdefault("creds_fn", os.path.join(PROJECT_DIR, "creds.yaml"))
-config.setdefault("symbols_fn", os.path.join(PROJECT_DIR, "symbols.yaml"))
-config.setdefault("data_dir", os.path.join(PROJECT_DIR, "data"))
+config["config_fn"] = CONFIG_FN
+config.setdefault("creds_fn", os.path.join(CONFIG_DIR, "creds.yaml"))
+config.setdefault("symbols_fn", os.path.join(CONFIG_DIR, "symbols.yaml"))
+config.setdefault("data_dir", os.path.join(CONFIG_DIR, "data"))
 
 try:
     with open(config["creds_fn"], "r") as cf:
