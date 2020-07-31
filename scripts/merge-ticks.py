@@ -6,11 +6,13 @@ import os
 
 def merge_prices():
 
+    print("Finding tick csv files to merge...", end="")
     fns_by_symbol = defaultdict(list)
     for fn in glob.iglob(os.path.join(config["data_dir"], "watch", "ticks", "P_*.csv")):
         fn_split = fn[:-4].split("_")
-        sym = fn_split[1]
+        sym = fn_split[-2]
         fns_by_symbol[sym].append(fn)
+    print("done")
 
     run_many(_do_price_merge, list(fns_by_symbol.items()), tdqm=True)
 

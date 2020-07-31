@@ -26,10 +26,11 @@ def stdio_make_on_event(cb=None):
 
 def io_make_on_event(cb=None):
 
-    sym_path = os.path.join(config["data_dir"], "watch", "syms")
-    date_path = os.path.join(config["data_dir"], "watch", "date")
-    tick_path = os.path.join(config["data_dir"], "watch", "ticks")
-    fin_path = os.path.join(config["data_dir"], "watch", "fin")
+    watch_path = os.path.join(config["data_dir"], "watch")
+    sym_path = os.path.join(watch_path, "syms")
+    date_path = os.path.join(watch_path, "date")
+    tick_path = os.path.join(watch_path, "ticks")
+    fin_path = os.path.join(watch_path, "fin")
 
     ensure_dirs([sym_path, date_path, tick_path, fin_path])
 
@@ -45,6 +46,7 @@ def io_make_on_event(cb=None):
             with open(fn, "a") as f:
                 f.write(evt_json + "\n")
 
+        write_evt(os.path.join(watch_path, "finnews.stream"))
         write_evt(os.path.join(date_path, date.isoformat()[:10].replace("-", "_")))
         if len(symbols) == 0:
             write_evt(os.path.join(sym_path, "_NONE"))
