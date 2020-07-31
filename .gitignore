@@ -5,3 +5,6 @@ data/
 creds.yaml
 *temp*.py
 config.yaml
+dist/
+build/
+*.egg-info/

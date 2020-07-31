@@ -28,7 +28,6 @@ def io_make_on_event(cb=None):
     import os
 
     sym_path = os.path.join(config["data_dir"], "watch", "syms")
-    type_path = os.path.join(config["data_dir"], "watch", "type")
     date_path = os.path.join(config["data_dir"], "watch", "date")
     tick_path = os.path.join(config["data_dir"], "watch", "ticks")
     fin_path = os.path.join(config["data_dir"], "watch", "fin")
@@ -41,10 +40,6 @@ def io_make_on_event(cb=None):
         evt["date"] = str(pendulum.now())
         evt_json = json.dumps(evt)
         symbols = evt.get("symbols", [])
-        if evt.get("type") == "error":
-            type_ = "_error"
-        else:
-            type_ = "_".join([str(k) for k in sorted(evt)][:10])
         date = pendulum.now()
         evt["date"] = str(date)
 
@@ -52,7 +47,6 @@ def io_make_on_event(cb=None):
             with open(fn, "a") as f:
                 f.write(evt_json + "\n")
 
-        write_evt(os.path.join(type_path, type_))
         write_evt(os.path.join(date_path, date.isoformat()[:10].replace("-", "_")))
         if len(symbols) == 0:
             write_evt(os.path.join(sym_path, "_NONE"))

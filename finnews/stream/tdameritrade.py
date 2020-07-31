@@ -66,8 +66,8 @@ class StreamTDA(Stream):
                 if self.quotes_cnt > 10 and self.quote_err[symbol] / self.quotes_cnt > 0.5:
                     continue
                 ts = int(pendulum.now().timestamp() * 1000)
-                price_fn = os.path.join("data", "watch", "ticks", "P_{}_{}.csv".format(symbol, ts))
-                options_fn = os.path.join("data", "watch", "ticks", "O_{}_{}.csv".format(symbol, ts))
+                price_fn = os.path.join(config["data_dir"], "watch", "ticks", "P_{}_{}.csv".format(symbol, ts))
+                options_fn = os.path.join(config["data_dir"], "watch", "ticks", "O_{}_{}.csv".format(symbol, ts))
                 tda_sym = symbol.replace("FUTURE", "/")
                 try:
                     self.tda.history(parse_dates=False, span="day", freq="minute", latest=True)[tda_sym].to_csv(
@@ -100,7 +100,7 @@ class StreamTDA(Stream):
         return evt
 
     def _reauth(self):
-        login_fn = os.path.join("data", "tda-login")
+        login_fn = os.path.join(config["data_dir"], "tda-login")
         self.tda.load_login(login_fn)
         self.tda.save_login(login_fn)
 

@@ -44,7 +44,7 @@ class StreamGuru(StreamPoll):
         fin_data.update(
             dict(source=source, type="financials", name="guru-spot", ts=pendulum.now().timestamp(), symbols=[sym])
         )
-        save_fn = os.path.join("data", "watch", "fin", "G_" + sym)
+        save_fn = os.path.join(config["data_dir"], "watch", "fin", "G_" + sym)
         with open(save_fn, "a") as sf:
             sf.write(json.dumps(fin_data) + "\n")
 
