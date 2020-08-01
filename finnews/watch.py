@@ -1,5 +1,6 @@
 from finnews.stream import STREAMS, run_streams
 from finnews.utils import config, ensure_dirs
+import requests
 import pendulum
 import json
 import os
@@ -8,6 +9,20 @@ import os
 import nest_asyncio
 
 nest_asyncio.apply()
+
+
+def http_make_on_event(cb=None):
+    def on_event(og_evt):
+        evt = og_evt.copy()
+        evt["date"] = str(pendulum.now())
+        try:
+            requests.post("http://127.0.0.1:5151/on/event", json=evt)
+        except Exception as e:
+            print(e)
+        if cb is not None:
+            cb(og_evt)
+
+    return on_event
 
 
 def stdio_make_on_event(cb=None):
@@ -46,7 +61,6 @@ def io_make_on_event(cb=None):
             with open(fn, "a") as f:
                 f.write(evt_json + "\n")
 
-        write_evt(os.path.join(watch_path, "finnews.stream"))
         write_evt(os.path.join(date_path, date.isoformat()[:10].replace("-", "_")))
         if len(symbols) == 0:
             write_evt(os.path.join(sym_path, "_NONE"))
@@ -60,7 +74,7 @@ def io_make_on_event(cb=None):
 
 
 def watch_all_forever(on_event):
-    print("Streaming...")
+    print("Watching...")
     streams = []
     for stream_name in config["watch"]:
         print(" *", stream_name)
@@ -69,6 +83,7 @@ def watch_all_forever(on_event):
 
 
 if __name__ == "__main__":
-    cb_io = io_make_on_event()
+    cb_http = http_make_on_event()
+    cb_io = io_make_on_event(cb=cb_http)
     on_event = stdio_make_on_event(cb=cb_io)
-    # watch_all_forever(on_event)
+    watch_all_forever(on_event)
