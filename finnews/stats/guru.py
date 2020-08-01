@@ -1,4 +1,4 @@
-from . import MetaDataSource
+from finnews.stats.abs import MetaDataSource
 import subprocess
 import pendulum
 import tempfile

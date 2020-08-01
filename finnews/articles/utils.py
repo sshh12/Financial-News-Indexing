@@ -1,82 +1,9 @@
+from finnews.utils import config
 import newspaper
 import pendulum
-import hashlib
-import time
 import re
 
-from finnews.config import config
-from . import analyze
 
-### deprecated ###
-USE_TZ = "UTC"
-### deprecated ###
-HEADERS = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"
-}
-
-### deprecated ###
-class Article:
-    def __init__(self, source, headline, date, content, url):
-        self.source = source
-        self.headline = headline
-        self.date = date
-        self.content = content
-        self.url = url
-        self.found = pendulum.now().in_tz(USE_TZ)
-        self._id = hash_sha1(re.sub(r"[^\w\d]", "", self.source + self.headline).lower())
-        self._analyze()
-
-    def _analyze(self):
-        self.vader_headline = analyze.score_vader(self.headline)
-        self.vader_content = analyze.score_vader(self.content)
-
-    def __repr__(self):
-        return '<Article "{}">'.format(self.headline)
-
-    def as_dict(self):
-        return {
-            "source": self.source,
-            "headline": self.headline,
-            "date": self.date,
-            "found": self.found,
-            "content": self.content,
-            "url": self.url,
-            "vader_headline": self.vader_headline,
-            "vader_content": self.vader_content,
-        }
-
-
-### deprecated ###
-class ArticleScraper:
-    async def _get(self, url_part, site=None, headers=HEADERS):
-        if site is None:
-            site = self.url
-        try:
-            async with self._session.get(site + url_part, headers=headers) as response:
-                return await response.text()
-        except (ConnectionRefusedError, UnicodeDecodeError):
-            return ""
-
-    async def _post_json(self, url_part, headers=HEADERS, json=None):
-        try:
-            async with self._session.post(self.url + url_part, headers=headers, json=json) as response:
-                return await response.text()
-        except (ConnectionRefusedError, UnicodeDecodeError):
-            return ""
-
-    async def read_latest_headlines(self):
-        return "unk", []
-
-    async def resolve_url_to_content(self, url):
-        return None
-
-
-### deprecated ###
-def hash_sha1(text):
-    return hashlib.sha1(bytes(text, "utf-8")).hexdigest()
-
-
-### deprecated ###
 def clean_html_text(html):
     html_codes = [
         ("&rsquo;", "'"),
@@ -160,7 +87,6 @@ def clean_html_text(html):
     return html.strip()
 
 
-### deprecated ###
 def url_to_n3karticle(url, input_html=None):
     art = newspaper.Article(url)
     art.download(input_html=input_html)
@@ -168,12 +94,10 @@ def url_to_n3karticle(url, input_html=None):
     return art
 
 
-### deprecated ###
 def _timezone_to_offset(date_string):
     return date_string.replace("ET", "-0500").replace("EST", "-0500").replace("EDT", "-0400").replace("UTC", "-0000")
 
 
-### deprecated ###
 def text_to_datetime(html):
 
     ## https://pendulum.eustace.io/docs/
@@ -184,7 +108,7 @@ def text_to_datetime(html):
     # 2019-06-26T20:20:19.280Z
     # 2019-06-28T20:22:22+00:00
     try:
-        return pendulum.parse(text).in_tz(USE_TZ)
+        return pendulum.parse(text).in_tz(config["tz"])
     except ValueError:
         pass
 
@@ -192,7 +116,7 @@ def text_to_datetime(html):
     try:
         parts = text.split("-")
         parts[-1] = "0" + parts[-1]
-        return pendulum.parse("-".join(parts)).in_tz(USE_TZ)
+        return pendulum.parse("-".join(parts)).in_tz(config["tz"])
     except (ValueError, IndexError):
         pass
 
@@ -200,14 +124,14 @@ def text_to_datetime(html):
     # June 18, 2019 10:40am
     try:
         time_text = text.replace("am", "AM").replace("pm", "PM")
-        return pendulum.from_format(time_text, "MMMM D, YYYY h:mmA").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "MMMM D, YYYY h:mmA").in_tz(config["tz"])
     except (ValueError, IndexError):
         pass
 
     # JUNE 26, 2019 3:01 PM
     try:
         time_text = text.replace("am", "AM").replace("pm", "PM")
-        return pendulum.from_format(time_text, "MMMM D, YYYY h:mm A").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "MMMM D, YYYY h:mm A").in_tz(config["tz"])
     except (ValueError, IndexError):
         pass
 
@@ -218,7 +142,7 @@ def text_to_datetime(html):
         time_text = _timezone_to_offset(
             text.replace(" at ", " ").replace(".", "").replace(",", "").replace("am", "AM").replace("pm", "PM")
         )
-        return pendulum.from_format(time_text, "MMMM D YYYY h:mm A ZZ").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "MMMM D YYYY h:mm A ZZ").in_tz(config["tz"])
     except (ValueError, IndexError):
         pass
 
@@ -245,35 +169,35 @@ def text_to_datetime(html):
 
     # Mon Mar 23 16:05:53 +0000 2020
     try:
-        return pendulum.from_format(time_text, "ddd MMM D HH:mm:ss ZZ YYYY").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "ddd MMM D HH:mm:ss ZZ YYYY").in_tz(config["tz"])
     except (ValueError, AttributeError):
         pass
 
     # April 02, 2020
     try:
         time_text = text.replace(",", "")
-        return pendulum.from_format(time_text, "MMMM DD YYYY").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "MMMM DD YYYY").in_tz(config["tz"])
     except (ValueError, AttributeError):
         pass
 
     # 31 March 2020
     try:
         time_text = text.replace(",", "")
-        return pendulum.from_format(time_text, "DD MMMM YYYY").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "DD MMMM YYYY").in_tz(config["tz"])
     except (ValueError, AttributeError):
         pass
 
     # 11 Mar. 2020
     try:
         time_text = text.replace(",", "").replace(".", "")
-        return pendulum.from_format(time_text, "DD MMM YYYY").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "DD MMM YYYY").in_tz(config["tz"])
     except (ValueError, AttributeError):
         pass
 
     # Apr 7, 2020
     try:
         time_text = text.replace(",", "")
-        return pendulum.from_format(time_text, "MMM D YYYY").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "MMM D YYYY").in_tz(config["tz"])
     except (ValueError, AttributeError):
         pass
 
@@ -281,7 +205,7 @@ def text_to_datetime(html):
     # Mar 10, 2020
     try:
         time_text = text.replace(",", "").replace(" ", "")
-        return pendulum.from_format(time_text, "MMMDDYYYY").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "MMMDDYYYY").in_tz(config["tz"])
     except (ValueError, AttributeError):
         pass
 
@@ -290,14 +214,13 @@ def text_to_datetime(html):
     # 03 27 2020
     try:
         time_text = text.replace(".", " ").replace("/", "-").replace(" ", "-")
-        return pendulum.from_format(time_text, "MM-DD-YY").in_tz(USE_TZ)
+        return pendulum.from_format(time_text, "MM-DD-YY").in_tz(config["tz"])
     except (ValueError, AttributeError):
         pass
 
-    raise ValueError("Not datetime: " + text)
+    raise ValueError("Not a valid datetime string" + text)
 
 
-### deprecated ###
 def string_contains(text, items):
     text = text.lower()
     for item in items:
@@ -307,7 +230,6 @@ def string_contains(text, items):
     return False
 
 
-### deprecated ###
 def truncate_sentence(text):
     text_fix = text.replace("U.S.", "U_S_")
 
@@ -321,14 +243,12 @@ def truncate_sentence(text):
     return text[: idx + 1]
 
 
-### deprecated ###
 def tokenize(text):
     text = re.sub(r"[!\.\?\n\r,]", "", text)
     text = re.sub(r"\s{2,}", " ", text)
     return text.split(" ")
 
 
-### deprecated ###
 def extract_symbols(text, strict=False, _token_to_sym={}):
     symbs = set()
 

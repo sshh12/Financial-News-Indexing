@@ -8,3 +8,4 @@ config.yaml
 dist/
 build/
 *.egg-info/
+temp.*

@@ -1,5 +1,5 @@
 from . import Article, clean_html_text, ArticleScraper
-from config import config
+from finnews.config import config
 
 import asyncio
 import json

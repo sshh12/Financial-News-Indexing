@@ -1,4 +1,4 @@
-from finnews.articles.index import STREAM_SOURCES
+from finnews.articles.index import ARTICLE_SOURCES
 from finnews.articles import extract_symbols, hash_sha1
 from finnews.config import config
 from finnews.stream.abs import StreamPoll
@@ -11,7 +11,7 @@ CFG = config["watch"]["news"]
 
 class StreamNews(StreamPoll):
     def __init__(self):
-        self.scrapers = [STREAM_SOURCES[name]() for name in CFG["sources"]]
+        self.scrapers = [ARTICLE_SOURCES[name]() for name in CFG["sources"]]
         self.cache = set()
         self.delay = CFG["delay"]
 

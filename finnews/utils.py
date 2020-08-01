@@ -1,5 +1,6 @@
 from finnews.config import config
 from multiprocessing import Pool
+import hashlib
 import tqdm
 import os
 
@@ -24,3 +25,7 @@ def run_many(f, args, mode="multiprocessing", starmap=False, workers=None, tdqm=
             map_func_log = map_func
         for _ in map_func_log(f, args):
             pass
+
+
+def hash_sha1(text):
+    return hashlib.sha1(bytes(text, "utf-8")).hexdigest()

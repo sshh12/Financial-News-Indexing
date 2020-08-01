@@ -1,5 +1,5 @@
-from . import MetaDataSource
-from articles import clean_html_text, extract_symbols
+from finnews.stats.abs import MetaDataSource
+from finnews.articles.utils import clean_html_text, extract_symbols
 import pendulum
 import re
 

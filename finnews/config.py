@@ -12,6 +12,7 @@ config["config_fn"] = CONFIG_FN
 config.setdefault("creds_fn", os.path.join(CONFIG_DIR, "creds.yaml"))
 config.setdefault("symbols_fn", os.path.join(CONFIG_DIR, "symbols.yaml"))
 config.setdefault("data_dir", os.path.join(CONFIG_DIR, "data"))
+config.setdefault("tz", "UTC")
 
 try:
     with open(config["creds_fn"], "r") as cf:

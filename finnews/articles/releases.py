@@ -1,4 +1,6 @@
-from . import Article, clean_html_text, text_to_datetime, HEADERS
+from . import Article
+from finnews.articles.abs import ArticleScraper, HEADERS
+from finnews.articles.utils import clean_html_text, text_to_datetime
 
 import pendulum
 import asyncio
