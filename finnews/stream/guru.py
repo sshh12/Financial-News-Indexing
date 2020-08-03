@@ -1,4 +1,4 @@
-from finnews.config import config
+from finnews.utils import config, ensure_dirs
 from finnews.stats.guru import Guru
 from finnews.stream.abs import StreamPoll
 import pendulum
@@ -17,6 +17,8 @@ class StreamGuru(StreamPoll):
         self.scraper = Guru()
         self.stocks = CFG.get("stocks", config["symbols_list_all"])
         self.delay = CFG["delay"]
+        self.save_dir = os.path.join(config["data_dir"], "watch", "fin")
+        ensure_dirs([self.save_dir])
 
     async def get_polls(self):
         polls = []
@@ -29,7 +31,14 @@ class StreamGuru(StreamPoll):
                         return await self.scraper.read_financials(sym)
                     except Exception as e:
                         self.on_event(
-                            dict(symbols=[sym], type="error", name="guru-data", desc=str(e), source=str(self))
+                            dict(
+                                symbols=[sym],
+                                type="error",
+                                name="guru-data",
+                                desc=str(e),
+                                source=str(self),
+                                error=repr(e),
+                            )
                         )
                         return None, None, None
 
@@ -44,7 +53,7 @@ class StreamGuru(StreamPoll):
         fin_data.update(
             dict(source=source, type="financials", name="guru-spot", ts=pendulum.now().timestamp(), symbols=[sym])
         )
-        save_fn = os.path.join(config["data_dir"], "watch", "fin", "G_" + sym)
+        save_fn = os.path.join(self.save_dir, "G_" + sym)
         with open(save_fn, "a") as sf:
             sf.write(json.dumps(fin_data) + "\n")
 

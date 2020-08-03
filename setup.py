@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="finnews",
-    version="0.1.0",
+    version="0.1.1",
     author="Shrivu Shankar",
     author_email="shrivu1122@gmail.com",
     description="A suite of market/financial news webscrapers.",

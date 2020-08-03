@@ -4,7 +4,7 @@ import hashlib
 import time
 import re
 
-from finnews.config import config
+from finnews.utils import config
 from . import analyze
 
 ### deprecated ###

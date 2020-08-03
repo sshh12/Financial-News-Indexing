@@ -11,8 +11,8 @@ import time
 import os
 
 
-CREDS = config["creds"]["tda"]
-CFG = config["watch"]["tda"]
+CREDS = config["creds"].get("tda")
+CFG = config["watch"].get("tda")
 
 
 class CustomHandler(auth.SeleniumHeadlessHandler):

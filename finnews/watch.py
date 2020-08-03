@@ -1,6 +1,5 @@
 from finnews.stream import STREAMS, run_streams
 from finnews.utils import config, ensure_dirs
-import requests
 import pendulum
 import json
 import os
@@ -11,51 +10,24 @@ import nest_asyncio
 nest_asyncio.apply()
 
 
-def http_make_on_event(cb=None):
-    def on_event(og_evt):
-        evt = og_evt.copy()
-        evt["date"] = str(pendulum.now())
-        try:
-            requests.post("http://127.0.0.1:5151/on/event", json=evt)
-        except Exception as e:
-            print(e)
-        if cb is not None:
-            cb(og_evt)
-
-    return on_event
+WATCH_DIR = os.path.join(config["data_dir"], "watch")
 
 
-def stdio_make_on_event(cb=None):
-    def on_event(og_evt):
-        evt = og_evt.copy()
-        evt["date"] = str(pendulum.now())
-        if evt.get("type") == "error":
-            print(evt)
-        else:
-            print(evt.get("symbols", []))
-        if cb is not None:
-            cb(og_evt)
+def filesys_make_on_event(cb=None):
 
-    return on_event
-
-
-def io_make_on_event(cb=None):
-
-    watch_path = os.path.join(config["data_dir"], "watch")
-    sym_path = os.path.join(watch_path, "syms")
-    date_path = os.path.join(watch_path, "date")
-    tick_path = os.path.join(watch_path, "ticks")
-    fin_path = os.path.join(watch_path, "fin")
+    sym_path = os.path.join(WATCH_DIR, "syms")
+    date_path = os.path.join(WATCH_DIR, "date")
+    tick_path = os.path.join(WATCH_DIR, "ticks")
+    fin_path = os.path.join(WATCH_DIR, "fin")
 
     ensure_dirs([sym_path, date_path, tick_path, fin_path])
 
     def on_event(og_evt):
         evt = og_evt.copy()
-        evt["date"] = str(pendulum.now())
-        evt_json = json.dumps(evt)
-        symbols = evt.get("symbols", [])
         date = pendulum.now()
         evt["date"] = str(date)
+        evt_json = json.dumps(evt)
+        symbols = evt.get("symbols", [])
 
         def write_evt(fn):
             with open(fn, "a") as f:
@@ -80,10 +52,3 @@ def watch_all_forever(on_event):
         print(" *", stream_name)
         streams.append(STREAMS[stream_name])
     run_streams(streams, on_event)
-
-
-if __name__ == "__main__":
-    cb_http = http_make_on_event()
-    cb_io = io_make_on_event(cb=cb_http)
-    on_event = stdio_make_on_event(cb=cb_io)
-    watch_all_forever(on_event)
