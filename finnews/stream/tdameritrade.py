@@ -11,8 +11,9 @@ import time
 import os
 
 
-CREDS = config["creds"].get("tda")
-CFG = config["watch"].get("tda")
+CREDS = config["creds"].get("tda", {})
+CFG = config["watch"].get("tda", {})
+LOGIN_FN = os.path.join(config["data_dir"], "tda-login")
 
 
 class CustomHandler(auth.SeleniumHeadlessHandler):
@@ -100,7 +101,6 @@ class StreamTDA(Stream):
         return evt
 
     def _reauth(self):
-        login_fn = os.path.join(config["data_dir"], "tda-login")
-        self.tda.load_login(login_fn)
-        self.tda.save_login(login_fn)
+        self.tda.load_login(LOGIN_FN)
+        self.tda.save_login(LOGIN_FN)
 

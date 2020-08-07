@@ -34,11 +34,6 @@ def filesys_make_on_event(cb=None):
                 f.write(evt_json + "\n")
 
         write_evt(os.path.join(date_path, date.isoformat()[:10].replace("-", "_")))
-        if len(symbols) == 0:
-            write_evt(os.path.join(sym_path, "_NONE"))
-        else:
-            for symbol in symbols:
-                write_evt(os.path.join(sym_path, symbol))
         if cb is not None:
             cb(og_evt)
 

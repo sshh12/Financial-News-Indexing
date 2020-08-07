@@ -1,3 +1,7 @@
+"""
+This was written pretty badly so im slowing moving
+most of these functions to utils.
+"""
 import newspaper
 import pendulum
 import hashlib
