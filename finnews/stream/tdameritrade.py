@@ -71,13 +71,33 @@ class StreamTDA(Stream):
                 options_fn = os.path.join(config["data_dir"], "watch", "ticks", "O_{}_{}.csv".format(symbol, ts))
                 tda_sym = symbol.replace("FUTURE", "/")
                 try:
-                    self.tda.history(parse_dates=False, span="day", freq="minute", latest=True)[tda_sym].to_csv(
-                        price_fn
+                    price_data = self.tda.history(parse_dates=False, span="day", freq="minute", latest=True)[tda_sym]
+                    tda_price_evt = dict(
+                        source="tda",
+                        type="ticks",
+                        name="tda-prices",
+                        ts=pendulum.now().timestamp(),
+                        symbols=[symbol],
+                        _data_evt=True,
+                        _data=price_data,
+                        _data_fn=price_fn,
                     )
+                    self.on_event(tda_price_evt)
                     try:
                         # tbh options data is just extra
                         time.sleep(1)
-                        self.tda.options(quotes=True)[tda_sym].to_csv(options_fn)
+                        options_data = self.tda.options(quotes=True)[tda_sym].to_csv(options_fn)
+                        tda_options_evt = dict(
+                            source="tda",
+                            type="ticks",
+                            name="tda-options-prices",
+                            ts=pendulum.now().timestamp(),
+                            symbols=[symbol],
+                            _data_evt=True,
+                            _data=options_data,
+                            _data_fn=options_fn,
+                        )
+                        self.on_event(tda_options_evt)
                     except:
                         pass
                 except KeyError:

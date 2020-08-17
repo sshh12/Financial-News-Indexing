@@ -5,7 +5,7 @@ import asyncio
 import aiohttp
 
 
-CFG = config["watch"]["prs"]
+CFG = config["watch"].get("prs", {})
 
 
 class StreamPRs(StreamPoll):

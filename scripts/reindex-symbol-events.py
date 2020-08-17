@@ -1,5 +1,6 @@
 from collections import defaultdict
 from finnews.utils import config, run_many, ensure_dirs
+import pendulum
 import pylru
 import tqdm
 import json
@@ -7,12 +8,15 @@ import glob
 import os
 
 
+IGNORE_SYMS = [".", "..."]
+
+
 def reindex_all():
     events_fns = sorted(glob.glob(os.path.join(config["data_dir"], "watch", "date", "*")))
-    temp_sym_dir = os.path.join(config["data_dir"], "watch", "syms-temp")
-    if os.path.exists(temp_sym_dir):
-        raise Exception(temp_sym_dir + " exists!")
-    ensure_dirs([temp_sym_dir])
+    sym_dir = os.path.join(config["data_dir"], "watch", "syms-" + pendulum.now().isoformat()[:10])
+    if os.path.exists(sym_dir):
+        raise Exception(sym_dir + " exists!")
+    ensure_dirs([sym_dir])
     cache = pylru.lrucache(2048)
     dup_cnt = 0
     too_many_cnt = 0
@@ -34,8 +38,8 @@ def reindex_all():
                 if len(evt_symbols) is None:
                     syms = ["_NONE"]
                 else:
-                    syms = [s for s in evt_symbols if s not in [".", "..."]]
-                if len(syms) > 5:
+                    syms = [s for s in evt_symbols if s not in IGNORE_SYMS]
+                if len(syms) >= 5:
                     # discard events that have too many labels
                     too_many_cnt += 1
                     continue
@@ -55,10 +59,10 @@ def reindex_all():
                 for sym in syms:
                     syms_seen.add(sym)
                     try:
-                        with open(os.path.join(temp_sym_dir, sym), "a") as f2:
+                        with open(os.path.join(sym_dir, sym), "a") as f2:
                             f2.write(line)
                     except Exception as e:
-                        print(e)
+                        print(os.path.join(sym_dir, sym), e)
     print("Duplicates", dup_cnt)
     print("Corruptions", corrupt_cnt)
     print("Too many labels", too_many_cnt)

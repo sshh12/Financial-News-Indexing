@@ -4,8 +4,8 @@ from finnews.stream.abs import Stream
 import tweepy
 
 
-CREDS = config["creds"]["twitter"]
-CFG = config["watch"]["twitter"]
+CREDS = config["creds"].get("twitter", {})
+CFG = config["watch"].get("twitter", {})
 
 
 class _Listener(tweepy.StreamListener):

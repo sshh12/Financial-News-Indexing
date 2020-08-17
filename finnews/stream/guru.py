@@ -9,7 +9,7 @@ import json
 import os
 
 
-CFG = config["watch"]["guru"]
+CFG = config["watch"].get("guru")
 
 
 class StreamGuru(StreamPoll):
@@ -50,10 +50,15 @@ class StreamGuru(StreamPoll):
     async def on_poll_data(self, source, sym, fin_data, emit_events=True, **kwargs):
         if sym is None or fin_data is None:
             return
-        fin_data.update(
-            dict(source=source, type="financials", name="guru-spot", ts=pendulum.now().timestamp(), symbols=[sym])
+        spot_evt = dict(
+            source=source,
+            type="financials",
+            name="guru-spot",
+            ts=pendulum.now().timestamp(),
+            symbols=[sym],
+            _data_evt=True,
+            _data=fin_data,
+            _data_fn=os.path.join(self.save_dir, "G_" + sym),
         )
-        save_fn = os.path.join(self.save_dir, "G_" + sym)
-        with open(save_fn, "a") as sf:
-            sf.write(json.dumps(fin_data) + "\n")
+        self.on_event(spot_evt)
 
