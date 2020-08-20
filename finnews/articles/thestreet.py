@@ -1,50 +1,44 @@
-from . import Article, clean_html_text, ArticleScraper, string_contains, text_to_datetime
-
+from finnews.articles.abs import ArticleScraper
+from finnews.articles.utils import clean_html_text, string_contains, text_to_datetime
 import asyncio
 import re
 
 
-TOPIC_URLS = [
-    '/'
-    '/technology',
-    '/investing',
-    '/markets'
-]
+TOPIC_URLS = ["/" "/technology", "/investing", "/markets"]
 
 IGNORE_TEXT = [
-    'is editor of',
-    'A confirmation email',
-    'Enter a symbol above',
-    'Sign up to get',
-    'primaryAuthorUrl',
-    'article is commentary',
-    'To learn more about',
-    'Learn more now.',
-    'Join Jim Cramer',
-    'Do You Understand',
-    'Fundamentals of Investing',
-    'Read the original',
-    'More from: ',
-    'Alert PLUS',
-    'Can You Name',
-    'Additional reporting by',
-    'Click here to '
+    "is editor of",
+    "A confirmation email",
+    "Enter a symbol above",
+    "Sign up to get",
+    "primaryAuthorUrl",
+    "article is commentary",
+    "To learn more about",
+    "Learn more now.",
+    "Join Jim Cramer",
+    "Do You Understand",
+    "Fundamentals of Investing",
+    "Read the original",
+    "More from: ",
+    "Alert PLUS",
+    "Can You Name",
+    "Additional reporting by",
+    "Click here to ",
 ]
 
 
 class TheStreet(ArticleScraper):
-
     def __init__(self):
-        self.url = 'https://www.thestreet.com'
+        self.url = "https://www.thestreet.com"
 
     async def read_article(self, url):
 
-        if 'video/' in url:
+        if "video/" in url:
             return None
-        
+
         article_html = await self._get(url)
-            
-        headline_match = re.search(r'>([^<]+)<\/h1>', article_html)
+
+        headline_match = re.search(r">([^<]+)<\/h1>", article_html)
         if not headline_match:
             return None
         headline = clean_html_text(headline_match.group(1))
@@ -57,25 +51,25 @@ class TheStreet(ArticleScraper):
 
         text = []
 
-        for p_match in re.finditer(r'<p>([\s\S]+?)<\/p>', article_html):
+        for p_match in re.finditer(r"<p>([\s\S]+?)<\/p>", article_html):
             paragraph = clean_html_text(p_match.group(1))
-            if paragraph.count(' ') <= 2 or string_contains(paragraph, IGNORE_TEXT):
+            if paragraph.count(" ") <= 2 or string_contains(paragraph, IGNORE_TEXT):
                 continue
             text.append(paragraph)
 
         if len(text) == 0:
             return None
 
-        return Article('thestreet', headline, date, '\n\n\n'.join(text), self.url + url)
+        return ("thestreet", headline, date, "\n\n\n".join(text), self.url + url)
 
     async def read_news_list(self, topic_urls, pages=5):
 
         articles = []
-        
+
         article_urls = set()
         for url in topic_urls:
             for i in range(0, pages):
-                list_html = await self._get(url + '?page=' + str(i))
+                list_html = await self._get(url + "?page=" + str(i))
                 for match in re.finditer(r'href="(\/\w+\/\w+\/[^"]+)"', list_html):
                     article_urls.add(match.group(1))
                 for match in re.finditer(r'href="(\/\w+\/[^"]+)"', list_html):
@@ -89,11 +83,14 @@ class TheStreet(ArticleScraper):
         return await self.read_news_list(TOPIC_URLS)
 
     async def read_latest_headlines(self):
-        index_html = await self._get('/')
+        index_html = await self._get("/")
         headlines = []
-        for match in re.finditer(r'Title" href="([^"]+?)"[ <>h2clas="m\-eiptxrdongv]+?>([^<]+?)<[ /<>h2clas="m\-eiptxrdongvby]+>([^<]+?)<', index_html):
+        for match in re.finditer(
+            r'Title" href="([^"]+?)"[ <>h2clas="m\-eiptxrdongv]+?>([^<]+?)<[ /<>h2clas="m\-eiptxrdongvby]+>([^<]+?)<',
+            index_html,
+        ):
             url = self.url + match.group(1)
             headline = clean_html_text(match.group(2))
             text = clean_html_text(match.group(3))
             headlines.append((url, headline, text))
-        return 'thestreet', headlines
+        return "thestreet", headlines

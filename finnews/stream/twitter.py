@@ -1,4 +1,4 @@
-from finnews.articles import clean_html_text, extract_symbols
+from finnews.articles.utils import clean_html_text, extract_symbols
 from finnews.config import config
 from finnews.stream.abs import Stream
 import tweepy

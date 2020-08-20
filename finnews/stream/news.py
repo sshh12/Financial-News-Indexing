@@ -1,6 +1,6 @@
-from finnews.articles.index import ARTICLE_SOURCES
-from finnews.articles import extract_symbols, hash_sha1
-from finnews.config import config
+from finnews.articles import ARTICLE_SOURCES
+from finnews.articles.utils import extract_symbols
+from finnews.utils import hash_sha1, config
 from finnews.stream.abs import StreamPoll
 import asyncio
 import aiohttp

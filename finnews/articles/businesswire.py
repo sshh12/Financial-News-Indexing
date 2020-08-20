@@ -1,5 +1,5 @@
-from . import Article, clean_html_text, ArticleScraper, url_to_n3karticle
-import asyncio
+from finnews.articles.abs import ArticleScraper
+from finnews.articles.utils import clean_html_text, url_to_n3karticle
 import re
 
 

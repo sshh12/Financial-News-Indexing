@@ -1,26 +1,23 @@
-from . import Article, clean_html_text, ArticleScraper, url_to_n3karticle
+from finnews.articles.abs import ArticleScraper
+from finnews.articles.utils import clean_html_text, url_to_n3karticle
 import re
 
 
-TRIM_AT = [
-    'Forward-Looking Statement',
-    'This press release contains'
-]
+TRIM_AT = ["Forward-Looking Statement", "This press release contains"]
 
 
 class PharmiWeb(ArticleScraper):
-
     def __init__(self):
-        self.url = 'https://www.pharmiweb.com'
+        self.url = "https://www.pharmiweb.com"
 
     async def read_latest_headlines(self):
-        index_html = await self._get('/press-releases')
+        index_html = await self._get("/press-releases")
         headlines = []
         for match in re.finditer(r'<a href="(\/press-release\/[^"]+?)">([^<]+?)<', index_html):
             url = self.url + match.group(1)
             headline = clean_html_text(match.group(2))
             headlines.append((url, headline))
-        return 'pharmiweb', headlines
+        return "pharmiweb", headlines
 
     async def resolve_url_to_content(self, url):
         art = url_to_n3karticle(url)

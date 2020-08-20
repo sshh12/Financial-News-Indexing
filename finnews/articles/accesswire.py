@@ -1,4 +1,5 @@
-from . import Article, clean_html_text, ArticleScraper
+from finnews.articles.abs import ArticleScraper
+from finnews.articles.utils import clean_html_text
 import json
 import re
 

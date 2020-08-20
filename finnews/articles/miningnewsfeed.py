@@ -1,26 +1,23 @@
-from . import Article, clean_html_text, ArticleScraper, url_to_n3karticle
+from finnews.articles.abs import ArticleScraper
+from finnews.articles.utils import clean_html_text, url_to_n3karticle
 import re
 
 
-TRIM_AT = [
-    'Additional information about',
-    'Forward-Looking and Cautionary Statements'
-]
+TRIM_AT = ["Additional information about", "Forward-Looking and Cautionary Statements"]
 
 
 class MiningNewsFeed(ArticleScraper):
-
     def __init__(self):
-        self.url = 'https://miningnewsfeed.com'
+        self.url = "https://miningnewsfeed.com"
 
     async def read_latest_headlines(self):
-        index_html = await self._get('/')
+        index_html = await self._get("/")
         headlines = []
         for match in re.finditer(r'hl_News_\d+" href="([^"]+?)" target="_blank">([^<]+?)<', index_html):
             url = match.group(1)
             headline = clean_html_text(match.group(2))
             headlines.append((url, headline))
-        return 'miningnewsfeed', headlines
+        return "miningnewsfeed", headlines
 
     async def resolve_url_to_content(self, url):
         if not url.startswith(self.url):
