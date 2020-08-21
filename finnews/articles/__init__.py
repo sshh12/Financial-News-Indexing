@@ -25,6 +25,9 @@ from finnews.articles.financialtimes import FinancialTimes
 from finnews.articles.streetinsider import StreetInsider
 from finnews.articles.miningnewsfeed import MiningNewsFeed
 from finnews.articles.yahoo import Yahoo
+from finnews.articles.cnbc import CNBC
+from finnews.articles.washingtonpost import WashingtonPost
+from finnews.articles.ibtimes import IBTimes
 
 
 ARTICLE_SOURCES = {
@@ -55,4 +58,7 @@ ARTICLE_SOURCES = {
     "streetinsider": StreetInsider,
     "miningnewsfeed": MiningNewsFeed,
     "yahoo": Yahoo,
+    "cnbc": CNBC,
+    "washingtonpost": WashingtonPost,
+    "ibtimes": IBTimes,
 }
