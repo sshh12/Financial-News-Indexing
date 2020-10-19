@@ -1,5 +1,7 @@
 # Financial News Indexing
 
+Update: This project has been deprecated in favor of [@sshh12/trade-srv](https://github.com/sshh12/trade-srv) which is better in nearly every way.
+
 > A suite of financial news webscrapers.
 
 ### Usage
