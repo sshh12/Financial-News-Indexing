@@ -8,16 +8,13 @@ import glob
 import os
 
 
-IGNORE_SYMS = [".", "..."]
-
-
 def reindex_all():
     events_fns = sorted(glob.glob(os.path.join(config["data_dir"], "watch", "date", "*")))
     sym_dir = os.path.join(config["data_dir"], "watch", "syms-" + pendulum.now().isoformat()[:10])
     if os.path.exists(sym_dir):
         raise Exception(sym_dir + " exists!")
     ensure_dirs([sym_dir])
-    cache = pylru.lrucache(2048)
+    cache = pylru.lrucache(5000)
     dup_cnt = 0
     too_many_cnt = 0
     corrupt_cnt = 0
@@ -38,7 +35,7 @@ def reindex_all():
                 if len(evt_symbols) is None:
                     syms = ["_NONE"]
                 else:
-                    syms = [s for s in evt_symbols if s not in IGNORE_SYMS]
+                    syms = [s for s in evt_symbols if '.' not in s]
                 if len(syms) >= 5:
                     # discard events that have too many labels
                     too_many_cnt += 1

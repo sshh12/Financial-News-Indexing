@@ -32,7 +32,9 @@ def _do_price_merge(params):
                     continue
                 if i == 0:
                     if header is not None:
-                        assert header == line
+                        if header != line:
+                            print("[{}] Expected {} to be {}".format(sym, line, header))
+                            return
                     else:
                         header = line
                 else:
